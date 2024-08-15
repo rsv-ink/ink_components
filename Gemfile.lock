@@ -3,7 +3,7 @@ PATH
   specs:
     ink_components (0.1.0)
       rails (>= 7.1.3.2)
-      view_component (= 2.82.0)
+      view_component (= 3.13.0)
 
 GEM
   remote: https://rubygems.org/
@@ -244,7 +244,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     useragent (0.16.10)
-    view_component (2.82.0)
+    view_component (3.13.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -276,7 +276,7 @@ DEPENDENCIES
   rubocop-rails-omakase (= 1.0.0)
   sprockets-rails
   sqlite3
-  view_component (= 2.82.0)
+  view_component (= 3.13.0)
 
 BUNDLED WITH
    2.5.6

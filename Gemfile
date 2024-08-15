@@ -11,7 +11,7 @@ gem "sqlite3"
 gem "sprockets-rails"
 
 # Building reusable, testable & encapsulated view components [https://github.com/viewcomponent/view_component]
-gem "view_component", "2.82.0"
+gem "view_component", "3.13.0"
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
