@@ -2,10 +2,10 @@
 
 set -e
 
-echo "=== Install gem's ruby dependencies ==="
+echo "=== Install ruby dependencies ==="
 bundle install
 
-echo "=== Install gem javascript dependencies ==="
+echo "=== Install javascript dependencies ==="
 yarn
 
 echo "=== Install dummy javascript dependencies ==="
@@ -13,6 +13,3 @@ yarn --cwd spec/dummy
 
 echo "=== Remove old assets ==="
 bin/rails app:assets:clobber
-
-echo "=== Start the services ==="
-bin/dev
