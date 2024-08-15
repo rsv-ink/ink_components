@@ -1,1 +1,1 @@
-//= link_directory ../stylesheets/ink_components .css
+//= link_tree ../builds/ink_components
