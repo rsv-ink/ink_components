@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../app/javascript/index.js"],
+  "sourcesContent": ["export function foo() {\n  alert(\"exported successfully\")\n}"],
+  "mappings": ";AAAO,SAAS,MAAM;AACpB,QAAM,uBAAuB;AAC/B;",
+  "names": []
+}

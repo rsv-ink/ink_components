@@ -1,1 +1,3 @@
-alert("Teste index.js")
+export function foo() {
+  alert("exported successfully")
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../app/javascript/index.js", "../../javascript/application.js"],
+  "sourcesContent": ["export function foo() {\n  alert(\"exported successfully\")\n}", "import { foo } from 'ink_components'\n\nfoo()\n\nalert(\"Test dummy js\")"],
+  "mappings": ";AAAO,SAAS,MAAM;AACpB,QAAM,uBAAuB;AAC/B;;;ACAA,IAAI;AAEJ,MAAM,eAAe;",
+  "names": []
+}
