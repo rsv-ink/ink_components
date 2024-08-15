@@ -13,9 +13,6 @@
     "build:css": "tailwindcss -i ./app/assets/stylesheets/ink_components/application.tailwind.css -o ./app/assets/builds/ink_components/application.css --minify",
     "build": "esbuild app/javascript/index.js --bundle --sourcemap --format=esm --outdir=dist"
   },
-  "workspaces": [
-    "spec/dummy/*"
-  ],
   "files": [
     "dist/index.js"
   ],
