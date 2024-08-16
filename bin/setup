@@ -13,3 +13,7 @@ yarn --cwd spec/dummy
 
 echo "=== Remove old assets ==="
 bin/rails app:assets:clobber
+
+echo "=== Generate tailwind config ==="
+cd spec/dummy
+bin/rails ink_components:tailwind_config
