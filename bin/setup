@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "=== Install ruby dependencies ==="
+bundle install
+
+echo "=== Install javascript dependencies ==="
+yarn
+
+echo "=== Install dummy javascript dependencies ==="
+yarn --cwd spec/dummy
+
+echo "=== Remove old assets ==="
+bin/rails app:assets:clobber
+
+echo "=== Generate tailwind config ==="
+cd spec/dummy
+bin/rails ink_components:tailwind_config

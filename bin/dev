@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if ! command -v overmind &> /dev/null
+then
+  echo "== Installing overmind... =="
+  gem install overmind
+fi
+
+# Remove server.pid and overmind socket
+rm -f tmp/pids/server.pid
+
+echo "== Starting all services... =="
+
+rm -f ./.overmind.sock
+
+overmind start -f Procfile.dev
