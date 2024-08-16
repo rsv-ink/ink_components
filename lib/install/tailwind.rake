@@ -8,7 +8,7 @@ namespace :ink_components do
 end
 
 if Rake::Task.task_defined?("css:build")
-  Rake::Task["css:build"].enhance(["tailwindcss:config"])
+  Rake::Task["css:build"].enhance(["ink_components:tailwind_config"])
 else
   raise "css:build task not found"
 end
