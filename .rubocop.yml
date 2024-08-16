@@ -1,8 +1,26 @@
 # Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+# Your own specialized rules go here
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.3.4
+  SuggestExtensions: false
+  Exclude:
+    - "**/tmp/**/*"
+    - "**/vendor/**/*"
+    - "**/node_modules/**/*"
+    - "**/db/schema.rb"
+
+# Use `"foo"` not `'foo'` unless escaping is required
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+  Include:
+    - "app/**/*"
+    - "config/**/*"
+    - "engines/**/*"
+    - "lib/**/*"
+    - "spec/**/*"
+    - "Gemfile"

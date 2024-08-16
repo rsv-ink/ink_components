@@ -6,7 +6,7 @@ gemspec
 
 gem "puma"
 
-gem "sqlite3", "~> 1.3", ">= 1.3.6"
+gem "sqlite3", "1.7.3"
 
 gem "sprockets-rails"
 
@@ -21,3 +21,8 @@ gem "jsbundling-rails", "1.1.1"
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
+
+group :development do
+  # Omakase Ruby styling for Rails [https://github.com/rails/rubocop-rails-omakase]
+  gem "rubocop-rails-omakase", "1.0.0"
+end

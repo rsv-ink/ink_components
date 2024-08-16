@@ -3,8 +3,8 @@ require_relative "lib/ink_components/version"
 Gem::Specification.new do |spec|
   spec.name        = "ink_components"
   spec.version     = InkComponents::VERSION
-  spec.authors     = ["Natan Nobre", "Karine Vieira", "Lucas Sousa"]
-  spec.email       = ["natannobre37@gmail.com"]
+  spec.authors     = [ "Natan Nobre", "Karine Vieira", "Lucas Sousa" ]
+  spec.email       = [ "natannobre37@gmail.com" ]
   spec.homepage    = "https://github.com/rsv-ink/ink_components.git"
   spec.summary     = "Ink components."
   spec.description = "Ink components."
