@@ -6,7 +6,7 @@ gemspec
 
 gem "puma"
 
-gem "sqlite3", "~> 1.3", ">= 1.3.6"
+gem "sqlite3", "1.7.3"
 
 gem "sprockets-rails"
 
