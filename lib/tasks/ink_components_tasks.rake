@@ -1,4 +1,5 @@
-# desc "Explaining what the task does"
-# task :ink_components do
-#   # Task goes here
-# end
+namespace :ink_components do
+  task :install do
+    system "#{RbConfig.ruby} ./bin/rails app:template LOCATION=#{File.expand_path("../install/install.rb",  __dir__)}"
+  end
+end

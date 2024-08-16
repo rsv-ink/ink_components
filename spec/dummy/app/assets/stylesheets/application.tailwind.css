@@ -1,0 +1,4 @@
+@config "./../../../ink_components.tailwind.config.js";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

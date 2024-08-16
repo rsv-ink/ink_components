@@ -11,3 +11,4 @@
 /spec/dummy/node_modules
 /spec/app/assets/builds
 /node_modules
+spec/dummy/ink_components.tailwind.config.js
