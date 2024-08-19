@@ -87,6 +87,9 @@ module.exports = {
 
 8. Verifique se os componentes da engine estão sendo renderizados corretamente no majestic monolith.
 
+> [!NOTE]
+> Durante o desenvolvimento do majestic monolith, o ideal é que o comando `./bin/rails ink_components:tailwind_config` seja executado sempre antes do comando `yarn build:css`. Para isso, talvez seja necessário atualizar seu Procfile.dev ou equivalentes.
+
 ## Configurando a gem para desenvolvimento
 
 1. Clone o repositório da engine:
