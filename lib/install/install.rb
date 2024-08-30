@@ -6,3 +6,6 @@ copy_file "#{__dir__}/tailwind_config_generator.rb", "lib/generators/ink_compone
 
 say "Add tailwind config"
 copy_file "#{__dir__}/tailwind.config.js", "lib/generators/ink_components/templates/tailwind.config.js"
+
+say "Add lookbook layout"
+copy_file "#{__dir__}/lookbook.html.erb", "app/views/layouts/ink_components_lookbook.html.erb"
