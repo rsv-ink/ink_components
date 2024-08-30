@@ -4,6 +4,7 @@ PATH
     ink_components (0.1.0)
       rails (>= 6.1.7.4)
       view_component (= 2.82.0)
+      view_component-contrib (= 0.2.3)
 
 GEM
   remote: https://rubygems.org/
@@ -301,8 +302,8 @@ DEPENDENCIES
   rubocop-rails-omakase (= 1.0.0)
   sprockets-rails
   sqlite3 (= 1.7.3)
-  view_component
-  view_component-contrib (~> 0.2.3)
+  view_component (= 2.82.0)
+  view_component-contrib (= 0.2.3)
 
 BUNDLED WITH
    2.5.6
