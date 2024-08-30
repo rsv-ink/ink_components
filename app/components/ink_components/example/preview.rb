@@ -1,6 +1,6 @@
 module InkComponents
   module Example
-    class Preview < ApplicationViewComponentPreview
+    class Preview < ViewComponent::Preview
       def default
         render InkComponents::Example::Component.new(size: :sm)
       end
