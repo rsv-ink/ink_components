@@ -20,8 +20,8 @@ Bundler.require(*Rails.groups)
 
 module Dummy
   class Application < Rails::Application
-    config.autoload_paths << Rails.root.join("app", "components")
-    config.view_component.preview_paths << Rails.root.join("app", "components")
+    config.autoload_paths << Rails.root.join("../../")
+    config.view_component.preview_paths << Rails.root.join("../../")
     config.load_defaults Rails::VERSION::STRING.to_f
 
     # For compatibility with applications that use this config

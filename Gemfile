@@ -11,7 +11,10 @@ gem "sqlite3", "1.7.3"
 gem "sprockets-rails"
 
 # Building reusable, testable & encapsulated view components [https://github.com/viewcomponent/view_component]
-gem "view_component"
+gem "view_component", "2.82.0"
+
+# A collection of extension and developer tools for ViewComponent [https://github.com/palkan/view_component-contrib]
+gem "view_component-contrib", "0.2.3"
 
 # A collection of extension and developer tools for ViewComponent [https://github.com/palkan/view_component-contrib]
 gem "view_component-contrib", "0.2.3"
