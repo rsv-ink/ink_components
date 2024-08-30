@@ -302,7 +302,7 @@ DEPENDENCIES
   rubocop-rails-omakase (= 1.0.0)
   sprockets-rails
   sqlite3 (= 1.7.3)
-  view_component (= 2.82.0)
+  view_component
   view_component-contrib (= 0.2.3)
 
 BUNDLED WITH
