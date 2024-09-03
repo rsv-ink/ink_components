@@ -26,3 +26,5 @@ group :development do
   # Omakase Ruby styling for Rails [https://github.com/rails/rubocop-rails-omakase]
   gem "rubocop-rails-omakase", "1.0.0"
 end
+
+gem "tailwind_merge", "~> 0.13.0"
