@@ -4,6 +4,7 @@ PATH
     ink_components (0.1.0)
       rails (>= 6.1.7.4)
       view_component (= 2.82.0)
+      view_component-contrib (= 0.2.3)
 
 GEM
   remote: https://rubygems.org/
@@ -240,6 +241,7 @@ GEM
       rubocop-minitest
       rubocop-performance
       rubocop-rails
+    ruby-next-core (1.0.3)
     ruby-progressbar (1.13.0)
     securerandom (0.3.1)
     sprockets (4.2.1)
@@ -269,6 +271,9 @@ GEM
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
+    view_component-contrib (0.2.3)
+      ruby-next-core (>= 0.15.0)
+      view_component
     webrick (1.8.1)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -302,6 +307,7 @@ DEPENDENCIES
   sqlite3 (= 1.7.3)
   tailwind_merge (~> 0.13.0)
   view_component (= 2.82.0)
+  view_component-contrib (= 0.2.3)
 
 BUNDLED WITH
    2.5.6
