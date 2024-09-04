@@ -9,6 +9,7 @@
 /spec/dummy/storage/
 /spec/dummy/tmp/
 /spec/dummy/node_modules
+/spec/dummy/app/assets/builds/application.css
 /spec/app/assets/builds
 /node_modules
 spec/dummy/ink_components.tailwind.config.js
