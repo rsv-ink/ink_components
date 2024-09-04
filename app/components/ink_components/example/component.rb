@@ -23,8 +23,8 @@ module InkComponents
 
       attr_reader :size
 
-      def initialize(**user_attributes)
-        @size = user_attributes[:size]
+      def initialize(size:, **user_attributes)
+        @size = size
         super(**user_attributes)
       end
 
