@@ -16,13 +16,14 @@ RSpec.describe InkComponents::ApplicationComponent, type: :component do
       end
 
       it "concatenates class attributes" do
-        default_attributes = { class: "bg-blue-500", id: "default-id" }
+        default_attributes = { class: "bg-blue-500" }
+        extra_attributes = { class: "text-white" } }
+        
         allow_any_instance_of(described_class).to receive(:default_attributes).and_return(default_attributes)
-        extra_attributes = { class: "text-white", id: "user-id", data: { controller: "example" } }
+       
         component = described_class.new(**extra_attributes)
 
-        expect(component.attributes[:class]).to include("bg-blue-500")
-        expect(component.attributes[:class]).to include("text-white")
+        expect(component.attributes[:class]).to include("bg-blue-500 text-white")
       end
     end
 
