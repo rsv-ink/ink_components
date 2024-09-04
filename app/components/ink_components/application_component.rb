@@ -8,10 +8,10 @@ module InkComponents
 
     attr_reader :attributes
 
-    def initialize(**user_attributes)
+    def initialize(**extra_attributes)
       @attributes = InkComponents::AttributeMerger.new(
         default_attributes: default_attributes,
-        user_attributes: user_attributes
+        extra_attributes: extra_attributes
       ).merge
 
       if @attributes[:class].is_a?(String)

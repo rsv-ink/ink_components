@@ -23,9 +23,9 @@ module InkComponents
 
       attr_reader :size
 
-      def initialize(size:, **user_attributes)
+      def initialize(size:, **extra_attributes)
         @size = size
-        super(**user_attributes)
+        super(**extra_attributes)
       end
 
       def default_attributes
