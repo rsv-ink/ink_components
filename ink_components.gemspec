@@ -3,7 +3,7 @@ require_relative "lib/ink_components/version"
 Gem::Specification.new do |spec|
   spec.name        = "ink_components"
   spec.version     = InkComponents::VERSION
-  spec.authors     = [ "Natan Nobre", "Karine Vieira", "Lucas Sousa" ]
+  spec.authors     = [ "Natan Nobre", "Karine Vieira", "Lucas Sousa", "David Amurim" ]
   spec.email       = [ "natannobre37@gmail.com" ]
   spec.homepage    = "https://github.com/rsv-ink/ink_components.git"
   spec.summary     = "Ink components."
@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", ">= 6.1.7.4"
   spec.add_dependency "view_component", "2.82.0"
   spec.add_dependency "view_component-contrib", "0.2.3"
+  spec.add_dependency "tailwind_merge", "~> 0.13.0"
 
   spec.add_development_dependency "rspec-rails", "6.1.4"
 end

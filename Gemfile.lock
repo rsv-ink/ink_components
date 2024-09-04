@@ -3,6 +3,7 @@ PATH
   specs:
     ink_components (0.1.0)
       rails (>= 6.1.7.4)
+      tailwind_merge (~> 0.13.0)
       view_component (= 2.82.0)
       view_component-contrib (= 0.2.3)
 
