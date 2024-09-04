@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 6.1.7.4"
-  spec.add_dependency "view_component", "2.82.0"
+  spec.add_dependency "view_component", "3.14.0"
   spec.add_dependency "view_component-contrib", "0.2.3"
 
   spec.add_development_dependency "rspec-rails", "6.1.4"
