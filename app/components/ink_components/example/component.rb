@@ -21,10 +21,14 @@ module InkComponents
         defaults { { size: :md } }
       end
 
-      attr_reader :size
+      def initialize(**user_attributes)
+        default_attributes = {
+          class: style(size: user_attributes[:size]),
+          type: "button",
+          title: "example-button"
+        }
 
-      def initialize(size: nil)
-        @size = size
+        super(default_attributes:, **user_attributes)
       end
     end
   end

@@ -2,4 +2,8 @@
 <p>Find me in app/views/examples/index.html.erb</p>
 <br>
 
-<%= render InkComponents::Example::Component.new %>
+<%= render InkComponents::Example::Component.new(
+    class: "bg-green-700 hover:bg-green-800 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800",
+    size: :lg,
+    id: "buttonMergeGreen",
+) %>
