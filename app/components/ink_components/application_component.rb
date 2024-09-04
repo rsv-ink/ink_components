@@ -8,7 +8,7 @@ module InkComponents
 
     attr_reader :attributes
 
-    def initialize(default_attributes: {}, **user_attributes)
+    def initialize(**user_attributes)
       @attributes = InkComponents::AttributeMerger.new(
         default_attributes: default_attributes,
         user_attributes: user_attributes
@@ -17,6 +17,11 @@ module InkComponents
       if @attributes[:class].is_a?(String)
         @attributes[:class] = TailwindMerge::Merger.new.merge(@attributes[:class])
       end
+    end
+
+    private
+    def default_attributes
+      {}
     end
   end
 end
