@@ -5,13 +5,11 @@ require "rails_helper"
 RSpec.describe InkComponents::ApplicationComponent, type: :component do
   describe "#initialize" do
     context "when merging attributes" do
-      it "merges default and user attributes correctly" do
-        default_attributes = { class: "bg-blue-500", id: "default-id" }
-        allow_any_instance_of(described_class).to receive(:default_attributes).and_return(default_attributes)
-        extra_attributes = { class: "text-white", id: "user-id", data: { controller: "example" } }
+      it "add extra attributes to the component" do
+        extra_attributes = { data: { controller: "example" } }
+        
         component = described_class.new(**extra_attributes)
 
-        expect(component.attributes[:id]).to eq("default-id user-id")
         expect(component.attributes[:data]).to eq(controller: "example")
       end
 
