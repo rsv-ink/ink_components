@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe InkComponents::Example::Component, type: :component do
   it "renders component" do
-    component = render_inline(described_class.new(size: :md))
+    component = render_inline(described_class.new)
 
     expect(component.to_html).to include("Red")
   end
