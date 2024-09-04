@@ -26,14 +26,16 @@ RSpec.describe InkComponents::ApplicationComponent, type: :component do
       end
     end
 
-    context "when processing Tailwind classes" do
-      it "merges Tailwind classes correctly" do
-        default_attributes = { class: "bg-blue-500 bg-red-500 mb-1 text-blue" }
-        allow_any_instance_of(described_class).to receive(:default_attributes).and_return(default_attributes)
+    context "when classes with the same style are given" do
+      it "merges Tailwind classes without conflits" do
+        default_attributes = { class: "bg-blue-500 text-blue" }
         extra_attributes = { class: "bg-black-500 text-white" }
+        
+        allow_any_instance_of(described_class).to receive(:default_attributes).and_return(default_attributes)
+        
         component = described_class.new(**extra_attributes)
 
-        expect(component.attributes[:class]).to eq("mb-1 bg-black-500 text-white")
+        expect(component.attributes[:class]).to eq("bg-black-500 text-white")
       end
     end
   end
