@@ -16,9 +16,6 @@ gem "view_component", "2.82.0"
 # A collection of extension and developer tools for ViewComponent [https://github.com/palkan/view_component-contrib]
 gem "view_component-contrib", "0.2.3"
 
-# A collection of extension and developer tools for ViewComponent [https://github.com/palkan/view_component-contrib]
-gem "view_component-contrib", "0.2.3"
-
 # Bundle and process CSS in Rails with Tailwind, PostCSS, and Sass via Node.js [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails", "1.1.2"
 
