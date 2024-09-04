@@ -15,7 +15,7 @@ RSpec.describe InkComponents::ApplicationComponent, type: :component do
 
       it "concatenates class attributes" do
         default_attributes = { class: "bg-blue-500" }
-        extra_attributes = { class: "text-white" } }
+        extra_attributes = { class: "text-white" }
         
         allow_any_instance_of(described_class).to receive(:default_attributes).and_return(default_attributes)
        
