@@ -2,9 +2,7 @@
 
 module InkComponents
   module Example
-    class Component < ViewComponent::Base
-      include ViewComponentContrib::StyleVariants
-
+    class Component < ApplicationComponent
       style do
         base {
           %w[

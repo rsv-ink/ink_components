@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe InkComponents::ExampleComponent, type: :component do
+RSpec.describe InkComponents::Example::Component, type: :component do
   it "renders component" do
     component = render_inline(described_class.new)
 

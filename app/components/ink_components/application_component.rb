@@ -3,7 +3,8 @@
 require "tailwind_merge"
 
 module InkComponents
-  class ApplicationComponent < ViewComponent::Base
+  class ApplicationComponent < ViewComponentContrib::Base
+    include ViewComponentContrib::StyleVariants
 
     attr_reader :attributes
 
