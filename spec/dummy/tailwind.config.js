@@ -1,6 +1,7 @@
 const inkComponentsConfig = require("./ink_components.tailwind.config.js")
 
 module.exports = {
+  darkMode: "class",
   content: [
     './app/views/**/*.html.erb',
     './app/helpers/**/*.rb',
