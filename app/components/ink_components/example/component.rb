@@ -2,9 +2,7 @@
 
 module InkComponents
   module Example
-    class Component < ViewComponent::Base
-      include ViewComponentContrib::StyleVariants
-
+    class Component < ApplicationComponent
       style do
         base {
           %w[
@@ -25,8 +23,17 @@ module InkComponents
 
       attr_reader :size
 
-      def initialize(size: nil)
+      def initialize(size: nil, **extra_attributes)
         @size = size
+        super(**extra_attributes)
+      end
+
+      def default_attributes
+        {
+          class: style(size: size),
+          type: "button",
+          title: "example-button"
+        }
       end
     end
   end

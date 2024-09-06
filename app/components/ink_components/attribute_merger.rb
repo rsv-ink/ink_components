@@ -2,13 +2,13 @@
 
 module InkComponents
   class AttributeMerger
-    def initialize(default_attributes:, user_attributes: {})
+    def initialize(default_attributes:, extra_attributes: {})
       @default_attributes = default_attributes
-      @user_attributes = user_attributes
+      @extra_attributes = extra_attributes
     end
 
     def merge
-      merge_attributes(@default_attributes, @user_attributes)
+      merge_attributes(@default_attributes, @extra_attributes)
     end
 
     private
