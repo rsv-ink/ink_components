@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:karinevieira/railsui_icon.git
+  revision: 27403da1e3a6ac28eba6ec98119e6abfcca7123c
+  branch: poc/flowbite_icons
+  specs:
+    railsui_icon (1.0.9)
+      rails (>= 5.2)
+
 PATH
   remote: .
   specs:
@@ -200,8 +208,6 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    railsui_icon (1.0.8)
-      rails (>= 5.2)
     railties (7.2.0)
       actionpack (= 7.2.0)
       activesupport (= 7.2.0)
@@ -328,7 +334,7 @@ DEPENDENCIES
   ink_components!
   jsbundling-rails (= 1.1.1)
   puma
-  railsui_icon (= 1.0.8)
+  railsui_icon!
   rspec-rails (= 6.1.4)
   rubocop-rails-omakase (= 1.0.0)
   sprockets-rails
