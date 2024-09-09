@@ -2,8 +2,10 @@
 
 module InkComponents
   module Avatar
-    class Component < ViewComponent::Base
+    class Component < ApplicationComponent
       include ViewComponentContrib::StyleVariants
+
+      renders_one :text
 
       style do
         variants {
@@ -15,25 +17,51 @@ module InkComponents
             xs { "w-6 h-6" }
             sm { "w-8 h-8" }
             md { "w-10 h-10" }
-            lg { "w-12 h-12" }
-            xl { "w-16 h-16" }
+            lg { "w-20 h-20" }
+            xl { "w-36 h-36" }
           }
           bordered {
-            true.to_sym { "ring-2 ring-gray-300" }
-            false.to_sym { "" }
+            yes { "ring-2 ring-gray-300" }
           }
         }
-        defaults { { size: :md } }
+        defaults { { size: :md, shape: :circle } }
       end
 
-      attr_reader :size, :shape, :bordered, :image_url, :name_abbreviation
+      style :name_abbreviation do
+        base {
+          %w[ relative inline-flex items-center justify-center overflow-hidden bg-gray-100 dark:bg-gray-600 ]
+        }
+      end
 
-      def initialize(size: nil, shape: nil, bordered: false, image_url: nil, name_abbreviation: nil)
+      style :icon do
+        base {
+          %w[ relative overflow-hidden bg-gray-100 dark:bg-gray-600 ]
+        }
+      end
+
+      attr_reader :size, :shape, :bordered, :image_url, :name_abbreviation, :extra_attributes
+
+      def initialize(size: nil, shape: nil, bordered: false, image_url: nil, name_abbreviation: nil, **extra_attributes)
         @size = size
         @shape = shape
         @bordered = bordered
         @image_url = image_url
         @name_abbreviation = name_abbreviation
+        @extra_attributes = extra_attributes
+
+        super(**extra_attributes)
+      end
+
+      def default_attributes
+        {
+          class: style(size:, shape:, bordered:)
+        }
+      end
+
+      private
+
+      def wrapper_classes
+        %w[ flex items-center gap-4 ] if text?
       end
     end
   end
