@@ -10,6 +10,9 @@ gem "sqlite3", "1.7.3"
 
 gem "sprockets-rails"
 
+# A handy gem for rendering SVG icons [https://github.com/getrailsui/railsui_icon]
+gem "railsui_icon", "1.0.8"
+
 # Building reusable, testable & encapsulated view components [https://github.com/viewcomponent/view_component]
 gem "view_component", "2.82.0"
 

@@ -4,6 +4,7 @@ PATH
     ink_components (0.1.0)
       lookbook (= 2.3.2)
       rails (>= 6.1.7.4)
+      railsui_icon (>= 1.0.8)
       tailwind_merge (~> 0.13.0)
       view_component (= 2.82.0)
       view_component-contrib (= 0.2.3)
@@ -199,6 +200,8 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    railsui_icon (1.0.8)
+      rails (>= 5.2)
     railties (7.2.0)
       actionpack (= 7.2.0)
       activesupport (= 7.2.0)
@@ -325,6 +328,7 @@ DEPENDENCIES
   ink_components!
   jsbundling-rails (= 1.1.1)
   puma
+  railsui_icon (= 1.0.8)
   rspec-rails (= 6.1.4)
   rubocop-rails-omakase (= 1.0.0)
   sprockets-rails
