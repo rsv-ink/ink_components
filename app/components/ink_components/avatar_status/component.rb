@@ -3,8 +3,6 @@
 module InkComponents
   module AvatarStatus
     class Component < ApplicationComponent
-      include ViewComponentContrib::StyleVariants
-
       renders_one :avatar, InkComponents::Avatar::Component
 
       style do
@@ -43,10 +41,15 @@ module InkComponents
         super(**extra_attributes)
       end
 
+      private
       def default_attributes
         {
           class: style(status:, position:, avatar_shape:)
         }
+      end
+
+      def render?
+        avatar?
       end
     end
   end

@@ -3,8 +3,6 @@
 module InkComponents
   module Avatar
     class Component < ApplicationComponent
-      include ViewComponentContrib::StyleVariants
-
       renders_one :text
 
       style do
@@ -52,13 +50,12 @@ module InkComponents
         super(**extra_attributes)
       end
 
+      private
       def default_attributes
         {
           class: style(size:, shape:, bordered:)
         }
       end
-
-      private
 
       def wrapper_classes
         %w[ flex items-center gap-4 ] if text?
