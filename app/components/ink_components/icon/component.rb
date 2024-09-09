@@ -2,13 +2,14 @@
 
 module InkComponents
   module Icon
-    class Component < ViewComponent::Base
-      attr_reader :name, :type, :options
+    class Component < ApplicationComponent
+      attr_reader :name, :type, :extra_attributes
 
-      def initialize(name:, type: :solid, **options)
+      def initialize(name:, type: :solid, **extra_attributes)
         @name = name.to_s
         @type = type.to_s
-        @options = options
+
+        super(**extra_attributes)
       end
 
       private
