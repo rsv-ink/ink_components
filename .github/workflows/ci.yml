@@ -20,3 +20,45 @@ jobs:
 
       - name: Lint code for consistent style
         run: bundle exec rubocop
+
+  test:
+    needs:
+      - lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.4
+          bundler-cache: true
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
+
+      - name: Install Yarn packages
+        run: yarn install --check-files --pure-lockfile
+
+      - name: Install dummy javascript dependencies
+        run: yarn --cwd spec/dummy
+
+      - name: Run ink_components:tailwind_config task
+        run: |
+          cd spec/dummy
+          bin/rails ink_components:tailwind_config
+
+      - name: Compile Assets
+        run: |
+          cd spec/dummy
+          bin/rails css:build
+          bin/rails javascript:build
+
+      - name: Create database structure
+        run: RAILS_ENV=test bundle exec rails db:migrate
+
+      - name: Run tests
+        run: bundle exec rspec
