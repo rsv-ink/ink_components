@@ -16,12 +16,10 @@ module InkComponents
           defaults { { state: :default } }
         end
 
-        attr_reader :state, :extra_attributes
+        attr_reader :state
 
         def initialize(state: nil, **extra_attributes)
           @state = state
-          @extra_attributes = extra_attributes
-
           super(**extra_attributes)
         end
 
