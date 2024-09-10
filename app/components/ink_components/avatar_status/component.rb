@@ -30,14 +30,12 @@ module InkComponents
         defaults { { status: :online, position: :top, avatar_shape: :circle } }
       end
 
-      attr_reader :status, :position, :avatar_shape, :extra_attributes
+      attr_reader :status, :position, :avatar_shape
 
       def initialize(status: nil, position: nil, avatar_shape: nil, **extra_attributes)
         @status = status
         @position = position
         @avatar_shape = avatar_shape
-        @extra_attributes = extra_attributes
-
         super(**extra_attributes)
       end
 

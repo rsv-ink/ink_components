@@ -37,7 +37,7 @@ module InkComponents
         }
       end
 
-      attr_reader :size, :shape, :bordered, :image_url, :name_abbreviation, :extra_attributes
+      attr_reader :size, :shape, :bordered, :image_url, :name_abbreviation
 
       def initialize(size: nil, shape: nil, bordered: false, image_url: nil, name_abbreviation: nil, **extra_attributes)
         @size = size
@@ -45,8 +45,6 @@ module InkComponents
         @bordered = bordered
         @image_url = image_url
         @name_abbreviation = name_abbreviation
-        @extra_attributes = extra_attributes
-
         super(**extra_attributes)
       end
 
