@@ -28,5 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "tailwind_merge", "~> 0.13.0"
   spec.add_dependency "lookbook", "2.3.2"
 
-  spec.add_development_dependency "rspec-rails", "6.1.4"
+  spec.add_development_dependency "rspec-rails", "7.0.1"
 end
