@@ -33,16 +33,16 @@ module InkComponents
           }
         }
 
-        compound_variants [
-          { color: :pink, bordered: :yes, classes: "border-pink-400 dark:text-pink-400" },
-          { color: :dark, bordered: :yes, classes: "border-gray-500 dark:text-gray-400" },
-          { color: :blue, bordered: :yes, classes: "border-blue-400 dark:text-blue-400" },
-          { color: :red, bordered: :yes, classes: "border-red-400 dark:text-red-400" },
-          { color: :green, bordered: :yes, classes: "border-green-400 dark:text-green-400" },
-          { color: :yellow, bordered: :yes, classes: "border-yellow-300 dark:text-yellow-300" },
-          { color: :indigo, bordered: :yes, classes: "border-indigo-400 dark:text-indigo-400" },
-          { color: :purple, bordered: :yes, classes: "border-purple-400 dark:text-purple-400" }
-        ]
+        # compound_variants [
+        #   { color: :pink, bordered: :yes, classes: "border-pink-400 dark:text-pink-400" },
+        #   { color: :dark, bordered: :yes, classes: "border-gray-500 dark:text-gray-400" },
+        #   { color: :blue, bordered: :yes, classes: "border-blue-400 dark:text-blue-400" },
+        #   { color: :red, bordered: :yes, classes: "border-red-400 dark:text-red-400" },
+        #   { color: :green, bordered: :yes, classes: "border-green-400 dark:text-green-400" },
+        #   { color: :yellow, bordered: :yes, classes: "border-yellow-300 dark:text-yellow-300" },
+        #   { color: :indigo, bordered: :yes, classes: "border-indigo-400 dark:text-indigo-400" },
+        #   { color: :purple, bordered: :yes, classes: "border-purple-400 dark:text-purple-400" }
+        # ]
 
         defaults { { color: :pink, bordered: :no, size: :xs, pill: :no } }
       end
