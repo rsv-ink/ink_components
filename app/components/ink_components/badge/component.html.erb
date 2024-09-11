@@ -1,1 +1,12 @@
-<%= content_tag :span, content, attributes %>
+<% tag_name = href.blank? ? :span : :a %>
+<%= content_tag tag_name, attributes do %>
+  <%= content %>
+  <% if @dismissable %>
+    <%= content_tag :button, dismiss_button_attributes do %>
+      <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+      </svg>
+      <span class="sr-only">Remove badge</span>
+    <% end %>
+  <% end %>
+<% end %>
