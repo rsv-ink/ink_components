@@ -8,7 +8,7 @@ module InkComponents
       # @param pill select { choices: [true, false] }
       # @param href text
       # @param dismissable select { choices: [true, false] }
-      def playground(content: "Some text", color: :pink, size: :sm, bordered: false, pill: false, href: nil, dismissable: false)
+      def playground(content: "Some text", color: :pink, size: :xs, bordered: false, pill: false, href: nil, dismissable: false)
         render InkComponents::Badge::Component.new(id: "badge_component", size:, color:, bordered:, pill:, href:, dismissable:).with_content(content)
       end
 
