@@ -1,0 +1,12 @@
+
+<% if progress_on_top? %>
+  <div class="flex justify-between mb-1">
+    <%= content_tag :span, "#{progress}%", class: style(:label, color:) %>
+  </div>
+<% end %>
+
+<%= content_tag :div, attributes do %>
+  <%= content_tag :div, inner_bar_attributes do %>
+    <%= progress if progress_inside? %>
+  <% end %>
+<% end %>
