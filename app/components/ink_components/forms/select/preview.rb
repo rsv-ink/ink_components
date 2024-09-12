@@ -21,6 +21,10 @@ module InkComponents
           render InkComponents::Forms::Select::Component.new(selected: "Green", options: DEFAULT_OPTIONS)
         end
 
+        def with_multiple_options
+          render InkComponents::Forms::Select::Component.new(multiple: true, options: DEFAULT_OPTIONS)
+        end
+
         def with_html_attributes
           render InkComponents::Forms::Select::Component.new(id: "color", name: "color", options: DEFAULT_OPTIONS)
         end

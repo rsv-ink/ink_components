@@ -63,7 +63,7 @@ module InkComponents
             }
           }
 
-          defaults { { size: :md } }
+          defaults { { size: :md, state: :default } }
         end
 
         attr_reader :state, :size, :selected, :prompt, :options, :underline
