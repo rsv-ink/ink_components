@@ -25,7 +25,7 @@ module InkComponents
         }
 
         compound(position: :top, avatar_shape: :square) { %w[-translate-y-1/2] }
-        compound(position: :bottom, avatar_shape: :square) { %w[-translate-y-1/4] }
+        compound(position: :bottom, avatar_shape: :square) { %w[translate-y-1/4] }
 
         defaults { { status: :online, position: :top, avatar_shape: :circle } }
       end

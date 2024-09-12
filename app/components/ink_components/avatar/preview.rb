@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InkComponents
   module Avatar
     class Preview < Lookbook::Preview
@@ -6,7 +8,7 @@ module InkComponents
       # @param size select { choices: [xs, sm, md, lg, xl] }
       # @param shape select { choices: [circle, square] }
       # @param bordered toggle
-      def default(image_url: "https://i.pravatar.cc/150?img=3", name_abbreviation: nil, size: :md, shape: :circle, bordered: false)
+      def playground(image_url: "https://i.pravatar.cc/150?img=3", name_abbreviation: nil, size: :md, shape: :circle, bordered: false)
         render InkComponents::Avatar::Component.new(image_url:, name_abbreviation:, size:, shape:, bordered:)
       end
 

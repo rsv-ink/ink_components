@@ -58,6 +58,10 @@ module InkComponents
       def wrapper_classes
         %w[ flex items-center gap-4 ] if text?
       end
+
+      def options
+        attributes.except(:class)
+      end
     end
   end
 end

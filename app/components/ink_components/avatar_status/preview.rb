@@ -4,7 +4,7 @@ module InkComponents
       # @param status select { choices: [online, offline] }
       # @param position select { choices: [top, bottom] }
       # @param avatar_shape select { choices: [circle, square] }
-      def default(status: :online, position: :top, avatar_shape: :circle)
+      def playground(status: :online, position: :top, avatar_shape: :circle)
         render InkComponents::AvatarStatus::Component.new(status:, position:, avatar_shape:) do |component|
           component.with_avatar(shape: avatar_shape, image_url: "https://i.pravatar.cc/150?img=3")
         end
