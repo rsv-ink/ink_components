@@ -11,7 +11,7 @@ RSpec.describe InkComponents::Forms::HelperText::Component, type: :component do
     end
   end
 
-  context "when an content is not provided" do
+  context "when no content is provided" do
     it "doesn't render the component" do
       component = render_inline(described_class.new)
 
