@@ -5,7 +5,6 @@ module InkComponents
     class Component < ApplicationComponent
       style do
         base { "font-medium me-2" }
-
         variants {
           color {
             pink { "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300" }
@@ -17,12 +16,10 @@ module InkComponents
             indigo { "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300" }
             purple { "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300" }
           }
-
           size {
             xs { "text-xs" }
             sm { "text-sm" }
           }
-
           bordered {
             yes do |color:, **|
               %w[dark:bg-gray-700 border].tap do
@@ -37,12 +34,10 @@ module InkComponents
               end
             end
           }
-
           pill {
             yes { "rounded-full" }
             no { "rounded" }
           }
-
           href {
             yes do |color:, **|
               %w[inline-flex items-center justify-center].tap do
@@ -57,19 +52,16 @@ module InkComponents
               end
             end
           }
-
           dismissable {
             yes { "inline-flex items-center px-2 py-1 me-2" }
             no { "px-2.5 py-0.5" }
           }
         }
-
         defaults { { color: :pink, size: :xs, bordered: :no, pill: :no, href: :no, dismissable: :no } }
       end
 
       style :dismiss_button do
         base { "inline-flex items-center p-1 ms-2 text-sm bg-transparent rounded-sm" }
-
         variants {
           color {
             pink { "text-pink-400 hover:bg-pink-200 hover:text-pink-900 dark:hover:bg-pink-800 dark:hover:text-pink-300" }
@@ -82,7 +74,6 @@ module InkComponents
             purple { "text-purple-400 hover:bg-purple-200 hover:text-purple-900 dark:hover:bg-purple-800 dark:hover:text-purple-300" }
           }
         }
-
         defaults { { color: :pink } }
       end
 
