@@ -29,11 +29,7 @@ module InkComponents
             pill { "rounded-full" }
           }
           href {
-            yes do |color:, **|
-              color_name = color == :dark ? "gray" : color
-
-              "inline-flex items-center justify-center hover:bg-#{color_name}-200"
-            end
+            yes { "inline-flex items-center justify-center" }
           }
           dismissable {
             yes { "inline-flex items-center px-2 py-1 me-2" }
@@ -49,6 +45,15 @@ module InkComponents
         compound(color: :yellow, bordered: true) { %w[border-yellow-300 dark:text-yellow-300] }
         compound(color: :indigo, bordered: true) { %w[border-indigo-400 dark:text-indigo-400] }
         compound(color: :purple, bordered: true) { %w[border-purple-400 dark:text-purple-400] }
+
+        compound(color: :pink, href: true) { %w[hover:bg-pink-200] }
+        compound(color: :dark, href: true) { %w[hover:bg-gray-200] }
+        compound(color: :blue, href: true) { %w[hover:bg-blue-200] }
+        compound(color: :red, href: true) { %w[hover:bg-red-200] }
+        compound(color: :green, href: true) { %w[hover:bg-green-200] }
+        compound(color: :yellow, href: true) { %w[hover:bg-yellow-200] }
+        compound(color: :indigo, href: true) { %w[hover:bg-indigo-200] }
+        compound(color: :purple, href: true) { %w[hover:bg-purple-200] }
 
         defaults { { color: :pink, size: :xs, bordered: :no, shape: :square, href: :no, dismissable: :no } }
       end
