@@ -22,11 +22,11 @@ module InkComponents
           }
           bordered {
             yes do |color:, **|
-              color_class = "border-#{color}-400 dark:text-#{color}-400"
-              color_class = "border-gray-500 dark:text-gray-400" if color == :dark
-              color_class = "border-yellow-300 dark:text-yellow-300" if color == :yellow
-
-              "dark:bg-gray-700 border #{color_class}"
+              class_names = "border-#{color}-400 dark:text-#{color}-400"
+              class_names = "border-gray-500 dark:text-gray-400" if color == :dark
+              class_names = "border-yellow-300 dark:text-yellow-300" if color == :yellow
+              
+              %w[dark:bg-gray-700 border] << class_names
             end
           }
           shape {
