@@ -21,7 +21,7 @@ module InkComponents
             xs { "text-xs" }
             sm { "text-sm" }
           }
-          
+
           bordered {
             yes { "dark:bg-gray-700 border" }
           }
