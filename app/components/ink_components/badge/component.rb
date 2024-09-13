@@ -22,34 +22,22 @@ module InkComponents
           }
           bordered {
             yes do |color:, **|
-              %w[dark:bg-gray-700 border].tap do
-                _1 << "border-pink-400 dark:text-pink-400" if color == :pink
-                _1 << "border-gray-500 dark:text-gray-400" if color == :dark
-                _1 << "border-blue-400 dark:text-blue-400" if color == :blue
-                _1 << "border-red-400 dark:text-red-400" if color == :red
-                _1 << "border-green-400 dark:text-green-400" if color == :green
-                _1 << "border-yellow-300 dark:text-yellow-300" if color == :yellow
-                _1 << "border-indigo-400 dark:text-indigo-400" if color == :indigo
-                _1 << "border-purple-400 dark:text-purple-400" if color == :purple
-              end
+              color_class = "border-#{color}-400 dark:text-#{color}-400"
+              color_class = "border-gray-500 dark:text-gray-400" if color == :dark
+              color_class = "border-yellow-300 dark:text-yellow-300" if color == :yellow
+
+              "dark:bg-gray-700 border #{color_class}"
             end
           }
-          pill {
-            yes { "rounded-full" }
-            no { "rounded" }
+          shape {
+            square { "rounded" }
+            pill { "rounded-full" }
           }
           href {
             yes do |color:, **|
-              %w[inline-flex items-center justify-center].tap do
-                _1 << "hover:bg-pink-200" if color == :pink
-                _1 << "hover:bg-gray-200" if color == :dark
-                _1 << "hover:bg-blue-200" if color == :blue
-                _1 << "hover:bg-red-200" if color == :red
-                _1 << "hover:bg-green-200" if color == :green
-                _1 << "hover:bg-yellow-200" if color == :yellow
-                _1 << "hover:bg-indigo-200" if color == :indigo
-                _1 << "hover:bg-purple-200" if color == :purple
-              end
+              color_name = color == :dark ? "gray" : color
+
+              "inline-flex items-center justify-center hover:bg-#{color_name}-200"
             end
           }
           dismissable {
@@ -57,7 +45,7 @@ module InkComponents
             no { "px-2.5 py-0.5" }
           }
         }
-        defaults { { color: :pink, size: :xs, bordered: :no, pill: :no, href: :no, dismissable: :no } }
+        defaults { { color: :pink, size: :xs, bordered: :no, shape: :square, href: :no, dismissable: :no } }
       end
 
       style :dismiss_button do
@@ -77,14 +65,14 @@ module InkComponents
         defaults { { color: :pink } }
       end
 
-      attr_reader :id, :color, :size, :bordered, :pill, :href, :dismissable
+      attr_reader :id, :color, :size, :bordered, :shape, :href, :dismissable
 
-      def initialize(id: nil, color: nil, size: nil, bordered: nil, pill: nil, href: nil, dismissable: nil, **extra_attributes)
+      def initialize(id: nil, color: nil, size: nil, bordered: nil, shape: nil, href: nil, dismissable: nil, **extra_attributes)
         @id = id
         @color = color
         @size = size
         @bordered = bordered
-        @pill = pill
+        @shape = shape
         @href = href
         @dismissable = dismissable
 
@@ -93,11 +81,15 @@ module InkComponents
 
       private
       def default_attributes
-        { id:, class: style(color:, bordered:, size:, pill:, href: href.present?, dismissable:), href: }
+        { id:, class: style(color:, bordered:, size:, shape:, href: href.present?, dismissable:), href: }
       end
 
       def dismiss_button_attributes
         { class: style(:dismiss_button, color:), type: "button", "aria-label": "Remove", "data-dismiss-target": "##{id}" }
+      end
+
+      def tag_name
+        href.blank? ? :span : :a
       end
 
       def render?

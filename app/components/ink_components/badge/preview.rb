@@ -5,11 +5,11 @@ module InkComponents
       # @param color select { choices: [pink, dark, blue, red, green, yellow, indigo, purple] }
       # @param size select { choices: [xs, sm] }
       # @param bordered select { choices: [true, false] }
-      # @param pill select { choices: [true, false] }
+      # @param shape select { choices: [square, pill] }
       # @param href text
       # @param dismissable select { choices: [true, false] }
-      def playground(content: "Some text", color: :pink, size: :xs, bordered: false, pill: false, href: nil, dismissable: false)
-        render InkComponents::Badge::Component.new(id: "badge_component", size:, color:, bordered:, pill:, href:, dismissable:).with_content(content)
+      def playground(content: "Some text", color: :pink, size: :xs, bordered: false, shape: :square, href: nil, dismissable: false)
+        render InkComponents::Badge::Component.new(id: "badge_component", size:, color:, bordered:, shape:, href:, dismissable:).with_content(content)
       end
 
       # @!group Colors
@@ -66,13 +66,13 @@ module InkComponents
       end
       # @!endgroup
 
-      # @!group Pill
-      def pill_true
-        render InkComponents::Badge::Component.new(pill: true).with_content("Pill Badge")
+      # @!group Shape
+      def square_shape
+        render InkComponents::Badge::Component.new(shape: :square).with_content("Square Badge")
       end
 
-      def pill_false
-        render InkComponents::Badge::Component.new(pill: false).with_content("Non-Pill Badge")
+      def pill_shape
+        render InkComponents::Badge::Component.new(shape: :pill).with_content("Pill Badge")
       end
       # @!endgroup
 
