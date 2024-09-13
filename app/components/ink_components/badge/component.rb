@@ -5,6 +5,7 @@ module InkComponents
     class Component < ApplicationComponent
       style do
         base { "font-medium me-2" }
+
         variants {
           color {
             pink { "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300" }
@@ -20,14 +21,9 @@ module InkComponents
             xs { "text-xs" }
             sm { "text-sm" }
           }
+          
           bordered {
-            yes do |color:, **|
-              class_names = "border-#{color}-400 dark:text-#{color}-400"
-              class_names = "border-gray-500 dark:text-gray-400" if color == :dark
-              class_names = "border-yellow-300 dark:text-yellow-300" if color == :yellow
-              
-              %w[dark:bg-gray-700 border] << class_names
-            end
+            yes { "dark:bg-gray-700 border" }
           }
           shape {
             square { "rounded" }
@@ -45,11 +41,22 @@ module InkComponents
             no { "px-2.5 py-0.5" }
           }
         }
+
+        compound(color: :pink, bordered: true) { %w[border-pink-400 dark:text-pink-400] }
+        compound(color: :dark, bordered: true) { %w[border-gray-500 dark:text-gray-400] }
+        compound(color: :blue, bordered: true) { %w[border-blue-400 dark:text-blue-400] }
+        compound(color: :red, bordered: true) { %w[border-red-400 dark:text-red-400] }
+        compound(color: :green, bordered: true) { %w[border-green-400 dark:text-green-400] }
+        compound(color: :yellow, bordered: true) { %w[border-yellow-300 dark:text-yellow-300] }
+        compound(color: :indigo, bordered: true) { %w[border-indigo-400 dark:text-indigo-400] }
+        compound(color: :purple, bordered: true) { %w[border-purple-400 dark:text-purple-400] }
+
         defaults { { color: :pink, size: :xs, bordered: :no, shape: :square, href: :no, dismissable: :no } }
       end
 
       style :dismiss_button do
         base { "inline-flex items-center p-1 ms-2 text-sm bg-transparent rounded-sm" }
+
         variants {
           color {
             pink { "text-pink-400 hover:bg-pink-200 hover:text-pink-900 dark:hover:bg-pink-800 dark:hover:text-pink-300" }
@@ -62,6 +69,7 @@ module InkComponents
             purple { "text-purple-400 hover:bg-purple-200 hover:text-purple-900 dark:hover:bg-purple-800 dark:hover:text-purple-300" }
           }
         }
+
         defaults { { color: :pink } }
       end
 
