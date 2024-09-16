@@ -1,0 +1,14 @@
+<%= content_tag :div, attributes do %>
+  <div class="flex flex-row items-start">
+    <div>
+      <%= title %>
+      <%= body %>
+      <%= content %>
+      <%= actions %>
+    </div>
+
+    <% if dismissable %>
+      <%= render InkComponents::Alert::DismissableButton::Component.new(id: attributes[:id], state:) %>
+    <% end %>
+  </div>
+<% end %>
