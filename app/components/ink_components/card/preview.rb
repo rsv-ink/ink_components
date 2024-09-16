@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InkComponents
   module Card
     class Preview < Lookbook::Preview
