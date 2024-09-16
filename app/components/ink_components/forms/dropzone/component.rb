@@ -15,10 +15,6 @@ module InkComponents
         def default_attributes
           { class: "hidden" }
         end
-
-        def render?
-          label_text.present? || helper_text.present?
-        end
       end
     end
   end
