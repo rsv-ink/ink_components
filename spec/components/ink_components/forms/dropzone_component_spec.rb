@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe InkComponents::Forms::Dropzone::Component, type: :component do
-  context "when the content is provided" do
+  context "when the lable text or helper text is provided" do
     it "renders the component" do
       component = render_inline(described_class.new) do |dropzone|
         dropzone.with_label_text { "Click to upload or drag and drop" }
@@ -14,7 +14,7 @@ RSpec.describe InkComponents::Forms::Dropzone::Component, type: :component do
     end
   end
 
-  context "when no content is provided" do
+  context "when no lable text and helper text is provided" do
     it "doesn't render the component" do
       component = render_inline(described_class.new)
 
