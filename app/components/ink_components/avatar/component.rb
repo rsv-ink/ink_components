@@ -37,6 +37,22 @@ module InkComponents
         }
       end
 
+      style :svg do
+        base { "absolute text-gray-400" }
+
+        variants {
+          size {
+            xs { "w-8 h-8 -left-1" }
+            sm { "w-10 h-10 -left-1" }
+            md { "w-12 h-12 -left-1" }
+            lg { "w-22 h-24 -left-2" }
+            xl { "w-38 h-40 -left-2" }
+          }
+        }
+
+        defaults { { size: :md } }
+      end
+
       attr_reader :size, :shape, :bordered, :image_url, :name_abbreviation
 
       def initialize(size: nil, shape: nil, bordered: false, image_url: nil, name_abbreviation: nil, **extra_attributes)
