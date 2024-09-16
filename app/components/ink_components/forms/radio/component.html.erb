@@ -1,0 +1,4 @@
+<%= content_tag :div, div_attributes do %>
+    <%= radio_button_tag attributes[:name], attributes[:value], attributes[:chacked], attributes %>
+    <%= label_tag attributes[:id], content, label_attributes %>
+<% end %>
