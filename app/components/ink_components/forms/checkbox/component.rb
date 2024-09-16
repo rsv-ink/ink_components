@@ -36,11 +36,11 @@ module InkComponents
           variants {
             disabled {
               yes { %w[ text-gray-400 dark:text-gray-500 ] }
-              no { %w[ dark:text-gray-300 ]}
+              no { %w[ dark:text-gray-300 ] }
             }
 
             bordered {
-              yes { %w[ w-full py-4 ]}
+              yes { %w[ w-full ] }
             }
           }
         end
@@ -50,7 +50,7 @@ module InkComponents
 
           variants {
             bordered {
-              yes { %w[ ps-4 border border-gray-200 rounded dark:border-gray-700 ] }
+              yes { %w[ ps-4 py-4 border border-gray-200 rounded dark:border-gray-700 ] }
             }
           }
         end
@@ -83,8 +83,11 @@ module InkComponents
           attributes[:id] || content&.tr(" ", "_")&.downcase
         end
 
-        def helper_text_classes
-          %w[ flex flex-col h-5 ] if helper_text?
+        def content_container_classes
+          bordered_class = "mb-4" if bordered
+          helper_text_classes = [ "flex flex-col h-5", bordered_class ] if helper_text
+
+          [ "me-4", helper_text_classes ]
         end
       end
     end

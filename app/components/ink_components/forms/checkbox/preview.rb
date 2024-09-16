@@ -68,9 +68,18 @@ module InkComponents
         end
         # @!endgroup
 
-        def with_border
+        # @!group With Border
+        def border
           render(InkComponents::Forms::Checkbox::Component.new(bordered: true)) { "Some value" }
         end
+
+        def border_with_helper_text
+          render(InkComponents::Forms::Checkbox::Component.new(bordered: true)) do |checkbox|
+            checkbox.with_helper_text { "Some helper text" }
+            "Some value"
+          end
+        end
+        # @!endgroup
 
         def with_helper_text
           render(InkComponents::Forms::Checkbox::Component.new(id: "product", name: "product[some_value]")) do |checkbox|
