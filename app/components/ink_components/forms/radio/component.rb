@@ -57,9 +57,9 @@ module InkComponents
 
           attr_reader :color, :disabled, :bordered
 
-          def initialize(color: nil, disabled: nil, bordered: nil, **extra_attributes)
+          def initialize(color: nil, bordered: nil, **extra_attributes)
             @color = color
-            @disabled = disabled
+            @disabled = extra_attributes[:disabled]
             @bordered = bordered
 
             super(**extra_attributes)
