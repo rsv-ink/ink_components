@@ -47,8 +47,8 @@ module InkComponents
       # @!endgroup
 
       # @!group Sizes
-      def extra_small
-        render InkComponents::Badge::Component.new(size: :sm).with_content("Extra Small")
+      def large
+        render InkComponents::Badge::Component.new(size: :sm).with_content("Large")
       end
 
       def small
