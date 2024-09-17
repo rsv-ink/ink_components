@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
+# path to your application root.
+APP_ROOT = File.expand_path("..", __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  puts "\n== Running RSpec =="
+  if ARGV.first&.include?("--auto")
+    unless system("gem list retest -i --silent")
+      puts "Installing retest..."
+      system("gem install retest")
+    end
+
+    puts "retest 'bundle exec rspec <test>'"
+    system "retest 'bundle exec rspec <test>'"
+  else
+    puts "bundle exec rspec #{ARGV.join(' ')}"
+    system "bundle exec rspec #{ARGV.join(' ')}"
+  end
+end
