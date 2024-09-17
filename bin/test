@@ -10,7 +10,10 @@ end
 
 FileUtils.chdir APP_ROOT do
   puts "\n== Running RSpec =="
-  if ARGV.first&.include?("--auto")
+  if ARGV.empty?
+    puts "bundle exec rspec --require rails_helper"
+    system "bundle exec rspec --require rails_helper"
+  elsif ARGV.first&.include?("--auto")
     unless system("gem list retest -i --silent")
       puts "Installing retest..."
       system("gem install retest")
