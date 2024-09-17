@@ -28,7 +28,7 @@ RSpec.describe InkComponents::ProgressBar::Component, type: :component do
       it "renders the progress indicator inside an inner bar" do
         component = render_inline(described_class.new(progress: 45, progress_position: :inside))
 
-        expect(component.css("div").last.text).to include("45")
+        expect(component.css("div").last.text).to include("45%")
       end
 
       it "doesn't render a span tag to display progress" do

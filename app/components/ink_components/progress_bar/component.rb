@@ -83,7 +83,14 @@ module InkComponents
       end
 
       def inner_bar_attributes
-        { class: style(:inner_bar, size: size_option, color:, progress_position:), style: "width: #{progress}%" }
+        {
+          class: style(:inner_bar, size: size_option, color:, progress_position:),
+          style: "width: #{display_progress}"
+        }
+      end
+
+      def display_progress
+        "#{progress}%"
       end
 
       def size_option

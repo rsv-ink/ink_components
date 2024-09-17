@@ -3,12 +3,13 @@
 module InkComponents
   module ProgressBar
     class Preview < Lookbook::Preview
+      # @param content text
       # @param progress number
       # @param progress_position select { choices: [none, inside, top] }
       # @param size select { choices: [sm, md, lg, xl] }
       # @param color select { choices: [pink, dark, blue, red, green, yellow, indigo, purple] }
-      def playground(size: :md, color: :pink, progress: 45, progress_position: :inside)
-        render InkComponents::ProgressBar::Component.new(size:, color:, progress:, progress_position:)
+      def playground(size: :md, color: :pink, progress: 45, progress_position: :inside, content: nil)
+        render(InkComponents::ProgressBar::Component.new(size:, color:, progress:, progress_position:)) { content }
       end
 
       # @!group Sizes
@@ -60,13 +61,13 @@ module InkComponents
       # @!endgroup
 
       # @!group Progress Positions
-      # @label Inside (In this option, the progress bar size remains fixed, with "md" set as the default.)
+      # @label Inside (In this option, the progress bar size remains fixed)
       def inside
         render InkComponents::ProgressBar::Component.new(progress_position: :inside, progress: 45)
       end
 
       def top
-        render InkComponents::ProgressBar::Component.new(progress_position: :top, progress: 45)
+        render(InkComponents::ProgressBar::Component.new(progress_position: :top, progress: 45)) { "Progress" }
       end
       # @!endgroup
     end
