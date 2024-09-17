@@ -66,9 +66,6 @@ module InkComponents
           shape {
             default { %w[ rounded-lg ] }
             pill { %w[ rounded-full ] }
-            outline {
-              %w[ rounded-lg hover:text-white dark:hover:text-white border bg-transparent dark:bg-transparent ]
-            }
           }
 
           size {
@@ -83,28 +80,6 @@ module InkComponents
             yes { %w[ cursor-not-allowed ] }
           }
         }
-
-        compound(color: :pink, shape: :outline) do
-          %w[ text-pink-600 border-pink-600 dark:border-pink-500 dark:text-pink-500 dark:hover:bg-pink-500 ]
-        end
-        compound(color: :blue, shape: :outline) do
-          %w[ text-blue-700 border-blue-700 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 ]
-        end
-        compound(color: :dark, shape: :outline) do
-          %w[ text-gray-800 border-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 ]
-        end
-        compound(color: :green, shape: :outline) do
-          %w[ text-green-700 border-green-700 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 ]
-        end
-        compound(color: :red, shape: :outline) do
-          %w[ text-red-700 border-red-700 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 ]
-        end
-        compound(color: :yellow, shape: :outline) do
-          %w[ text-yellow-400 border-yellow-400 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 ]
-        end
-        compound(color: :purple, shape: :outline) do
-          %w[ text-purple-700 border-purple-700 dark:border-purple-400 dark:text-purple-400 dark:hover:bg-purple-500 ]
-        end
 
         compound(color: :pink, disabled: true) { %w[ bg-pink-400 dark:bg-pink-500 hover:bg-pink-400 dark:hover:bg-pink-500 ] }
         compound(color: :blue, disabled: true) { %w[ bg-blue-400 dark:bg-blue-500 hover:bg-blue-400 dark:hover:bg-blue-500 ] }
@@ -123,6 +98,36 @@ module InkComponents
         defaults { { color: :pink, shape: :default, size: :md } }
       end
 
+      style :outline do
+        base { %w[ focus:ring-4 font-medium text-center me-2 mb-2 focus:outline-none rounded-lg hover:text-white dark:hover:text-white border bg-transparent dark:bg-transparent ] }
+
+        variants {
+          size {
+            xs { %w[ px-3 py-2 text-xs ] }
+            sm { %w[ px-3 py-2 text-sm ] }
+            md { %w[ px-5 py-2.5 text-sm ] }
+            lg { %w[ px-5 py-3 text-base ] }
+            xl { %w[ px-6 py-3.5 text-base ] }
+          }
+
+          disabled {
+            yes { %w[ cursor-not-allowed ] }
+          }
+
+          color {
+            pink { %w[ hover:bg-pink-800 text-pink-600 border-pink-600 dark:border-pink-500 dark:text-pink-500 dark:hover:bg-pink-500 ] }
+            blue { %w[ hover:bg-blue-800 text-blue-700 border-blue-700 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 ] }
+            dark { %w[ hover:bg-gray-900 text-gray-800 border-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 ] }
+            green { %w[ hover:bg-green-800 text-green-700 border-green-700 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 ] }
+            red { %w[ hover:bg-red-800 text-red-700 border-red-700 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 ] }
+            yellow { %w[ hover:bg-yellow-500 text-yellow-400 border-yellow-400 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 ] }
+            purple { %w[ hover:bg-purple-800 text-purple-700 border-purple-700 dark:border-purple-400 dark:text-purple-400 dark:hover:bg-purple-500 ] }
+          }
+        }
+
+        defaults { { color: :pink, size: :md } }
+      end
+
       attr_reader :builder, :disabled, :shape, :color, :size, :href
 
       def initialize(builder: :link_to, disabled: false, shape: :default, color: nil, size: nil, href: nil, **extra_attributes)
@@ -137,7 +142,11 @@ module InkComponents
 
       private
       def default_attributes
-        { class: style(color:, shape:, size:, disabled:) }
+        { class: classes }
+      end
+
+      def classes
+        shape == :outline ? style(:outline, color:, size:, disabled:) : style(color:, shape:, size:, disabled:)
       end
 
       def render?
