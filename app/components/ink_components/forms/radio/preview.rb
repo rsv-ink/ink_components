@@ -54,6 +54,13 @@ module InkComponents
         def bordered
           render InkComponents::Forms::Radio::Component.new(id: "default-radio-10", name: "name-radio-10", value: "value-10", bordered: true).with_content("Bordered")
         end
+
+        def with_help_text
+          render InkComponents::Forms::Radio::Component.new(id: "default-radio-11", name: "name-radio-11", value: "value-11") do |radio|
+            radio.with_helper_text { "For orders shipped from $25 in books or $29 in other categories" }
+            "Free shipping via Flowbite"
+          end
+        end
       end
     end
   end

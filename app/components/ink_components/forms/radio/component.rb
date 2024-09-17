@@ -4,11 +4,11 @@ module InkComponents
     module Forms
       module Radio
         class Component < ApplicationComponent
-          renders_one :helper_text, InkComponents::Forms::HelperText::Component
+          renders_one :helper_text, ->(&block) { HelperText::Component.new(size: :xs, class: "mt-0 ms-2") }
 
           style do
             base { "w-4 h-4 bg-gray-100 border-gray-300 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" }
-            
+
             variants {
               color {
                 pink { "text-pink-600 focus:ring-pink-500 dark:focus:ring-pink-600" }
@@ -26,7 +26,7 @@ module InkComponents
           end
 
           style :label do
-            base { "ms-2 text-sm font-medium" }
+            base { "ms-2 mb-0 text-sm font-medium" }
 
             variants {
               disabled {
@@ -39,18 +39,22 @@ module InkComponents
           end
 
           style :div do
-            base { "flex items-center" }
+            base { "flex" }
 
             variants {
               bordered {
                 yes { "ps-4 border border-gray-200 rounded dark:border-gray-700 h-12" }
               }
+
+              helper_text {
+                no { "items-center" }
+              }
             }
 
-            defaults { { bordered: :no } }
+            defaults { { bordered: :no, helper_text: :no } }
           end
 
-  
+
           attr_reader :color, :disabled, :bordered
 
           def initialize(color: nil, disabled: nil, bordered: nil, **extra_attributes)
@@ -60,7 +64,7 @@ module InkComponents
 
             super(**extra_attributes)
           end
-  
+
           private
           def default_attributes
             { type: "radio", class: style(color:) }
@@ -71,9 +75,9 @@ module InkComponents
           end
 
           def div_attributes
-            { class: style(:div, bordered:) }
+            { class: style(:div, bordered:, helper_text: helper_text.present?) }
           end
         end
       end
     end
-  end
+end
