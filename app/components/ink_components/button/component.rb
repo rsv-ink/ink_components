@@ -98,9 +98,7 @@ module InkComponents
         defaults { { color: :pink, shape: :default, size: :md } }
       end
 
-      style :outline do
-        base { %w[ focus:ring-4 font-medium text-center me-2 mb-2 focus:outline-none rounded-lg hover:text-white dark:hover:text-white border bg-transparent dark:bg-transparent ] }
-
+      style :size do
         variants {
           size {
             xs { %w[ px-3 py-2 text-xs ] }
@@ -109,11 +107,23 @@ module InkComponents
             lg { %w[ px-5 py-3 text-base ] }
             xl { %w[ px-6 py-3.5 text-base ] }
           }
+        }
 
+        defaults { { size: :md } }
+      end
+
+      style :disabled do
+        variants {
           disabled {
             yes { %w[ cursor-not-allowed ] }
           }
+        }
+      end
 
+      style :outline do
+        base { %w[ focus:ring-4 font-medium text-center me-2 mb-2 focus:outline-none rounded-lg hover:text-white dark:hover:text-white border bg-transparent dark:bg-transparent ] }
+
+        variants {
           color {
             pink { %w[ hover:bg-pink-800 text-pink-600 border-pink-600 dark:border-pink-500 dark:text-pink-500 dark:hover:bg-pink-500 ] }
             blue { %w[ hover:bg-blue-800 text-blue-700 border-blue-700 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 ] }
@@ -125,7 +135,7 @@ module InkComponents
           }
         }
 
-        defaults { { color: :pink, size: :md } }
+        defaults { { color: :pink } }
       end
 
       attr_reader :builder, :disabled, :shape, :color, :size, :href
@@ -146,7 +156,11 @@ module InkComponents
       end
 
       def classes
-        shape == :outline ? style(:outline, color:, size:, disabled:) : style(color:, shape:, size:, disabled:)
+        shape == :outline ? outline_classes : style(color:, shape:, size:, disabled:)
+      end
+
+      def outline_classes
+        [style(:outline, color:), style(:size, size:), style(:disabled, disabled:)]
       end
 
       def render?
