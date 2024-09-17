@@ -9,8 +9,12 @@ module InkComponents
         # @param checked select { choices: [true, false] }
         # @param disabled select { choices: [true, false] }
         # @param bordered select { choices: [true, false] }
-        def playground(content: "Some text", color: :pink, checked: false, disabled: false, bordered: false)
-          render InkComponents::Forms::Radio::Component.new(id: "default-radio-1", name: "name-radio", value: "value-1", color:, checked:, disabled:, bordered:).with_content(content)
+        # @param helper_text text
+        def playground(content: "Some text", color: :pink, checked: false, disabled: false, bordered: false, helper_text: "")
+          render InkComponents::Forms::Radio::Component.new(id: "default-radio-1", name: "name-radio", value: "value-1", color:, checked:, disabled:, bordered:) do |radio|
+            radio.with_helper_text { helper_text } if helper_text.present?
+            content
+          end
         end
 
         # @!group Colors

@@ -43,9 +43,8 @@ module InkComponents
 
             variants {
               bordered {
-                yes { "ps-4 border border-gray-200 rounded dark:border-gray-700 h-12" }
+                yes { "ps-4 border border-gray-200 rounded dark:border-gray-700 py-3" }
               }
-
               helper_text {
                 no { "items-center" }
               }
