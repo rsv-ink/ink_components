@@ -57,6 +57,16 @@ module InkComponents
           compound(bordered: true, helper_text: true) { %w[pt-2 pb-4] }
         end
 
+        style :content_container_div do
+          base { %w[ me-4 ] }
+
+          variants {
+            helper_text {
+              yes { %w[ flex flex-col mt-4 ] }
+            }
+          }
+        end
+
         attr_reader :checked_value, :unchecked_value, :disabled, :bordered, :color
 
         def initialize(checked_value: "1", unchecked_value: "0", disabled: false, bordered: false, color: nil, **extra_attributes)
@@ -73,12 +83,16 @@ module InkComponents
           { class: style(color:), disabled: }
         end
 
-        def wrapper_div_attributes
-          { class: [style(:wrapper_div, bordered:, helper_text: helper_text?)] }
-        end
-
         def label_attributes
           { for: checkbox_id, class: style(:label, disabled:, bordered:) }
+        end
+
+        def wrapper_div_attributes
+          { class: [ style(:wrapper_div, bordered:, helper_text: helper_text?) ] }
+        end
+
+        def content_container_div_attributes
+          { class: style(:content_container_div, helper_text: helper_text?) }
         end
 
         def checkbox_name
@@ -87,13 +101,6 @@ module InkComponents
 
         def checkbox_id
           attributes[:id] || content&.tr(" ", "_")&.downcase
-        end
-
-        def content_container_classes
-          bordered_class = "mb-2" if bordered
-          helper_text_classes = [ "flex flex-col mt-4"] if helper_text
-
-          [ "me-4", helper_text_classes ]
         end
       end
     end
