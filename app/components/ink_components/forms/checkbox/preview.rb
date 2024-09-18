@@ -19,7 +19,7 @@ module InkComponents
           content: "Some value"
         )
           render(InkComponents::Forms::Checkbox::Component.new(checked:, disabled:, bordered:, color:)) do |checkbox|
-            checkbox.with_helper_text { helper_text }
+            checkbox.with_helper_text { helper_text } if helper_text.present?
             content
           end
         end
