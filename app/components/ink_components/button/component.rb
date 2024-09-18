@@ -98,28 +98,6 @@ module InkComponents
         defaults { { color: :pink, shape: :default, size: :md } }
       end
 
-      style :size do
-        variants {
-          size {
-            xs { %w[ px-3 py-2 text-xs ] }
-            sm { %w[ px-3 py-2 text-sm ] }
-            md { %w[ px-5 py-2.5 text-sm ] }
-            lg { %w[ px-5 py-3 text-base ] }
-            xl { %w[ px-6 py-3.5 text-base ] }
-          }
-        }
-
-        defaults { { size: :md } }
-      end
-
-      style :disabled do
-        variants {
-          disabled {
-            yes { %w[ cursor-not-allowed ] }
-          }
-        }
-      end
-
       style :outline do
         base { %w[ focus:ring-4 font-medium text-center me-2 mb-2 focus:outline-none rounded-lg hover:text-white dark:hover:text-white border bg-transparent dark:bg-transparent ] }
 
@@ -133,9 +111,21 @@ module InkComponents
             yellow { %w[ hover:bg-yellow-500 text-yellow-400 border-yellow-400 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 ] }
             purple { %w[ hover:bg-purple-800 text-purple-700 border-purple-700 dark:border-purple-400 dark:text-purple-400 dark:hover:bg-purple-500 ] }
           }
+
+          size {
+            xs { %w[ px-3 py-2 text-xs ] }
+            sm { %w[ px-3 py-2 text-sm ] }
+            md { %w[ px-5 py-2.5 text-sm ] }
+            lg { %w[ px-5 py-3 text-base ] }
+            xl { %w[ px-6 py-3.5 text-base ] }
+          }
+
+          disabled {
+            yes { %w[ cursor-not-allowed ] }
+          }
         }
 
-        defaults { { color: :pink } }
+        defaults { { color: :pink, size: :md } }
       end
 
       attr_reader :builder, :disabled, :shape, :color, :size, :href
@@ -156,11 +146,7 @@ module InkComponents
       end
 
       def classes
-        shape == :outline ? outline_classes : style(color:, shape:, size:, disabled:)
-      end
-
-      def outline_classes
-        [style(:outline, color:), style(:size, size:), style(:disabled, disabled:)]
+        shape == :outline ? style(:outline, color:, size:, disabled:) : style(color:, shape:, size:, disabled:)
       end
 
       def render?
