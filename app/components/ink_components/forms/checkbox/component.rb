@@ -53,6 +53,8 @@ module InkComponents
               yes { %w[ ps-4 py-4 border border-gray-200 rounded dark:border-gray-700 ] }
             }
           }
+
+          compound(bordered: true, helper_text: true) { %w[pt-2 pb-4] }
         end
 
         attr_reader :checked_value, :unchecked_value, :disabled, :bordered, :color
@@ -71,6 +73,10 @@ module InkComponents
           { class: style(color:), disabled: }
         end
 
+        def wrapper_div_attributes
+          { class: [style(:wrapper_div, bordered:, helper_text: helper_text?)] }
+        end
+
         def label_attributes
           { for: checkbox_id, class: style(:label, disabled:, bordered:) }
         end
@@ -84,8 +90,8 @@ module InkComponents
         end
 
         def content_container_classes
-          bordered_class = "mb-4" if bordered
-          helper_text_classes = [ "flex flex-col h-5", bordered_class ] if helper_text
+          bordered_class = "mb-2" if bordered
+          helper_text_classes = [ "flex flex-col mt-4"] if helper_text
 
           [ "me-4", helper_text_classes ]
         end

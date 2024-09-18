@@ -1,4 +1,4 @@
-<%= content_tag :div, class: [style(:wrapper_div, bordered:)] do %>
+<%= content_tag :div, wrapper_div_attributes do %>
   <%= hidden_field_tag checkbox_name, unchecked_value, id: nil %>
   <%= check_box_tag checkbox_name, checked_value, attributes %>
   <%= content_tag :div, class: content_container_classes do %>

@@ -76,7 +76,7 @@ module InkComponents
         def border_with_helper_text
           render(InkComponents::Forms::Checkbox::Component.new(bordered: true)) do |checkbox|
             checkbox.with_helper_text { "Some helper text" }
-            "Some value"
+            "Another value"
           end
         end
         # @!endgroup
