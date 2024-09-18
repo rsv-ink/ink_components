@@ -55,12 +55,12 @@ module InkComponents
           }
         end
 
-        attr_reader :checked, :unchecked_value, :disabled, :bordered, :color
+        attr_reader :checked_value, :unchecked_value, :disabled, :bordered, :color
 
-        def initialize(checked: false, unchecked_value: "0", disabled: false, bordered: false, color: nil, **extra_attributes)
-          @checked = checked
-          @disabled = disabled
+        def initialize(checked_value: "1", unchecked_value: "0", disabled: false, bordered: false, color: nil, **extra_attributes)
+          @checked_value = checked_value
           @unchecked_value = unchecked_value
+          @disabled = disabled
           @bordered = bordered
           @color = color
           super(**extra_attributes)
