@@ -9,10 +9,10 @@ RSpec.describe InkComponents::Forms::Dropzone::Component, type: :component do
     expect(component.css("input").first["type"]).to include("file")
   end
 
-  context "when the lable text and the helper text is being used" do
-    it "renders the lable text and the helper text" do
+  context "when the lable and the helper text is being used" do
+    it "renders the lable and the helper text" do
       component = render_inline(described_class.new) do |dropzone|
-        dropzone.with_label_text { "Click to upload or drag and drop" }
+        dropzone.with_label { "Click to upload or drag and drop" }
         dropzone.with_helper_text { "SVG, PNG, JPG or GIF (MAX. 800x400px)" }
       end
 
