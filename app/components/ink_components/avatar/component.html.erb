@@ -1,0 +1,17 @@
+<%= content_tag :div, class: wrapper_classes do %>
+  <% if image_url.present? %>
+    <%= image_tag(image_url, attributes) %>
+  <% elsif name_abbreviation.present? %>
+    <%= content_tag :div, class: [attributes[:class], style(:name_abbreviation)], **options do %>
+      <span class="font-medium text-gray-600 dark:text-gray-300"><%= name_abbreviation %></span>
+    <% end %>
+  <% else %>
+    <%= content_tag :div, class: [attributes[:class], style(:icon)], **options do %>
+      <svg class="<%= style(:svg, size:) %>" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+    <% end %>
+  <% end %>
+
+  <% if text? %>
+    <div><%= text %></div>
+  <% end %>
+<% end %>
