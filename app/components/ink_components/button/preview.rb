@@ -23,9 +23,12 @@ module InkComponents
         render(InkComponents::Button::Component.new(builder: :button_tag)) { "Button" }
       end
 
-      # TODO: check if everything is ok
       def button_to_builder
-        render(InkComponents::Button::Component.new(builder: :button_to)) { "Button" }
+        render(InkComponents::Button::Component.new(
+          builder: :button_to,
+          href: InkComponents::Engine.routes.url_helpers.lookbook_path,
+          form: { data: { type: :json } })
+        ) { "Button" }
       end
       # @!endgroup
 

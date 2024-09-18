@@ -99,7 +99,12 @@ module InkComponents
       end
 
       style :outline do
-        base { %w[ focus:ring-4 font-medium text-center me-2 mb-2 focus:outline-none rounded-lg hover:text-white dark:hover:text-white border bg-transparent dark:bg-transparent ] }
+        base {
+          %w[
+            focus:ring-4 font-medium text-center me-2 mb-2 focus:outline-none
+            rounded-lg hover:text-white dark:hover:text-white border bg-transparent dark:bg-transparent
+          ]
+        }
 
         variants {
           color {
@@ -142,11 +147,17 @@ module InkComponents
 
       private
       def default_attributes
+        classes = shape == :outline ? outline_classes : default_classes
+
         { class: classes }
       end
 
-      def classes
-        shape == :outline ? style(:outline, color:, size:, disabled:) : style(color:, shape:, size:, disabled:)
+      def outline_classes
+        style(:outline, color:, size:, disabled:)
+      end
+
+      def default_classes
+        style(color:, shape:, size:, disabled:)
       end
 
       def render?
