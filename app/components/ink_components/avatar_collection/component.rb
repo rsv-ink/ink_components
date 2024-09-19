@@ -44,12 +44,12 @@ module InkComponents
         { class: style }
       end
 
-      def render?
-        avatars.any?
-      end
-
       def link_plus_attributes
         { class: style(:link_plus, size:, shape:), href: }
+      end
+
+      def render?
+        avatars.any?
       end
     end
   end
