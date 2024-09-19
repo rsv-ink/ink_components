@@ -133,15 +133,15 @@ module InkComponents
         defaults { { color: :pink, size: :md } }
       end
 
-      attr_reader :builder, :disabled, :shape, :color, :size, :href
+      attr_reader :builder, :shape, :color, :size, :href, :disabled
 
-      def initialize(builder: :link_to, disabled: false, shape: :default, color: nil, size: nil, href: nil, **extra_attributes)
+      def initialize(builder: :link_to, shape: :default, color: nil, size: nil, href: nil, **extra_attributes)
         @builder = builder
-        @disabled = disabled
         @shape = shape
         @color = color
         @size = size
         @href = href
+        @disabled = extra_attributes[:disabled]
         super(**extra_attributes)
       end
 
