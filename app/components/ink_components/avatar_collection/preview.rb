@@ -31,7 +31,7 @@ module InkComponents
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5")
         end
       end
-      
+
       def with_href
         render InkComponents::AvatarCollection::Component.new(href: "www.example.com") do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")

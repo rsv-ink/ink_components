@@ -6,7 +6,7 @@ RSpec.describe InkComponents::AvatarCollection::Component, type: :component do
   context "when no avatar is provided" do
     it "doesn't render the component" do
       component = render_inline(described_class.new)
-      
+
       expect(component.to_html).to be_empty
     end
   end

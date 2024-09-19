@@ -13,7 +13,7 @@ module InkComponents
       def default_attributes
         { class: style }
       end
-      
+
       def render?
         avatars.any?
       end
