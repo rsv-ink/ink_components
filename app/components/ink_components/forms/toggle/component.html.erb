@@ -1,8 +1,8 @@
 <label class="inline-flex items-center me-5 cursor-pointer">
-  <input type="checkbox" value="" class="sr-only peer" <%= attributes[:checked] %> <%= attributes[:disabled] %>>
-  <%= content_tag :div, nil, attributes %>
+  <%= tag.input type:"checkbox", class: "sr-only peer", **attributes %>
+  <%= content_tag :div, nil, class: style(:div, size:, color:) %>
 
   <% if text.present? %>
-    <%= content_tag :span, text, class: "ms-3 text-sm font-medium dark:text-gray-300 #{text_classes}" %>
+    <%= content_tag :span, text, class: style(:span, disabled:) %>
   <% end %>
 </label>
