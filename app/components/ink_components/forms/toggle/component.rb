@@ -4,7 +4,7 @@ module InkComponents
   module Forms
     module Toggle
       class Component < ApplicationComponent
-        style do
+        style :div do
           base {
             %w[
               peer relative rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:rounded-full
@@ -29,44 +29,34 @@ module InkComponents
               md { %w[h-6 w-11 after:h-5 after:w-5] }
               lg { %w[h-7 w-14 after:h-6 after:w-6] }
             }
-
-            defaults { { size: :md, color: :pink } }
           }
+
+          defaults { { size: :md, color: :pink } }
         end
 
-        attr_reader :text, :size, :color, :disabled, :checked
+        style :span do
+          base { %w[ms-3 text-sm font-medium dark:text-gray-300] }
+          variants {
+            disabled {
+              yes { %w[text-gray-400] }
+              no { %w[text-gray-900] }
+            }
+          }
 
-        def initialize(text: nil, size: nil, color: nil, disabled: false, checked: false, **extra_attributes)
+          defaults { { disabled: false } }
+        end
+
+        attr_reader :text, :size, :color
+
+        def initialize(text: nil, size: nil, color: nil, **extra_attributes)
           @text = text
           @size = size
           @color = color
-          @disabled = disabled
-          @checked = checked
           super(**extra_attributes)
         end
 
-        private
-        def default_attributes
-          h = {
-            class: style(size:, color:)
-          }
-
-          add_attribute_disabled(h)
-          add_attribute_checked(h)
-
-          h
-        end
-
-        def add_attribute_disabled(h)
-          h[:disabled] = "disabled" if disabled
-        end
-
-        def add_attribute_checked(h)
-          h[:checked] = "checked" if checked
-        end
-
-        def text_classes
-          disabled ? "text-gray-400" : "text-gray-900"
+        def disabled
+          attributes[:disabled]
         end
       end
     end
