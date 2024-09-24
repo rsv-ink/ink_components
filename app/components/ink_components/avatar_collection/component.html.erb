@@ -1,14 +1,14 @@
 <%= content_tag :div, attributes do %>
   <% if avatars.size <= 4 %>
     <% avatars.each do |avatar| %>
-      <%= render(avatar) %>
+      <%= avatar %>
     <% end %>
   <% else %>
     <% avatars.first(3).each do |avatar| %>
-      <%= render(avatar) %>
+      <%= avatar %>
     <% end %>
     <%= content_tag :a, link_plus_attributes do %>
-      +<%= avatars.size - 3 %>
+      <%= remaining_avatar_count %>
     <% end %>
   <% end %>
 <% end %>

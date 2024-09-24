@@ -10,7 +10,7 @@ module InkComponents
       def playground(avatar_count: 5, size: :md, shape: :circle, href: nil)
         render InkComponents::AvatarCollection::Component.new(size:, shape:, href:) do |component|
           avatar_count.times do |i|
-            component.with_avatar(image_url: "https://i.pravatar.cc/150?img=#{i + 1}", size:, shape:)
+            component.with_avatar(image_url: "https://i.pravatar.cc/150?img=#{i + 1}")
           end
         end
       end
@@ -70,51 +70,51 @@ module InkComponents
       # @!group Sizes
       def extra_small
         render InkComponents::AvatarCollection::Component.new(size: :xs) do |component|
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1", size: :xs)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2", size: :xs)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3", size: :xs)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4", size: :xs)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5", size: :xs)
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5")
         end
       end
 
       def small
         render InkComponents::AvatarCollection::Component.new(size: :sm) do |component|
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1", size: :sm)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2", size: :sm)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3", size: :sm)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4", size: :sm)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5", size: :sm)
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5")
         end
       end
 
       def medium
         render InkComponents::AvatarCollection::Component.new(size: :md) do |component|
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1", size: :md)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2", size: :md)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3", size: :md)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4", size: :md)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5", size: :md)
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5")
         end
       end
 
       def large
         render InkComponents::AvatarCollection::Component.new(size: :lg) do |component|
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1", size: :lg)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2", size: :lg)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3", size: :lg)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4", size: :lg)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5", size: :lg)
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5")
         end
       end
 
       def extra_large
         render InkComponents::AvatarCollection::Component.new(size: :xl) do |component|
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1", size: :xl)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2", size: :xl)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3", size: :xl)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4", size: :xl)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5", size: :xl)
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5")
         end
       end
       # @!endgroup
@@ -132,11 +132,11 @@ module InkComponents
 
       def square
         render InkComponents::AvatarCollection::Component.new(shape: :square) do |component|
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1", shape: :square)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2", shape: :square)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3", shape: :square)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4", shape: :square)
-          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5", shape: :square)
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=4")
+          component.with_avatar(image_url: "https://i.pravatar.cc/150?img=5")
         end
       end
       # @!endgroup

@@ -3,7 +3,9 @@
 module InkComponents
   module AvatarCollection
     class Component < ApplicationComponent
-      renders_many :avatars, Avatar::Component
+      renders_many :avatars, ->(image_url: nil, name_abbreviation: nil) {
+        Avatar::Component.new(image_url:, name_abbreviation:, size:, shape:)
+      }
 
       style do
         base { "flex -space-x-4 rtl:space-x-reverse" }
@@ -50,6 +52,10 @@ module InkComponents
 
       def render?
         avatars.any?
+      end
+
+      def remaining_avatar_count
+        "+#{avatars.size - 3}"
       end
     end
   end
