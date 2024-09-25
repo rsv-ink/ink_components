@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "dist/index.js",
   "dependencies": {
+    "esbuild": "^0.23.1",
     "flowbite": "^1.6.4",
     "flowbite-datepicker": "^1.2.2"
   },
@@ -12,7 +13,5 @@
   "files": [
     "dist/index.js"
   ],
-  "devDependencies": {
-    "esbuild": "^0.23.0"
-  }
+  "devDependencies": {}
 }
