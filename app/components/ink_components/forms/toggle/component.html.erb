@@ -1,5 +1,5 @@
 <%= tag.label class: "inline-flex items-center me-5 cursor-pointer" do %>
-  <%= tag.input type:"checkbox", class: "sr-only peer", **attributes %>
-  <%= tag.div class: style(:div, size:, color:) %>
-  <%= tag.span text, class: style(:span, disabled:) if text.present? %>
+  <%= tag.input **attributes %>
+  <%= tag.div **div_attributes %>
+  <%= tag.span text, **span_attributes if text.present? %>
 <% end %>
