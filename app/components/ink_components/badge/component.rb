@@ -31,7 +31,7 @@ module InkComponents
           href {
             yes { "inline-flex items-center justify-center" }
           }
-          dismissable {
+          dismissible {
             yes { "inline-flex items-center px-2 py-1 me-2" }
             no { "px-2.5 py-0.5" }
           }
@@ -55,7 +55,7 @@ module InkComponents
         compound(color: :indigo, href: true) { %w[hover:bg-indigo-200] }
         compound(color: :purple, href: true) { %w[hover:bg-purple-200] }
 
-        defaults { { color: :pink, size: :xs, bordered: :no, shape: :square, href: :no, dismissable: :no } }
+        defaults { { color: :pink, size: :xs, bordered: :no, shape: :square, href: :no, dismissible: :no } }
       end
 
       style :dismiss_button do
@@ -77,23 +77,23 @@ module InkComponents
         defaults { { color: :pink } }
       end
 
-      attr_reader :id, :color, :size, :bordered, :shape, :href, :dismissable
+      attr_reader :id, :color, :size, :bordered, :shape, :href, :dismissible
 
-      def initialize(id: nil, color: nil, size: nil, bordered: nil, shape: nil, href: nil, dismissable: nil, **extra_attributes)
+      def initialize(id: nil, color: nil, size: nil, bordered: nil, shape: nil, href: nil, dismissible: nil, **extra_attributes)
         @id = id
         @color = color
         @size = size
         @bordered = bordered
         @shape = shape
         @href = href
-        @dismissable = dismissable
+        @dismissible = dismissible
 
         super(**extra_attributes)
       end
 
       private
       def default_attributes
-        { id:, class: style(color:, bordered:, size:, shape:, href: href.present?, dismissable:), href: }
+        { id:, class: style(color:, bordered:, size:, shape:, href: href.present?, dismissible:), href: }
       end
 
       def dismiss_button_attributes
