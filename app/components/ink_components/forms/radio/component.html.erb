@@ -1,0 +1,9 @@
+<%= content_tag :div, div_attributes do %>
+  <div class="flex items-center h-5">
+      <%= radio_button_tag attributes[:name], attributes[:value], attributes[:chacked], attributes %>
+  </div>
+  <div class="text-sm">
+    <%= render(InkComponents::Forms::Label::Component.new(for: attributes[:id], **label_attributes)) { content } %>
+    <%= helper_text %>
+  </div>
+<% end %>
