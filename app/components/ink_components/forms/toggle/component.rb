@@ -55,6 +55,19 @@ module InkComponents
           super(**extra_attributes)
         end
 
+        private
+        def default_attributes
+          { type: "checkbox", class: "sr-only peer" }
+        end
+
+        def div_attributes
+          { class: style(:div, size:, color:) }
+        end
+
+        def span_attributes
+          { class: style(:span, disabled:) }
+        end
+
         def disabled
           attributes[:disabled]
         end
