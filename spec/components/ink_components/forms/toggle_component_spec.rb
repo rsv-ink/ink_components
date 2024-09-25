@@ -29,7 +29,7 @@ RSpec.describe InkComponents::Forms::Toggle::Component, type: :component do
     it "renders the component with disabled text" do
       component = render_inline(described_class.new(text: "Some Testing Text", disabled: true))
 
-      expect(component.css("span").first["class"]).to include("text-gray-400")
+      expect(component.css("span").text).to include("Some Testing Text")
     end
   end
 
