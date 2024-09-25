@@ -46,10 +46,9 @@ module InkComponents
           defaults { { disabled: false } }
         end
 
-        attr_reader :text, :size, :color
+        attr_reader :size, :color
 
-        def initialize(text: nil, size: nil, color: nil, **extra_attributes)
-          @text = text
+        def initialize(size: nil, color: nil, **extra_attributes)
           @size = size
           @color = color
           super(**extra_attributes)

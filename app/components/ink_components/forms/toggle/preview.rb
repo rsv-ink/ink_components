@@ -4,26 +4,26 @@ module InkComponents
   module Forms
     module Toggle
       class Preview < Lookbook::Preview
-        # @param text text
+        # @param content text
         # @param size select { choices: [sm, md, lg] }
         # @param color select { choices: [pink, blue, red, green, purple, yellow, teal, orange] }
         # @param disabled toggle
         # @param checked toggle
-        def playground(text: "Some Text", size: :md, color: :pink, disabled: false, checked: false)
-          render InkComponents::Forms::Toggle::Component.new(text:, size:, color:, disabled:, checked:)
+        def playground(content: "Some Text", size: :md, color: :pink, disabled: false, checked: false)
+          render InkComponents::Forms::Toggle::Component.new(size:, color:, disabled:, checked:).with_content(content)
         end
 
         def checked_state
-          render InkComponents::Forms::Toggle::Component.new(text: "Checked toggle", size: :md, color: :pink, checked: true)
+          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :pink, checked: true).with_content("Checked toggle")
         end
 
         # @!group Disabled
         def disabled_toggle
-          render InkComponents::Forms::Toggle::Component.new(text: "Text", size: :md, color: :pink, disabled: true, checked: false)
+          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :pink, disabled: true, checked: false).with_content("Disabled toggle")
         end
 
         def disabled_checked
-          render InkComponents::Forms::Toggle::Component.new(text: "Text", size: :md, color: :pink, disabled: true, checked: true)
+          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :pink, disabled: true, checked: true).with_content("Disabled checked toggle")
         end
         # @!endgroup
 

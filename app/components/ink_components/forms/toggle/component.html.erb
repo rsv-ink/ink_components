@@ -1,5 +1,5 @@
 <%= tag.label class: "inline-flex items-center me-5 cursor-pointer" do %>
   <%= tag.input **attributes %>
   <%= tag.div **div_attributes %>
-  <%= tag.span text, **span_attributes if text.present? %>
+  <%= tag.span content, **span_attributes if content? %>
 <% end %>
