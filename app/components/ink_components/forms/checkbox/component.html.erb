@@ -1,0 +1,8 @@
+<%= content_tag :div, wrapper_div_attributes do %>
+  <%= hidden_field_tag checkbox_name, unchecked_value, id: nil %>
+  <%= check_box_tag checkbox_name, checked_value, attributes %>
+  <%= content_tag :div, content_container_div_attributes do %>
+    <%= render(InkComponents::Forms::Label::Component.new(**label_attributes)) { content } %>
+    <%= helper_text %>
+  <% end %>
+<% end %>
