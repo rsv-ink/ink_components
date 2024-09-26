@@ -13,7 +13,7 @@ RSpec.describe InkComponents::Forms::Toggle::Component, type: :component do
 
   context "when initialized with text" do
     it "renders the component with text" do
-      component = render_inline(described_class.new(text: "Some Testing Text"))
+      component = render_inline(described_class.new.with_content("Some Testing Text"))
 
       expect(component.text).to include("Some Testing Text")
     end
@@ -27,7 +27,7 @@ RSpec.describe InkComponents::Forms::Toggle::Component, type: :component do
     end
 
     it "renders the component with disabled text" do
-      component = render_inline(described_class.new(text: "Some Testing Text", disabled: true))
+      component = render_inline(described_class.new(disabled: true).with_content("Some Testing Text"))
 
       expect(component.css("span").text).to include("Some Testing Text")
     end
