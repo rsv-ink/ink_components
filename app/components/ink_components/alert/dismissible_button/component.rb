@@ -2,7 +2,7 @@
 
 module InkComponents
   module Alert
-    module DismissableButton
+    module DismissibleButton
       class Component < ApplicationComponent
         style do
           base {

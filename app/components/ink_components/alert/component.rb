@@ -31,13 +31,13 @@ module InkComponents
         defaults { { state: :info } }
       end
 
-      attr_reader :state, :bordered, :bordered_accent, :dismissable
+      attr_reader :state, :bordered, :bordered_accent, :dismissible
 
-      def initialize(state: nil, bordered: false, bordered_accent: false, dismissable: false, **extra_attributes)
+      def initialize(state: nil, bordered: false, bordered_accent: false, dismissible: false, **extra_attributes)
         @state = state
         @bordered = bordered
         @bordered_accent = bordered_accent
-        @dismissable = dismissable
+        @dismissible = dismissible
         super(**extra_attributes)
       end
 

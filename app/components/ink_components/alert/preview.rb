@@ -10,18 +10,18 @@ module InkComponents
       # @param state select { choices: [info, success, danger, warning, dark] }
       # @param bordered toggle
       # @param bordered_accent toggle
-      # @param dismissable toggle
+      # @param dismissible toggle
       def playground(
         state: :info,
         bordered: false,
         bordered_accent: false,
-        dismissable: false,
+        dismissible: false,
         content: "Write some text here",
         title: nil,
         body: nil,
         actions: nil
         )
-        render(InkComponents::Alert::Component.new(state:, bordered:, bordered_accent:, dismissable:, id: "some-id")) do |component|
+        render(InkComponents::Alert::Component.new(state:, bordered:, bordered_accent:, dismissible:, id: "some-id")) do |component|
           component.with_title { title }
           component.with_body { body }
           component.with_actions { actions }
@@ -75,8 +75,8 @@ module InkComponents
       end
       # @!endgroup
 
-      def with_dismissable_button
-        render InkComponents::Alert::Component.new(id: "some-id", dismissable: true) do
+      def with_dismissible_button
+        render InkComponents::Alert::Component.new(id: "some-id", dismissible: true) do
           "Info alert! Change a few things up and try submitting again."
         end
       end

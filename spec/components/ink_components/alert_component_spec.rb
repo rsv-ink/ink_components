@@ -41,9 +41,9 @@ RSpec.describe InkComponents::Alert::Component, type: :component do
     end
   end
 
-  context "when the alert is dismissable" do
+  context "when the alert is dismissible" do
     it "renders the button to close alert" do
-      component = render_inline(described_class.new(dismissable: true, id: "some-id")) do
+      component = render_inline(described_class.new(dismissible: true, id: "some-id")) do
         "Some content"
       end
 
@@ -51,9 +51,9 @@ RSpec.describe InkComponents::Alert::Component, type: :component do
     end
   end
 
-  context "when the alert is not dismissable" do
+  context "when the alert is not dismissible" do
     it "doens't render the button to close alert" do
-      component = render_inline(described_class.new(dismissable: false, id: "some-id")) do
+      component = render_inline(described_class.new(dismissible: false, id: "some-id")) do
         "Some content"
       end
 
