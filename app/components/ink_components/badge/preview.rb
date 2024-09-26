@@ -7,9 +7,9 @@ module InkComponents
       # @param bordered select { choices: [true, false] }
       # @param shape select { choices: [square, pill] }
       # @param href text
-      # @param dismissable select { choices: [true, false] }
-      def playground(content: "Some text", color: :pink, size: :xs, bordered: false, shape: :square, href: nil, dismissable: false)
-        render InkComponents::Badge::Component.new(id: "badge_component", size:, color:, bordered:, shape:, href:, dismissable:).with_content(content)
+      # @param dismissible select { choices: [true, false] }
+      def playground(content: "Some text", color: :pink, size: :xs, bordered: false, shape: :square, href: nil, dismissible: false)
+        render InkComponents::Badge::Component.new(id: "badge_component", size:, color:, bordered:, shape:, href:, dismissible:).with_content(content)
       end
 
       # @!group Colors
@@ -86,13 +86,13 @@ module InkComponents
       end
       # @!endgroup
 
-      # @!group Dismissable
-      def dismissable_true
-        render InkComponents::Badge::Component.new(id: "badge_component", dismissable: true).with_content("Dismissable Badge")
+      # @!group Dismissible
+      def dismissible_true
+        render InkComponents::Badge::Component.new(id: "badge_component", dismissible: true).with_content("dismissible Badge")
       end
 
-      def dismissable_false
-        render InkComponents::Badge::Component.new(dismissable: false).with_content("Non-Dismissable Badge")
+      def dismissible_false
+        render InkComponents::Badge::Component.new(dismissible: false).with_content("Non-dismissible Badge")
       end
       # @!endgroup
     end
