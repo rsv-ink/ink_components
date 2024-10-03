@@ -15,7 +15,7 @@ module InkComponents
       private
 
       def path
-        "ink_components/icons/#{type}/#{name}"
+        "ink_components/icons/#{type}/#{name}.svg"
       end
     end
   end
