@@ -20,7 +20,7 @@ module InkComponents
       select: "InkComponents::Forms::Select::Component",
       text_area: "InkComponents::Forms::TextArea::Component",
       toggle: "InkComponents::Forms::Toggle::Component",
-      progress_bar: "InkComponents::ProgressBar::Component",
+      progress_bar: "InkComponents::ProgressBar::Component"
     }.freeze
 
     COMPONENTS.each do |component, klass|
@@ -30,11 +30,4 @@ module InkComponents
       end
     end
   end
-end
-
-# test one of the components
-component = InkComponents::ViewHelper::COMPONENTS[:alert]
-define_method("ink_alert") do |**kwargs, &block|
-  component_klass = component.constantize
-  render component_klass.new(**kwargs), &block
 end
