@@ -4,6 +4,8 @@ require "view_component/test_helpers"
 # require "capybara/rspec"
 
 RSpec.configure do |config|
-  config.include ViewComponent::TestHelpers, type: :component
+  %i[component helper].each do |type|
+    config.include ViewComponent::TestHelpers, type:
+  end
   # config.include Capybara::RSpecMatchers, type: :component
 end
