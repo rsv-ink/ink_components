@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe InkComponents::ViewHelper, type: :component do
   describe "#ink_alert" do
-    it "" do
+    it "should render the alert component" do
       helper = process_html(ink_alert { "Some content" })
       component = render_inline(InkComponents::Alert::Component.new) { "Some content" }
 
