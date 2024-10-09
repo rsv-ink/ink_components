@@ -7,7 +7,7 @@ module InkComponents
     # or
     # app/components/ink_components/forms/{component_name}/component.rb
 
-    COMPONENTS = Dir["app/components/ink_components/*", "app/components/ink_components/forms/*"]
+    COMPONENTS = Dir["#{InkComponents::Engine.root}/app/components/ink_components/*", "#{InkComponents::Engine.root}/app/components/ink_components/forms/*"]
                    .reject { |path| path.include?(".rb") }
                    .each_with_object({}) do |directory_path, hash|
       component_name = directory_path.split("/").last.to_sym
@@ -17,7 +17,7 @@ module InkComponents
       component_class = "InkComponents#{has_form_module}::#{component_name.to_s.camelize}::Component"
 
       hash[component_name] = component_class
-    end.freeze
+    end
 
     COMPONENTS.each do |component, klass|
       define_method("ink_#{component}") do |**kwargs, &block|
