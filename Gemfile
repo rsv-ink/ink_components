@@ -20,7 +20,7 @@ gem "view_component-contrib", "0.2.3"
 gem "cssbundling-rails", "1.1.2"
 
 # Bundle and transpile JavaScript in Rails with esbuild, rollup.js, or Webpack [https://github.com/rails/jsbundling-rails]
-gem "jsbundling-rails", "1.1.1"
+gem "jsbundling-rails", "1.3.1"
 
 # Utility function to efficiently merge Tailwind CSS classes without style conflicts [https://github.com/gjtorikian/tailwind_merge]
 gem "tailwind_merge", "0.13.1"
