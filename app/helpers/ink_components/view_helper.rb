@@ -13,7 +13,9 @@ module InkComponents
       component_name = directory_path.split("/").last.to_sym
       next if component_name == :forms
 
-      component_class = "InkComponents#{'::Forms' if directory_path.include?('forms')}::#{component_name.to_s.camelize}::Component"
+      has_form_module = directory_path.include?('forms') ? "::Forms" : ""
+      component_class = "InkComponents#{has_form_module}::#{component_name.to_s.camelize}::Component"
+
       hash[component_name] = component_class
     end.freeze
 
