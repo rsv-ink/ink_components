@@ -3,6 +3,7 @@
 module InkComponents
   module Alert
     class Preview < Lookbook::Preview
+      include InkComponents::ViewHelper
       # @param content text
       # @param title text
       # @param body text
@@ -21,7 +22,15 @@ module InkComponents
         body: nil,
         actions: nil
         )
-        render(InkComponents::Alert::Component.new(state:, bordered:, bordered_accent:, dismissible:, id: "some-id")) do |component|
+
+        # render(InkComponents::Alert::Component.new(state:, bordered:, bordered_accent:, dismissible:, id: "some-id")) do |component|
+        #   component.with_title { title }
+        #   component.with_body { body }
+        #   component.with_actions { actions }
+        #   content
+        # end
+
+        ink_alert(state:, bordered:, bordered_accent:, dismissible:, id: "some-id") do |component|
           component.with_title { title }
           component.with_body { body }
           component.with_actions { actions }
@@ -31,31 +40,31 @@ module InkComponents
 
       # @!group States
       def info
-        render InkComponents::Alert::Component.new(state: :info) do
+        ink_alert(state: :info) do
           "<span class='font-medium'>Info alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
 
       def success
-        render InkComponents::Alert::Component.new(state: :success) do
+        ink_alert(state: :success) do
           "<span class='font-medium'>Success alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
 
       def danger
-        render InkComponents::Alert::Component.new(state: :danger) do
+        ink_alert(state: :danger) do
           "<span class='font-medium'>Danger alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
 
       def warning
-        render InkComponents::Alert::Component.new(state: :warning) do
+        ink_alert(state: :warning) do
           "<span class='font-medium'>Warning alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
 
       def dark
-        render InkComponents::Alert::Component.new(state: :dark) do
+        ink_alert(state: :dark) do
           "<span class='font-medium'>Dark alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
@@ -63,26 +72,26 @@ module InkComponents
 
       # @!group Borders
       def with_border
-        render InkComponents::Alert::Component.new(bordered: true) do
+        ink_alert(bordered: true) do
           "Info alert! Change a few things up and try submitting again."
         end
       end
 
       def with_accent_border
-        render InkComponents::Alert::Component.new(bordered_accent: true) do
+        ink_alert(bordered_accent: true) do
           "Info alert! Change a few things up and try submitting again."
         end
       end
       # @!endgroup
 
       def with_dismissible_button
-        render InkComponents::Alert::Component.new(id: "some-id", dismissible: true) do
+        ink_alert(id: "some-id", dismissible: true) do
           "Info alert! Change a few things up and try submitting again."
         end
       end
 
       def title_body_and_actions
-        render InkComponents::Alert::Component.new do |component|
+        ink_alert do |component|
           component.with_title { "This is a info alert" }
           component.with_body do
             "More info about this info alert goes here.
