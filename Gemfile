@@ -32,3 +32,6 @@ group :development do
   # Omakase Ruby styling for Rails [https://github.com/rails/rubocop-rails-omakase]
   gem "rubocop-rails-omakase", "1.0.0"
 end
+
+# Embed SVG documents in your Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg]
+gem "inline_svg"

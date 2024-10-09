@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     ink_components (0.1.0)
+      inline_svg
       lookbook (= 2.3.2)
       rails (>= 6.1.7.4)
       tailwind_merge (~> 0.13.0)
@@ -104,6 +105,9 @@ GEM
     htmlentities (4.3.4)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.10.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-console (0.7.2)
     irb (1.14.0)
       rdoc (>= 4.0.0)
@@ -327,6 +331,7 @@ PLATFORMS
 DEPENDENCIES
   cssbundling-rails (= 1.1.2)
   ink_components!
+  inline_svg
   jsbundling-rails (= 1.1.1)
   puma
   rspec-rails (= 6.1.4)
