@@ -3,7 +3,6 @@
 module InkComponents
   module Alert
     class Preview < Lookbook::Preview
-      include InkComponents::ViewHelper
       # @param content text
       # @param title text
       # @param body text

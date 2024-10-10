@@ -16,5 +16,12 @@ module InkComponents
         theme: [ "light", "dark" ]
       }
     end
+
+    initializer "InkComponents setup helper" do
+      Engine.config.to_prepare do
+        Lookbook::Preview.include InkComponents::ViewHelper
+        ActionController::Base.helper InkComponents::ViewHelper
+      end
+    end
   end
 end
