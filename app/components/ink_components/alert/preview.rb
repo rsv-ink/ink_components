@@ -21,14 +21,6 @@ module InkComponents
         body: nil,
         actions: nil
         )
-
-        # render(InkComponents::Alert::Component.new(state:, bordered:, bordered_accent:, dismissible:, id: "some-id")) do |component|
-        #   component.with_title { title }
-        #   component.with_body { body }
-        #   component.with_actions { actions }
-        #   content
-        # end
-
         ink_alert(state:, bordered:, bordered_accent:, dismissible:, id: "some-id") do |component|
           component.with_title { title }
           component.with_body { body }
