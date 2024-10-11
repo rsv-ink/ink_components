@@ -24,13 +24,13 @@ RSpec.describe InkComponents::ViewHelper, type: :helper do
   }.freeze
 
   COMPONENTS_ARGS.each do |key, value|
-    describe "#ink_#{key}" do
+    describe "##{key}_component" do
       it "renders #{key} component" do
         klass = described_class::COMPONENTS[key]
         args = value[:args]
         content = value[:block]
 
-        helper = process_html(send("ink_#{key}", **args) { content })
+        helper = process_html(send("#{key}_component", **args) { content })
         component = render_inline(klass.constantize.new(**args)) { content }
 
         expect(helper).to eq(component.to_html)
