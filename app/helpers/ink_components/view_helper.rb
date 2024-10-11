@@ -20,7 +20,7 @@ module InkComponents
     end
 
     COMPONENTS.each do |component, klass|
-      define_method("ink_#{component}") do |**kwargs, &block|
+      define_method("#{component}_component") do |**kwargs, &block|
         component_klass = klass.constantize
         render component_klass.new(**kwargs), &block
       end
