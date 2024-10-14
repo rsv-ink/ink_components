@@ -21,7 +21,7 @@ module InkComponents
         body: nil,
         actions: nil
         )
-        render(InkComponents::Alert::Component.new(state:, bordered:, bordered_accent:, dismissible:, id: "some-id")) do |component|
+        alert_component(state:, bordered:, bordered_accent:, dismissible:, id: "some-id") do |component|
           component.with_title { title }
           component.with_body { body }
           component.with_actions { actions }
@@ -31,31 +31,31 @@ module InkComponents
 
       # @!group States
       def info
-        render InkComponents::Alert::Component.new(state: :info) do
+        alert_component(state: :info) do
           "<span class='font-medium'>Info alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
 
       def success
-        render InkComponents::Alert::Component.new(state: :success) do
+        alert_component(state: :success) do
           "<span class='font-medium'>Success alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
 
       def danger
-        render InkComponents::Alert::Component.new(state: :danger) do
+        alert_component(state: :danger) do
           "<span class='font-medium'>Danger alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
 
       def warning
-        render InkComponents::Alert::Component.new(state: :warning) do
+        alert_component(state: :warning) do
           "<span class='font-medium'>Warning alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
 
       def dark
-        render InkComponents::Alert::Component.new(state: :dark) do
+        alert_component(state: :dark) do
           "<span class='font-medium'>Dark alert!</span> Change a few things up and try submitting again.".html_safe
         end
       end
@@ -63,26 +63,26 @@ module InkComponents
 
       # @!group Borders
       def with_border
-        render InkComponents::Alert::Component.new(bordered: true) do
+        alert_component(bordered: true) do
           "Info alert! Change a few things up and try submitting again."
         end
       end
 
       def with_accent_border
-        render InkComponents::Alert::Component.new(bordered_accent: true) do
+        alert_component(bordered_accent: true) do
           "Info alert! Change a few things up and try submitting again."
         end
       end
       # @!endgroup
 
       def with_dismissible_button
-        render InkComponents::Alert::Component.new(id: "some-id", dismissible: true) do
+        alert_component(id: "some-id", dismissible: true) do
           "Info alert! Change a few things up and try submitting again."
         end
       end
 
       def title_body_and_actions
-        render InkComponents::Alert::Component.new do |component|
+        alert_component do |component|
           component.with_title { "This is a info alert" }
           component.with_body do
             "More info about this info alert goes here.
