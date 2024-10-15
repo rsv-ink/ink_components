@@ -6,7 +6,7 @@ PATH
       lookbook (= 2.3.2)
       rails (>= 6.1.7.4)
       tailwind_merge (~> 0.13.0)
-      view_component (= 3.14.0)
+      view_component (= 3.17.0)
       view_component-contrib (= 0.2.3)
 
 GEM
@@ -103,7 +103,7 @@ GEM
       activesupport (>= 6.1)
     htmlbeautifier (1.4.3)
     htmlentities (4.3.4)
-    i18n (1.14.5)
+    i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     inline_svg (1.10.0)
       activesupport (>= 3.0)
@@ -116,7 +116,7 @@ GEM
       railties (>= 6.0.0)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
-    logger (1.6.0)
+    logger (1.6.1)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -141,7 +141,7 @@ GEM
     marcel (1.0.4)
     method_source (1.1.0)
     mini_mime (1.1.5)
-    minitest (5.25.0)
+    minitest (5.25.1)
     net-imap (0.4.14)
       date
       net-protocol
@@ -298,7 +298,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     useragent (0.16.10)
-    view_component (3.14.0)
+    view_component (3.17.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -339,7 +339,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (= 2.1.0)
   tailwind_merge (= 0.13.1)
-  view_component (= 3.14.0)
+  view_component (= 3.17.0)
   view_component-contrib (= 0.2.3)
 
 BUNDLED WITH
