@@ -1,0 +1,10 @@
+<h1>Create User</h1>
+
+<%= form_with model: @user, builder: InkComponents::FormBuilder do |f| %>
+  <%= f.label :name, "Testando teste", data: { controller: "test" } %>
+  <%= f.text_field :name %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+<% end %>
+
