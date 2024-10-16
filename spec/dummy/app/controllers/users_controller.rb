@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   def new
-    @user = User.new
+    @user = User.new(paid: true)
   end
 
   def create

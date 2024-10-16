@@ -3,7 +3,12 @@
 class User
   include ActiveModel::Model
 
-  attr_accessor :name, :email
+  attr_accessor :name, :email, :paid
+
+  def initialize(paid:)
+    super
+    @paid = paid
+  end
 
   def persisted?
     false

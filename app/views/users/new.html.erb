@@ -4,7 +4,15 @@
   <%= f.label :name, "Testando teste", data: { controller: "test" } %>
   <%= f.text_field :name %>
 
+  <br><br>
+
   <%= f.label :email %>
   <%= f.text_field :email %>
-<% end %>
 
+  <br><br>
+
+  <div class="flex">
+    <%= f.check_box :paid, {}, true, false %>
+    <%= f.label :paid, class: "mb-0" %>
+  </div>
+<% end %>
