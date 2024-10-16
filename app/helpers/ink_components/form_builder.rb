@@ -15,8 +15,10 @@ module InkComponents
     end
 
     def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
+      checked = object.try(:public_send, attribute).in?([ true, checked_value ])
+
       checkbox_component(
-        id: format_id(attribute), name: format_name(attribute), checked_value:, unchecked_value:, **options
+        id: format_id(attribute), name: format_name(attribute), checked_value:, unchecked_value:, checked:, **options
       )
     end
 
