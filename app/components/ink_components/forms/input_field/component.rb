@@ -7,7 +7,7 @@ module InkComponents
         style do
           base { %w[ border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 ] }
           variants {
-            size {
+            scale {
               sm { %w[ p-2 ] }
               md { %w[ p-2.5 ] }
               lg { %w[ p-4 ] }
@@ -37,13 +37,13 @@ module InkComponents
               yes { %w[ bg-gray-100 cursor-not-allowed dark:text-gray-400 ] }
             }
           }
-          defaults { { size: :md, state: :default, disabled: false } }
+          defaults { { scale: :md, state: :default, disabled: false } }
         end
 
-        attr_reader :type, :size, :state, :disabled
+        attr_reader :type, :scale, :state, :disabled
 
-        def initialize(type: "text", size: :md, state: :default, disabled: false, **extra_attributes)
-          @size = size
+        def initialize(type: "text", scale: :md, state: :default, disabled: false, **extra_attributes)
+          @scale = scale
           @state = state
           @type = type
           @disabled = disabled
@@ -52,7 +52,7 @@ module InkComponents
 
         private
         def default_attributes
-          { class: style(size:, state:, disabled:), type:, disabled: }
+          { class: style(scale:, state:, disabled:), type:, disabled: }
         end
       end
     end

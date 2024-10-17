@@ -4,11 +4,11 @@ module InkComponents
   module Forms
     module InputField
       class Preview < Lookbook::Preview
-        # @param size select { choices: [sm, md, lg] }
+        # @param scale select { choices: [sm, md, lg] }
         # @param state select { choices: [default, success, error] }
         # @param disabled toggle
-        def playground(size: :md, state: :default, disabled: false)
-          input_field_component(size:, state:, disabled:, placeholder: "placeholder")
+        def playground(scale: :md, state: :default, disabled: false)
+          input_field_component(scale:, state:, disabled:, placeholder: "placeholder")
         end
 
         # @!group Disabled
@@ -21,57 +21,57 @@ module InkComponents
         end
         # @!endgroup
 
-        # @!group Sizes
+        # @!group scales
         def small
-          input_field_component(size: :sm, state: :default, placeholder: "Small")
+          input_field_component(scale: :sm, state: :default, placeholder: "Small")
         end
 
         def medium
-          input_field_component(size: :md, state: :default, placeholder: "Medium")
+          input_field_component(scale: :md, state: :default, placeholder: "Medium")
         end
 
         def large
-          input_field_component(size: :lg, state: :default, placeholder: "Large")
+          input_field_component(scale: :lg, state: :default, placeholder: "Large")
         end
         # @!endgroup
 
         # @!group States
         def default
-          input_field_component(size: :md, state: :default, placeholder: "Default")
+          input_field_component(scale: :md, state: :default, placeholder: "Default")
         end
 
         def success
-          input_field_component(size: :md, state: :success, placeholder: "Success")
+          input_field_component(scale: :md, state: :success, placeholder: "Success")
         end
 
         def error
-          input_field_component(size: :md, state: :error, placeholder: "Error")
+          input_field_component(scale: :md, state: :error, placeholder: "Error")
         end
         # @!endgroup
 
         # @!group Types
         def text
-          input_field_component(size: :md, state: :default, placeholder: "Text")
+          input_field_component(scale: :md, state: :default, placeholder: "Text")
         end
 
         def email
-          input_field_component(size: :md, state: :default, placeholder: "Email", type: "email")
+          input_field_component(scale: :md, state: :default, placeholder: "Email", type: "email")
         end
 
         def password
-          input_field_component(size: :md, state: :default, placeholder: "Password", type: "password")
+          input_field_component(scale: :md, state: :default, placeholder: "Password", type: "password")
         end
 
         def number
-          input_field_component(size: :md, state: :default, placeholder: "Number", type: "number")
+          input_field_component(scale: :md, state: :default, placeholder: "Number", type: "number")
         end
 
         def phone_number
-          input_field_component(size: :md, state: :default, placeholder: "(85) 98888-8888", type: "tel", pattern: "#{/\A(\(\d{2}\) \d{4}-\d{4})|(\(\d{2}\) 9{0,1}\d{4}-\d{4})\z/}")
+          input_field_component(scale: :md, state: :default, placeholder: "(85) 98888-8888", type: "tel", pattern: "#{/\A(\(\d{2}\) \d{4}-\d{4})|(\(\d{2}\) 9{0,1}\d{4}-\d{4})\z/}")
         end
 
         def url
-          input_field_component(size: :md, state: :default, placeholder: "Url", type: "url")
+          input_field_component(scale: :md, state: :default, placeholder: "Url", type: "url")
         end
         # @!endgroup
       end
