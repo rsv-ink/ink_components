@@ -3,11 +3,15 @@
 class User
   include ActiveModel::Model
 
+  validates :name, presence: true
+
   attr_accessor :name, :email, :paid
 
-  def initialize(paid:)
+  def initialize(**kwargs)
     super
-    @paid = paid
+    @paid = kwargs.fetch("paid", false)
+    @name = kwargs.fetch("name", "")
+    @email = kwargs.fetch("email", "")
   end
 
   def persisted?
