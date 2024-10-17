@@ -33,22 +33,26 @@ module InkComponents
                 ]
               }
             }
+            disabled {
+              yes { %w[ bg-gray-100 cursor-not-allowed dark:text-gray-400 ] }
+            }
           }
-          defaults { { size: :md, state: :default } }
+          defaults { { size: :md, state: :default, disabled: false } }
         end
 
-        attr_reader :type, :size, :state
+        attr_reader :type, :size, :state, :disabled
 
-        def initialize(type: "text", size: :md, state: :default, **extra_attributes)
+        def initialize(type: "text", size: :md, state: :default, disabled: false, **extra_attributes)
           @size = size
           @state = state
           @type = type
+          @disabled = disabled
           super(**extra_attributes)
         end
 
         private
         def default_attributes
-          { class: style(size:, state:), type: }
+          { class: style(size:, state:, disabled:), type:, disabled: }
         end
       end
     end

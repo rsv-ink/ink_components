@@ -6,9 +6,20 @@ module InkComponents
       class Preview < Lookbook::Preview
         # @param size select { choices: [sm, md, lg] }
         # @param state select { choices: [default, success, error] }
-        def playground(size: :md, state: :default)
-          input_field_component(size:, state:, placeholder: "placeholder")
+        # @param disabled toggle
+        def playground(size: :md, state: :default, disabled: false)
+          input_field_component(size:, state:, disabled:, placeholder: "placeholder")
         end
+
+        # @!group Disabled
+        def disabled
+          input_field_component(placeholder: "Disabled", disabled: true)
+        end
+
+        def disabled_with_read_only
+          input_field_component(placeholder: "Disabled with read only", disabled: true, readonly: true)
+        end
+        # @!endgroup
 
         # @!group Sizes
         def small
