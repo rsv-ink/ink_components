@@ -4,6 +4,11 @@ module InkComponents
   module Forms
     module InputField
       class Component < ApplicationComponent
+        renders_one :helper_text, HelperText::Component
+        renders_one :error_text, ->(custom_classes:) do
+          HelperText::Component.new(state:, size: :sm, class: custom_classes)
+        end
+
         style do
           base { %w[ border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 ] }
           variants {
