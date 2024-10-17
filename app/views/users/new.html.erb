@@ -1,13 +1,14 @@
 <h1>Create User</h1>
 
 <%= form_with model: @user, builder: InkComponents::FormBuilder do |f| %>
-  <%= f.label :name, "Testando teste", data: { controller: "test" } %>
-  <%= f.text_field :name %>
+  <%= f.label :name, data: { controller: "test" } %>
+  <%= f.text_field_with_message :name %>
 
   <br><br>
 
   <%= f.label :email %>
   <%= f.text_field :email %>
+
 
   <br><br>
 
