@@ -22,7 +22,26 @@ module InkComponents
       )
     end
 
+    def text_field(attribute, **)
+      state = input_state(attribute)
+      input_field_component(type: :text, state:, **html_options(attribute), **)
+    end
+
     private
+
+    def input_state(attribute)
+      return :default if object.nil?
+
+      object.errors.include?(attribute) ? :error : :default
+    end
+
+    def html_options(attribute)
+      {
+        name: format_name(attribute),
+        id: format_id(attribute),
+        value: object.try(:public_send, attribute)
+      }
+    end
 
     def format_id(attribute)
       resource_name = object_name.present? ? object_name+"_" : ""
