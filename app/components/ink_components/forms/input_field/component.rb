@@ -37,17 +37,18 @@ module InkComponents
           defaults { { size: :md, state: :default } }
         end
 
-        attr_reader :size, :state
+        attr_reader :type, :size, :state
 
-        def initialize(size: :md, state: :default, **extra_attributes)
+        def initialize(type: "text", size: :md, state: :default, **extra_attributes)
           @size = size
           @state = state
+          @type = type
           super(**extra_attributes)
         end
 
         private
         def default_attributes
-          { class: style(size:, state:) }
+          { class: style(size:, state:), type: }
         end
       end
     end
