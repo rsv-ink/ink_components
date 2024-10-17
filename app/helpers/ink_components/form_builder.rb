@@ -27,12 +27,26 @@ module InkComponents
       input_field_component(type: :text, state:, **html_options(attribute), **)
     end
 
+    def text_field_with_message(attribute, message_class: "", **)
+      state = input_state(attribute)
+      input_field_component(type: :text, state:, **html_options(attribute), **) do |input|
+        input.with_error_text(custom_classes: message_class) { error_messages(attribute) }
+        yield input if block_given?
+      end
+    end
+
     private
 
     def input_state(attribute)
       return :default if object.nil?
 
       object.errors.include?(attribute) ? :error : :default
+    end
+
+    def error_messages(attribute)
+      return if object.nil?
+
+      object.errors[attribute].to_sentence.capitalize.presence&.concat(".")
     end
 
     def html_options(attribute)
