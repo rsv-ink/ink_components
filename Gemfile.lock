@@ -305,7 +305,7 @@ GEM
     view_component-contrib (0.2.3)
       ruby-next-core (>= 0.15.0)
       view_component
-    webrick (1.8.1)
+    webrick (1.8.2)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
