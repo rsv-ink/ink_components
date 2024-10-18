@@ -2,6 +2,48 @@
 
 <br><br>
 
+<h1>Sem form builder:</h1>
+
+<%= form_with model: @user do |f| %>
+  <%= f.label :name, data: { controller: "test" } %>
+  <%= f.text_field :name %>
+
+  <br><br>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+
+  <br><br>
+
+  <div class="flex">
+    <%= f.check_box :paid %>
+    <%= f.label :paid, class: "mb-0" %>
+  </div>
+
+  <br>
+  <div>
+    <div>
+      <%= f.radio_button :type, :admin %>
+      <%= f.label :type_admin %>
+    </div>
+    <div>
+      <%= f.radio_button :type, :tester %>
+      <%= f.label :type_tester %>
+    </div>
+    <div>
+      <%= f.radio_button :type, :guest_user %>
+      <%= f.label :type_guest_user %>
+    </div>
+  </div>
+
+  <%= f.submit %>
+<% end %>
+
+<br><br>
+
+<h1>Com form builder</h1>
+
 <%= form_with model: @user, builder: InkComponents::FormBuilder do |f| %>
   <%= f.label :name, data: { controller: "test" } %>
   <%= f.text_field_with_message :name %>
@@ -17,6 +59,21 @@
   <div class="flex">
     <%= f.check_box :paid %>
     <%= f.label :paid, class: "mb-0" %>
+  </div>
+
+  <div>
+    <div class="flex">
+      <%= f.radio_button :color, :blue%>
+      <%= f.label :color, "Blue" %>
+    </div>
+    <div>
+      <%= f.radio_button :color, :pink %>
+      <%= f.label :color, "Pink" %>
+    </div>
+    <div>
+      <%= f.radio_button :color, :gray %>
+      <%= f.label :color, "Gray" %>
+    </div>
   </div>
 
   <%= f.submit %>

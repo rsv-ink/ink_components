@@ -16,6 +16,12 @@ module InkComponents
       label_component(for: format_id(attribute), **) { content }
     end
 
+    def radio_button(attribute, value, content = nil, **)
+      checked = object.try(:public_send, attribute) == value
+
+      radio_component(id: format_id(attribute), name: format_name(attribute), value:, checked:) { content }
+    end
+
     def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
       checked = object.try(:public_send, attribute).in?([ true, checked_value ])
 
