@@ -11,20 +11,20 @@ module InkComponents
       # @param size select { choices: [xs, sm, md, lg, xl] }
       # @param shape select { choices: [default, pill, outline] }
       def playground(builder: :link_to, href: "#", disabled: false, color: :pink, shape: :default, size: :md, content: "Button")
-        render(InkComponents::Button::Component.new(builder:, href:, disabled:, color:, shape:, size:)) { content }
+        button_component(builder:, href:, disabled:, color:, shape:, size:)) { content }
       end
 
       # @!group Builders
       def link_to_builder
-        render(InkComponents::Button::Component.new(builder: :link_to, href: "#")) { "Button" }
+        button_component(builder: :link_to, href: "#")) { "Button" }
       end
 
       def button_tag_builder
-        render(InkComponents::Button::Component.new(builder: :button_tag)) { "Button" }
+        button_component(builder: :button_tag)) { "Button" }
       end
 
       def button_to_builder
-        render(InkComponents::Button::Component.new(
+        button_component(
           builder: :button_to,
           href: InkComponents::Engine.routes.url_helpers.lookbook_path,
           form: { data: { type: :json } })
@@ -34,174 +34,174 @@ module InkComponents
 
       # @!group Sizes
       def extra_small
-        render(InkComponents::Button::Component.new(size: :xs)) { "Extra small" }
+        button_component(size: :xs)) { "Extra small" }
       end
 
       def small
-        render(InkComponents::Button::Component.new(size: :sm)) { "Small" }
+        button_component(size: :sm)) { "Small" }
       end
 
       def medium
-        render(InkComponents::Button::Component.new(size: :md)) { "Medium" }
+        button_component(size: :md)) { "Medium" }
       end
 
       def large
-        render(InkComponents::Button::Component.new(size: :lg)) { "Large" }
+        button_component(size: :lg)) { "Large" }
       end
 
       def extra_large
-        render(InkComponents::Button::Component.new(size: :xl)) { "Extra large" }
+        button_component(size: :xl)) { "Extra large" }
       end
       # @!endgroup
 
       # @!group Shapes
       def default
-        render(InkComponents::Button::Component.new(shape: :default)) { "Default" }
+        button_component(shape: :default)) { "Default" }
       end
 
       def pill
-        render(InkComponents::Button::Component.new(shape: :pill)) { "Pill" }
+        button_component(shape: :pill)) { "Pill" }
       end
 
       def outline
-        render(InkComponents::Button::Component.new(shape: :outline)) { "Outline" }
+        button_component(shape: :outline)) { "Outline" }
       end
       # @!endgroup
 
       # @!group Colors
       def alternative
-        render(InkComponents::Button::Component.new(color: :alternative)) { "Alternative" }
+        button_component(color: :alternative)) { "Alternative" }
       end
 
       def light
-        render(InkComponents::Button::Component.new(color: :light)) { "Light" }
+        button_component(color: :light)) { "Light" }
       end
 
       def pink
-        render(InkComponents::Button::Component.new(color: :pink)) { "Pink" }
+        button_component(color: :pink)) { "Pink" }
       end
 
       def blue
-        render(InkComponents::Button::Component.new(color: :blue)) { "Blue" }
+        button_component(color: :blue)) { "Blue" }
       end
 
       def dark
-        render(InkComponents::Button::Component.new(color: :dark)) { "Dark" }
+        button_component(color: :dark)) { "Dark" }
       end
 
       def green
-        render(InkComponents::Button::Component.new(color: :green)) { "Green" }
+        button_component(color: :green)) { "Green" }
       end
 
       def red
-        render(InkComponents::Button::Component.new(color: :red)) { "Red" }
+        button_component(color: :red)) { "Red" }
       end
 
       def yellow
-        render(InkComponents::Button::Component.new(color: :yellow)) { "Yellow" }
+        button_component(color: :yellow)) { "Yellow" }
       end
 
       def purple
-        render(InkComponents::Button::Component.new(color: :purple)) { "Purple" }
+        button_component(color: :purple)) { "Purple" }
       end
       # @!endgroup
 
       # @!group Outline Colors
       def pink_outline
-        render(InkComponents::Button::Component.new(color: :pink, shape: :outline)) { "Pink Outline" }
+        button_component(color: :pink, shape: :outline)) { "Pink Outline" }
       end
 
       def blue_outline
-        render(InkComponents::Button::Component.new(color: :blue, shape: :outline)) { "Blue Outline" }
+        button_component(color: :blue, shape: :outline)) { "Blue Outline" }
       end
 
       def dark_outline
-        render(InkComponents::Button::Component.new(color: :dark, shape: :outline)) { "Dark Outline" }
+        button_component(color: :dark, shape: :outline)) { "Dark Outline" }
       end
 
       def green_outline
-        render(InkComponents::Button::Component.new(color: :green, shape: :outline)) { "Green Outline" }
+        button_component(color: :green, shape: :outline)) { "Green Outline" }
       end
 
       def red_outline
-        render(InkComponents::Button::Component.new(color: :red, shape: :outline)) { "Red Outline" }
+        button_component(color: :red, shape: :outline)) { "Red Outline" }
       end
 
       def yellow_outline
-        render(InkComponents::Button::Component.new(color: :yellow, shape: :outline)) { "Yellow Outline" }
+        button_component(color: :yellow, shape: :outline)) { "Yellow Outline" }
       end
 
       def purple_outline
-        render(InkComponents::Button::Component.new(color: :purple, shape: :outline)) { "Purple Outline" }
+        button_component(color: :purple, shape: :outline)) { "Purple Outline" }
       end
       # @!endgroup
 
 
       # @!group Disabled
       def alternative_disabled
-        render(InkComponents::Button::Component.new(color: :alternative, disabled: true)) { "Disabled" }
+        button_component(color: :alternative, disabled: true)) { "Disabled" }
       end
 
       def light_disabled
-        render(InkComponents::Button::Component.new(color: :light, disabled: true)) { "Disabled" }
+        button_component(color: :light, disabled: true)) { "Disabled" }
       end
 
       def pink_disabled
-        render(InkComponents::Button::Component.new(color: :pink, disabled: true)) { "Disabled" }
+        button_component(color: :pink, disabled: true)) { "Disabled" }
       end
 
       def blue_disabled
-        render(InkComponents::Button::Component.new(color: :blue, disabled: true)) { "Disabled" }
+        button_component(color: :blue, disabled: true)) { "Disabled" }
       end
 
       def dark_disabled
-        render(InkComponents::Button::Component.new(color: :dark, disabled: true)) { "Disabled" }
+        button_component(color: :dark, disabled: true)) { "Disabled" }
       end
 
       def green_disabled
-        render(InkComponents::Button::Component.new(color: :green, disabled: true)) { "Disabled" }
+        button_component(color: :green, disabled: true)) { "Disabled" }
       end
 
       def red_disabled
-        render(InkComponents::Button::Component.new(color: :red, disabled: true)) { "Disabled" }
+        button_component(color: :red, disabled: true)) { "Disabled" }
       end
 
       def yellow_disabled
-        render(InkComponents::Button::Component.new(color: :yellow, disabled: true)) { "Disabled" }
+        button_component(color: :yellow, disabled: true)) { "Disabled" }
       end
 
       def purple_disabled
-        render(InkComponents::Button::Component.new(color: :purple, disabled: true)) { "Disabled" }
+        button_component(color: :purple, disabled: true)) { "Disabled" }
       end
       # @!endgroup
 
       # @!group Outline Disabled
       def pink_disabled_outline
-        render(InkComponents::Button::Component.new(shape: :outline, color: :pink, disabled: true)) { "Disabled" }
+        button_component(shape: :outline, color: :pink, disabled: true)) { "Disabled" }
       end
 
       def blue_disabled_outline
-        render(InkComponents::Button::Component.new(shape: :outline, color: :blue, disabled: true)) { "Disabled" }
+        button_component(shape: :outline, color: :blue, disabled: true)) { "Disabled" }
       end
 
       def dark_disabled_outline
-        render(InkComponents::Button::Component.new(shape: :outline, color: :dark, disabled: true)) { "Disabled" }
+        button_component(shape: :outline, color: :dark, disabled: true)) { "Disabled" }
       end
 
       def green_disabled_outline
-        render(InkComponents::Button::Component.new(shape: :outline, color: :green, disabled: true)) { "Disabled" }
+        button_component(shape: :outline, color: :green, disabled: true)) { "Disabled" }
       end
 
       def red_disabled_outline
-        render(InkComponents::Button::Component.new(shape: :outline, color: :red, disabled: true)) { "Disabled" }
+        button_component(shape: :outline, color: :red, disabled: true)) { "Disabled" }
       end
 
       def yellow_disabled_outline
-        render(InkComponents::Button::Component.new(shape: :outline, color: :yellow, disabled: true)) { "Disabled" }
+        button_component(shape: :outline, color: :yellow, disabled: true)) { "Disabled" }
       end
 
       def purple_disabled_outline
-        render(InkComponents::Button::Component.new(shape: :outline, color: :purple, disabled: true)) { "Disabled" }
+        button_component(shape: :outline, color: :purple, disabled: true)) { "Disabled" }
       end
       # @!endgroup
     end

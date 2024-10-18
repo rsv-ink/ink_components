@@ -8,7 +8,7 @@ module InkComponents
       # @param shape select { choices: [circle, square] }
       # @param href text
       def playground(avatar_count: 5, size: :md, shape: :circle, href: nil)
-        render InkComponents::AvatarCollection::Component.new(size:, shape:, href:) do |component|
+        avatar_collection_component(size:, shape:, href:) do |component|
           avatar_count.times do |i|
             component.with_avatar(image_url: "https://i.pravatar.cc/150?img=#{i + 1}")
           end
@@ -17,20 +17,20 @@ module InkComponents
 
       # @!group Numbers of Avatars
       def with_1_avatar
-        render InkComponents::AvatarCollection::Component.new do |component|
+        avatar_collection_component do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
         end
       end
 
       def with_2_avatars
-        render InkComponents::AvatarCollection::Component.new do |component|
+        avatar_collection_component do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
         end
       end
 
       def with_3_avatars
-        render InkComponents::AvatarCollection::Component.new do |component|
+        avatar_collection_component do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -38,7 +38,7 @@ module InkComponents
       end
 
       def with_4_avatars
-        render InkComponents::AvatarCollection::Component.new do |component|
+        avatar_collection_component do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -47,7 +47,7 @@ module InkComponents
       end
 
       def with_5_avatars
-        render InkComponents::AvatarCollection::Component.new do |component|
+        avatar_collection_component do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -58,7 +58,7 @@ module InkComponents
       # @!endgroup
 
       def with_href
-        render InkComponents::AvatarCollection::Component.new(href: "www.example.com") do |component|
+        avatar_collection_component(href: "www.example.com") do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -69,7 +69,7 @@ module InkComponents
 
       # @!group Sizes
       def extra_small
-        render InkComponents::AvatarCollection::Component.new(size: :xs) do |component|
+        avatar_collection_component(size: :xs) do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -79,7 +79,7 @@ module InkComponents
       end
 
       def small
-        render InkComponents::AvatarCollection::Component.new(size: :sm) do |component|
+        avatar_collection_component(size: :sm) do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -89,7 +89,7 @@ module InkComponents
       end
 
       def medium
-        render InkComponents::AvatarCollection::Component.new(size: :md) do |component|
+        avatar_collection_component(size: :md) do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -99,7 +99,7 @@ module InkComponents
       end
 
       def large
-        render InkComponents::AvatarCollection::Component.new(size: :lg) do |component|
+        avatar_collection_component(size: :lg) do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -109,7 +109,7 @@ module InkComponents
       end
 
       def extra_large
-        render InkComponents::AvatarCollection::Component.new(size: :xl) do |component|
+        avatar_collection_component(size: :xl) do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -121,7 +121,7 @@ module InkComponents
 
       # @!group Shapes
       def circle
-        render InkComponents::AvatarCollection::Component.new do |component|
+        avatar_collection_component do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
@@ -131,7 +131,7 @@ module InkComponents
       end
 
       def square
-        render InkComponents::AvatarCollection::Component.new(shape: :square) do |component|
+        avatar_collection_component(shape: :square) do |component|
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=1")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=2")
           component.with_avatar(image_url: "https://i.pravatar.cc/150?img=3")
