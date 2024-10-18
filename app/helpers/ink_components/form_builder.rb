@@ -9,7 +9,6 @@ module InkComponents
     delegate :render, to: :template
 
     def label(attribute, content = nil, **)
-      # content = attribute.to_s.humanize if content.nil?
       content ||= ActionView::Helpers::Tags::Translator.new(object, object_name, attribute,
                                                             scope: "helpers.label").translate
       content ||= attribute.humanize
