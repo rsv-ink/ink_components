@@ -8,6 +8,7 @@ module InkComponents
 
     delegate :render, to: :template
 
+    # TODO: permitir que seja renderizado a label quando o param `model` do form_for não for passado
     def label(attribute, content = nil, **)
       content ||= ActionView::Helpers::Tags::Translator.new(object, object_name, attribute,
                                                             scope: "helpers.label").translate
@@ -25,21 +26,26 @@ module InkComponents
     end
 
     def text_field(attribute, **)
-      state = input_state(attribute)
+      state = field_state(attribute)
       input_field_component(type: :text, state:, **html_options(attribute), **)
     end
 
     def text_field_with_message(attribute, message_class: "", **)
-      state = input_state(attribute)
+      state = field_state(attribute)
       input_field_component(type: :text, state:, **html_options(attribute), **) do |input|
-        input.with_error_text(custom_classes: message_class) { error_messages(attribute) }
+        # input.with_error_text(custom_classes: message_class) { error_messages(attribute) }
         yield input if block_given?
       end
     end
 
+    def helper_text(attribute, **)
+      state = field_state(attribute)
+      helper_text_component(state:, **) { error_messages(attribute) }
+    end
+
     private
 
-    def input_state(attribute)
+    def field_state(attribute)
       return :default if object.nil?
 
       object.errors.include?(attribute) ? :error : :default
