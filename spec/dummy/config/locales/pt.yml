@@ -32,7 +32,11 @@ pt:
     submit:
       create: "Criar %{model}"
       update: "Atualizar %{model}"
-  name: "Nome"
+    label:
+      name: "Nome"
+      email: "E-mail"
+      password: "Senha"
+      paid: "Pago"
   activemodel:
     models:
       user: "Usuário"

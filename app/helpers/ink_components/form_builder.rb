@@ -8,11 +8,8 @@ module InkComponents
 
     delegate :render, to: :template
 
-    # TODO: permitir que seja renderizado a label quando o param `model` do form_for não for passado
     def label(attribute, content = nil, **)
-      content ||= ActionView::Helpers::Tags::Translator.new(object, object_name, attribute,
-                                                            scope: "helpers.label").translate
-      content ||= attribute.humanize
+      content ||= label_text(attribute)
 
       label_component(for: format_id(attribute), **) { content }
     end
@@ -44,6 +41,13 @@ module InkComponents
     end
 
     private
+    def label_text(attribute)
+      content ||= if object_name.present?
+        ActionView::Helpers::Tags::Translator.new(object, object_name, attribute, scope: "helpers.label").translate
+      else
+        I18n.t("helpers.label.#{attribute}", default: attribute.to_s.humanize)
+      end
+    end
 
     def field_state(attribute)
       return :default if object.nil?
