@@ -66,8 +66,8 @@ module InkComponents
     end
 
     def format_id(attribute, value = nil)
-      resource_name = object_name.present? ? object_name+"_" : ""
-      tag_value = value.present? ? "_#{value}" : ""
+      resource_name = "#{object_name}_" if object_name.present?
+      tag_value = "_#{value}" if value.present?
 
       "#{resource_name}#{attribute}#{tag_value}".delete("]").tr("^-a-zA-Z0-9:.", "_")
     end
