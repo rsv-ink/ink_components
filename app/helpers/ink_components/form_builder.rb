@@ -27,13 +27,6 @@ module InkComponents
       input_field_component(type: :text, state:, **html_options(attribute), **)
     end
 
-    def text_field_with_message(attribute, message_class: "", **)
-      state = field_state(attribute)
-      input_field_component(type: :text, state:, **html_options(attribute), **) do |input|
-        yield input if block_given?
-      end
-    end
-
     def error_message(attribute, **)
       state = field_state(attribute)
       helper_text_component(state:, **) { error_messages(attribute) }

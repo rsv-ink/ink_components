@@ -4,8 +4,6 @@ module InkComponents
   module Forms
     module InputField
       class Component < ApplicationComponent
-        renders_one :helper_text, HelperText::Component
-
         style do
           base { %w[ border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 ] }
           variants {
