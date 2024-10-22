@@ -9,7 +9,7 @@ module InkComponents
         # @param rows number
         # @param cols number
         def playground(placeholder: "Write your thoughts here...", value: nil, rows: nil, cols: nil)
-          render InkComponents::Forms::TextArea::Component.new(placeholder:, value:, rows:, cols:)
+          text_area_component(placeholder:, value:, rows:, cols:)
         end
       end
     end

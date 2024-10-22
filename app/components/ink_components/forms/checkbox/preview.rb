@@ -3,7 +3,7 @@
 module InkComponents
   module Forms
     module Checkbox
-      class Preview < ViewComponent::Preview
+      class Preview < Lookbook::Preview
         # @param checked toggle
         # @param disabled toggle
         # @param bordered toggle
@@ -18,7 +18,7 @@ module InkComponents
           helper_text: nil,
           content: "Some value"
         )
-          render(InkComponents::Forms::Checkbox::Component.new(checked:, disabled:, bordered:, color:)) do |checkbox|
+          checkbox_component(checked:, disabled:, bordered:, color:) do |checkbox|
             checkbox.with_helper_text { helper_text } if helper_text.present?
             content
           end
@@ -26,55 +26,55 @@ module InkComponents
 
         # @!group Colors
         def blue
-          render(InkComponents::Forms::Checkbox::Component.new(color: :blue, checked: true)) { "Blue" }
+          checkbox_component(color: :blue, checked: true) { "Blue" }
         end
 
         def red
-          render(InkComponents::Forms::Checkbox::Component.new(color: :red, checked: true)) { "Red" }
+          checkbox_component(color: :red, checked: true) { "Red" }
         end
 
         def green
-          render(InkComponents::Forms::Checkbox::Component.new(color: :green, checked: true)) { "Green" }
+          checkbox_component(color: :green, checked: true) { "Green" }
         end
 
         def purple
-          render(InkComponents::Forms::Checkbox::Component.new(color: :purple, checked: true)) { "Purple" }
+          checkbox_component(color: :purple, checked: true) { "Purple" }
         end
 
         def teal
-          render(InkComponents::Forms::Checkbox::Component.new(color: :teal, checked: true)) { "Teal" }
+          checkbox_component(color: :teal, checked: true) { "Teal" }
         end
 
         def yellow
-          render(InkComponents::Forms::Checkbox::Component.new(color: :yellow, checked: true)) { "Yellow" }
+          checkbox_component(color: :yellow, checked: true) { "Yellow" }
         end
 
         def orange
-          render(InkComponents::Forms::Checkbox::Component.new(color: :orange, checked: true)) { "Orange" }
+          checkbox_component(color: :orange, checked: true) { "Orange" }
         end
         # @!endgroup
 
         # @!group With Html Attributes
         def disabled
-          render(InkComponents::Forms::Checkbox::Component.new(disabled: true)) { "Disabled" }
+          checkbox_component(disabled: true) { "Disabled" }
         end
 
         def disabled_checked
-          render(InkComponents::Forms::Checkbox::Component.new(checked: true, disabled: true)) { "Disabled" }
+          checkbox_component(checked: true, disabled: true) { "Disabled" }
         end
 
         def with_id_and_name
-          render(InkComponents::Forms::Checkbox::Component.new(id: "product", name: "product[some_value]")) { "Some value" }
+          checkbox_component(id: "product", name: "product[some_value]") { "Some value" }
         end
         # @!endgroup
 
         # @!group With Border
         def border
-          render(InkComponents::Forms::Checkbox::Component.new(bordered: true)) { "Some value" }
+          checkbox_component(bordered: true) { "Some value" }
         end
 
         def border_with_helper_text
-          render(InkComponents::Forms::Checkbox::Component.new(bordered: true)) do |checkbox|
+          checkbox_component(bordered: true) do |checkbox|
             checkbox.with_helper_text { "Some helper text" }
             "Another value"
           end
@@ -82,7 +82,7 @@ module InkComponents
         # @!endgroup
 
         def with_helper_text
-          render(InkComponents::Forms::Checkbox::Component.new(id: "product", name: "product[some_value]")) do |checkbox|
+          checkbox_component(id: "product", name: "product[some_value]") do |checkbox|
             checkbox.with_helper_text { "Some helper text" }
             "Some value"
           end

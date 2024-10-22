@@ -7,11 +7,11 @@ module InkComponents
         # @param content text
         # @param state select { choices: [default, success, error] }
         def default(content: "Your name", state: :default)
-          render InkComponents::Forms::Label::Component.new(state:).with_content(content)
+          label_component(state:) { content }
         end
 
         def with_html_attributes
-          render InkComponents::Forms::Label::Component.new(id: "name").with_content("Your name")
+          label_component(id: "name") { "Your name" }
         end
       end
     end
