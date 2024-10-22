@@ -5,7 +5,7 @@
 <%= form_with model: @user, builder: InkComponents::FormBuilder do |f| %>
   <%= f.label :name, data: { controller: "test" } %>
   <%= f.text_field :name %>
-  <%= f.helper_text :name %>
+  <%= f.error_message :name %>
 
   <br><br>
 

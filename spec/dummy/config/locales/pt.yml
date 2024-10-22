@@ -46,3 +46,10 @@ pt:
         email: "E-mail"
         password: "Senha"
         paid: "Pago"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "não pode ficar em branco"
+              too_short: "é muito curto (mínimo de %{count} caracteres)"
