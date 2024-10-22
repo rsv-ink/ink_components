@@ -17,7 +17,7 @@ gem "view_component", "3.14.0"
 gem "view_component-contrib", "0.2.3"
 
 # Bundle and process CSS in Rails with Tailwind, PostCSS, and Sass via Node.js [https://github.com/rails/cssbundling-rails]
-gem "cssbundling-rails", "1.1.2"
+gem "cssbundling-rails", "1.4.1"
 
 # Bundle and transpile JavaScript in Rails with esbuild, rollup.js, or Webpack [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails", "1.1.1"
