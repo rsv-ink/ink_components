@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   def new
-    @user = User.new(name: "", email: "", paid: true)
+    @user = User.new(name: "", email: "", paid: true, type: "", color: "")
   end
 
   def create
@@ -16,6 +16,6 @@ class UsersController < ApplicationController
   def user_params
     return {} unless params.key?(:user)
 
-    params.require(:user).permit(:name, :email, :paid)
+    params.require(:user).permit(:name, :email, :paid, :type, :color)
   end
 end
