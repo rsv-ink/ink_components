@@ -1,0 +1,24 @@
+<h1>Cria Usuário</h1>
+
+<br><br>
+
+<%= form_with model: @user, builder: InkComponents::FormBuilder do |f| %>
+  <%= f.label :name, data: { controller: "test" } %>
+  <%= f.text_field :name %>
+  <%= f.error_message :name %>
+
+  <br><br>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+
+  <br><br>
+
+  <div class="flex">
+    <%= f.check_box :paid %>
+    <%= f.label :paid, class: "mb-0" %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
