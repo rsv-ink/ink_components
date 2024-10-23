@@ -14,6 +14,12 @@ module InkComponents
       label_component(for: format_id(attribute), **) { content }
     end
 
+    def radio_button(attribute, value, content = nil, **)
+      checked = object.try(:public_send, attribute) == value
+
+      radio_component(id: format_id(attribute, value), name: format_name(attribute), value:, checked:, **) { content }
+    end
+
     def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
       checked = object.try(:public_send, attribute).in?([ true, checked_value ])
 
@@ -61,10 +67,11 @@ module InkComponents
       }
     end
 
-    def format_id(attribute)
-      resource_name = object_name.present? ? object_name+"_" : ""
+    def format_id(attribute, value = nil)
+      resource_name = "#{object_name}_" if object_name.present?
+      tag_value = "_#{value}" if value.present?
 
-      "#{resource_name}#{attribute}".delete("]").tr("^-a-zA-Z0-9:.", "_")
+      "#{resource_name}#{attribute}#{tag_value}".delete("]").tr("^-a-zA-Z0-9:.", "_")
     end
 
     def format_name(attribute)
