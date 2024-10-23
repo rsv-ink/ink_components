@@ -135,7 +135,7 @@ module InkComponents
 
       attr_reader :builder, :shape, :color, :size, :href, :disabled
 
-      def initialize(builder: :link_to, shape: :default, color: nil, size: nil, href: nil, **extra_attributes)
+      def initialize(builder: :link_to, shape: :default, color: nil, size: nil, href: "#", **extra_attributes)
         @builder = builder
         @shape = shape
         @color = color

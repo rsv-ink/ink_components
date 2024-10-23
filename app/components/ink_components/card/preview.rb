@@ -5,27 +5,27 @@ module InkComponents
     class Preview < Lookbook::Preview
       # @param orientation select { choices: [vertical, horizontal] }
       def playground(orientation: :vertical)
-        render InkComponents::Card::Component.new(orientation:) do
+        card_component(orientation:) do
           tag.p "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.", class: "font-normal text-gray-700 dark:text-gray-400"
         end
       end
 
       # @!group Orientations
       def vertical_orientation
-        render InkComponents::Card::Component.new(orientation: :vertical) do
+        card_component(orientation: :vertical) do
           tag.p "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.", class: "font-normal text-gray-700 dark:text-gray-400"
         end
       end
 
       def horizontal_orientation
-        render InkComponents::Card::Component.new(orientation: :horizontal) do
+        card_component(orientation: :horizontal) do
           tag.p "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.", class: "font-normal text-gray-700 dark:text-gray-400"
         end
       end
       # @!endgroup
 
       def with_html_content
-        render InkComponents::Card::Component.new do
+        card_component do
           '<a href="#">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
           </a>
@@ -40,7 +40,7 @@ module InkComponents
       end
 
       def with_html_form
-        render InkComponents::Card::Component.new do
+        card_component do
           '<form class="space-y-6" action="#">
             <h5 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h5>
             <div>

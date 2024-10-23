@@ -6,31 +6,31 @@ module InkComponents
       class Preview < Lookbook::Preview
         # @param size select { choices: [xs, sm, lg] }
         def playground(size: :sm)
-          render InkComponents::Forms::FileInput::Component.new(size:)
+          file_input_component(size:)
         end
 
         # @!group Sizes
         def extra_small
-          render InkComponents::Forms::FileInput::Component.new(size: :xs)
+          file_input_component(size: :xs)
         end
 
         def small
-          render InkComponents::Forms::FileInput::Component.new(size: :sm)
+          file_input_component(size: :sm)
         end
 
         def large
-          render InkComponents::Forms::FileInput::Component.new(size: :lg)
+          file_input_component(size: :lg)
         end
         # @!endgroup
 
         def with_helper_text
-          render InkComponents::Forms::FileInput::Component.new do |input|
+          file_input_component do |input|
             input.with_helper_text { "SVG, PNG, JPG or GIF (MAX. 800x400px)." }
           end
         end
 
         def with_multiple_files
-          render InkComponents::Forms::FileInput::Component.new(multiple: true)
+          file_input_component(multiple: true)
         end
       end
     end

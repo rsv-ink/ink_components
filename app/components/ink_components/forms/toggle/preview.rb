@@ -10,68 +10,68 @@ module InkComponents
         # @param disabled toggle
         # @param checked toggle
         def playground(content: "Some Text", size: :md, color: :pink, disabled: false, checked: false)
-          render InkComponents::Forms::Toggle::Component.new(size:, color:, disabled:, checked:).with_content(content)
+          toggle_component(size:, color:, disabled:, checked:) { content }
         end
 
         def checked_state
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :pink, checked: true).with_content("Checked toggle")
+          toggle_component(size: :md, color: :pink, checked: true) { "Checked toggle" }
         end
 
         # @!group Disabled
         def disabled_toggle
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :pink, disabled: true, checked: false).with_content("Disabled toggle")
+          toggle_component(size: :md, color: :pink, disabled: true, checked: false) { "Disabled toggle" }
         end
 
         def disabled_checked
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :pink, disabled: true, checked: true).with_content("Disabled checked toggle")
+          toggle_component(size: :md, color: :pink, disabled: true, checked: true) { "Disabled checked toggle" }
         end
         # @!endgroup
 
         # @!group Colors
         def pink
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :pink, checked: true)
+          toggle_component(size: :md, color: :pink, checked: true)
         end
 
         def blue
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :blue, checked: true)
+          toggle_component(size: :md, color: :blue, checked: true)
         end
 
         def red
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :red, checked: true)
+          toggle_component(size: :md, color: :red, checked: true)
         end
 
         def green
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :green, checked: true)
+          toggle_component(size: :md, color: :green, checked: true)
         end
 
         def purple
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :purple, checked: true)
+          toggle_component(size: :md, color: :purple, checked: true)
         end
 
         def yellow
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :yellow, checked: true)
+          toggle_component(size: :md, color: :yellow, checked: true)
         end
 
         def teal
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :teal, checked: true)
+          toggle_component(size: :md, color: :teal, checked: true)
         end
 
         def orange
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :orange, checked: true)
+          toggle_component(size: :md, color: :orange, checked: true)
         end
         # @!endgroup
 
         # @!group Sizes
         def small
-          render InkComponents::Forms::Toggle::Component.new(size: :sm, color: :pink)
+          toggle_component(size: :sm, color: :pink)
         end
 
         def medium
-          render InkComponents::Forms::Toggle::Component.new(size: :md, color: :pink)
+          toggle_component(size: :md, color: :pink)
         end
 
         def large
-          render InkComponents::Forms::Toggle::Component.new(size: :lg, color: :pink)
+          toggle_component(size: :lg, color: :pink)
         end
         # @!endgroup
       end

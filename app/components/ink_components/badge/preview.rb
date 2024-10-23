@@ -9,90 +9,90 @@ module InkComponents
       # @param href text
       # @param dismissible select { choices: [true, false] }
       def playground(content: "Some text", color: :pink, size: :xs, bordered: false, shape: :square, href: nil, dismissible: false)
-        render InkComponents::Badge::Component.new(id: "badge_component", size:, color:, bordered:, shape:, href:, dismissible:).with_content(content)
+        badge_component(id: "badge_component", size:, color:, bordered:, shape:, href:, dismissible:) { content }
       end
 
       # @!group Colors
       def pink
-        render InkComponents::Badge::Component.new(color: :pink).with_content("Pink Badge")
+        badge_component(color: :pink) { "Pink Badge" }
       end
 
       def dark
-        render InkComponents::Badge::Component.new(color: :dark).with_content("Dark Badge")
+        badge_component(color: :dark) { "Dark Badge" }
       end
 
       def blue
-        render InkComponents::Badge::Component.new(color: :blue).with_content("Blue Badge")
+        badge_component(color: :blue) { "Blue Badge" }
       end
 
       def red
-        render InkComponents::Badge::Component.new(color: :red).with_content("Red Badge")
+        badge_component(color: :red) { "Red Badge" }
       end
 
       def green
-        render InkComponents::Badge::Component.new(color: :green).with_content("Green Badge")
+        badge_component(color: :green) { "Green Badge" }
       end
 
       def yellow
-        render InkComponents::Badge::Component.new(color: :yellow).with_content("Yellow Badge")
+        badge_component(color: :yellow) { "Yellow Badge" }
       end
 
       def indigo
-        render InkComponents::Badge::Component.new(color: :indigo).with_content("Indigo Badge")
+        badge_component(color: :indigo) { "Indigo Badge" }
       end
 
       def purple
-        render InkComponents::Badge::Component.new(color: :purple).with_content("Purple Badge")
+        badge_component(color: :purple) { "Purple Badge" }
       end
       # @!endgroup
 
       # @!group Sizes
       def large
-        render InkComponents::Badge::Component.new(size: :sm).with_content("Large")
+        badge_component(size: :sm) { "Large" }
       end
 
       def small
-        render InkComponents::Badge::Component.new(size: :xs).with_content("Small")
+        badge_component(size: :xs) { "Small" }
       end
       # @!endgroup
 
       # @!group Border
       def bordered_true
-        render InkComponents::Badge::Component.new(bordered: true).with_content("Bordered Badge")
+        badge_component(bordered: true) { "Bordered Badge" }
       end
 
       def bordered_false
-        render InkComponents::Badge::Component.new(bordered: false).with_content("Non-Bordered Badge")
+        badge_component(bordered: false) { "Non-Bordered Badge" }
       end
       # @!endgroup
 
       # @!group Shape
       def square_shape
-        render InkComponents::Badge::Component.new(shape: :square).with_content("Square Badge")
+        badge_component(shape: :square) { "Square Badge" }
       end
 
       def pill_shape
-        render InkComponents::Badge::Component.new(shape: :pill).with_content("Pill Badge")
+        badge_component(shape: :pill) { "Pill Badge" }
       end
       # @!endgroup
 
       # @!group Href
       def href_present
-        render InkComponents::Badge::Component.new(href: "https://example.com").with_content("Badge with Href")
+        badge_component(href: "https://example.com") { "Badge with Href" }
       end
 
       def href_absent
-        render InkComponents::Badge::Component.new(href: nil).with_content("Badge without Href")
+        badge_component(href: nil) { "Badge without Href" }
       end
       # @!endgroup
 
       # @!group Dismissible
       def dismissible_true
-        render InkComponents::Badge::Component.new(id: "badge_component", dismissible: true).with_content("dismissible Badge")
+        badge_component(id: "badge_component", dismissible: true) { "dismissible Badge" }
       end
 
       def dismissible_false
-        render InkComponents::Badge::Component.new(dismissible: false).with_content("Non-dismissible Badge")
+        badge_component(dismissible: false) { "Non-dismissible Badge" }
       end
       # @!endgroup
     end
