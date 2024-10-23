@@ -46,6 +46,7 @@ pt:
         email: "E-mail"
         password: "Senha"
         paid: "Pago"
+        color: "Cor"
     errors:
       models:
         user:
@@ -53,3 +54,5 @@ pt:
             name:
               blank: "não pode ficar em branco"
               too_short: "é muito curto (mínimo de %{count} caracteres)"
+            color:
+              blank: "não pode ficar em branco"
