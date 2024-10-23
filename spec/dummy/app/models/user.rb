@@ -21,4 +21,8 @@ class User
   def persisted?
     false
   end
+
+  def new_record?
+    true
+  end
 end
