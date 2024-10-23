@@ -37,6 +37,12 @@
     </div>
   </div>
 
+  <%= f.select :color,
+    [["Blue", "blue"], ["Pink", "pink"], ["Green", "green"]],
+    { prompt: "Selecione", include_blank: false },
+    { class: "mt-4" }
+  %>
+
   <%= f.submit %>
 <% end %>
 
@@ -76,6 +82,14 @@
       <%= f.label :color_gray, class: "mb-0" %>
     </div>
   </div>
+
+  <br>
+
+  <%= f.select :color,
+    [["Blue", "blue"], ["Pink", "pink"], ["Green", "green"]],
+    { prompt: "Selecione", include_blank: false },
+    { class: "mb-4" }
+  %>
 
   <%= f.submit %>
 <% end %>
