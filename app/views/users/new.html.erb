@@ -13,13 +13,17 @@
   <%= f.label :email %>
   <%= f.text_field :email %>
 
-
   <br><br>
 
   <div class="flex">
     <%= f.check_box :paid %>
     <%= f.label :paid, class: "mb-0" %>
   </div>
+
+  <br><br>
+
+  <%= f.label :age %>
+  <%= f.number_field :age, min: 10 %>
 
   <br>
   <div>
@@ -54,6 +58,12 @@
   <%= f.label :email %>
   <%= f.text_field :email %>
 
+
+  <br><br>
+
+  <%= f.label :age %>
+  <%= f.number_field :age, value:2, step: 3 %>
+  <%= f.error_message :age %>
 
   <br><br>
 

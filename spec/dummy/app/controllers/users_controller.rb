@@ -16,6 +16,6 @@ class UsersController < ApplicationController
   def user_params
     return {} unless params.key?(:user)
 
-    params.require(:user).permit(:name, :email, :paid, :type, :color)
+    params.require(:user).permit(:name, :email, :paid, :type, :color, :age)
   end
 end
