@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "view_component", "3.14.0"
   spec.add_dependency "view_component-contrib", "0.2.3"
   spec.add_dependency "tailwind_merge", "~> 0.13.0"
-  spec.add_dependency "lookbook", "2.3.2"
+  spec.add_dependency "lookbook", "2.3.3"
   spec.add_dependency "inline_svg"
 
   spec.add_development_dependency "rspec-rails", "6.1.4"
