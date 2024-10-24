@@ -13,7 +13,6 @@
   <%= f.label :email %>
   <%= f.text_field :email %>
 
-
   <br><br>
 
   <div class="flex">
@@ -22,26 +21,6 @@
   </div>
 
   <br>
-  <div>
-    <div>
-      <%= f.radio_button :type, :admin %>
-      <%= f.label :type_admin %>
-    </div>
-    <div>
-      <%= f.radio_button :type, :tester %>
-      <%= f.label :type_tester %>
-    </div>
-    <div>
-      <%= f.radio_button :type, :guest_user %>
-      <%= f.label :type_guest_user %>
-    </div>
-  </div>
-
-  <%= f.select :color,
-    [["Blue", "blue"], ["Pink", "pink"], ["Green", "green"]],
-    { prompt: "Selecione", include_blank: false },
-    { class: "mt-4" }
-  %>
 
   <%= f.submit %>
 <% end %>
@@ -60,36 +39,12 @@
   <%= f.label :email %>
   <%= f.text_field :email %>
 
-
   <br><br>
 
   <div class="flex mb-4">
     <%= f.check_box :paid %>
     <%= f.label :paid, class: "mb-0" %>
   </div>
-
-  <div>
-    <div class="flex mb-2">
-      <%= f.radio_button :color, :blue %>
-      <%= f.label :color_blue, class: "mb-0" %>
-    </div>
-    <div class="flex mb-2">
-      <%= f.radio_button :color, :pink %>
-      <%= f.label :color_pink, class: "mb-0" %>
-    </div>
-    <div class="flex mb-2">
-      <%= f.radio_button :color, :gray %>
-      <%= f.label :color_gray, class: "mb-0" %>
-    </div>
-  </div>
-
-  <br>
-
-  <%= f.select :color,
-    [["Blue", "blue"], ["Pink", "pink"], ["Green", "green"]],
-    { prompt: "Selecione", include_blank: false },
-    { class: "mb-4" }
-  %>
 
   <%= f.submit %>
 <% end %>
