@@ -36,14 +36,12 @@ module InkComponents
       [ :url_field, :url ],
       [ :number_field, :number ],
       [ :date_field, :date ],
-      [ :datetime_field, :datetime ],
       [ :datetime_local_field, :"datetime-local" ],
       [ :month_field, :month ],
       [ :week_field, :week ],
       [ :time_field, :time ],
       [ :color_field, :color ],
-      [ :search_field, :search ],
-      [ :range_field, :range ]
+      [ :search_field, :search ]
     ].each do |method, type|
       define_method(method) do |attribute, **opts|
         state = field_state(attribute)
