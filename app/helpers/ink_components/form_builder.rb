@@ -28,6 +28,18 @@ module InkComponents
       )
     end
 
+    def select(attribute, choices = nil, select_options = {}, tag_options = {})
+      html_options = html_options(attribute)
+      select_component(
+        state: field_state(attribute),
+        options: choices,
+        selected: html_options[:value],
+        **select_options,
+        **tag_options,
+        **html_options,
+      )
+    end
+
     [
       [ :text_field, :text ],
       [ :email_field, :email ],
