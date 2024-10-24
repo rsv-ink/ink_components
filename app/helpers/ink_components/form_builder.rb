@@ -61,6 +61,11 @@ module InkComponents
       end
     end
 
+    def text_area(attribute, **)
+      state = field_state(attribute)
+      text_area_component(state:, **html_options(attribute), **)
+    end
+
     def error_message(attribute, **)
       state = field_state(attribute)
       helper_text_component(state:, **) { error_messages(attribute) }
