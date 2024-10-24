@@ -51,7 +51,7 @@ module InkComponents
     end
 
     def submit(content = nil, **)
-      content ||= submit_text
+      content ||= submit_default_value
       button_component(builder: :button_tag, value: content, data: { disable_with: content }, **) { content }
     end
 
@@ -62,13 +62,6 @@ module InkComponents
       else
         I18n.t("helpers.label.#{attribute}", default: attribute.to_s.humanize)
       end
-    end
-
-    def submit_text
-      return "Submit" if object.nil?
-
-      submit_key = object.new_record? ? "helpers.submit.create" : "helpers.submit.update"
-      I18n.t(submit_key, model: object.model_name.human)
     end
 
     def field_state(attribute)
