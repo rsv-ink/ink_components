@@ -40,9 +40,25 @@ module InkComponents
       )
     end
 
-    def text_field(attribute, **)
-      state = field_state(attribute)
-      input_field_component(type: :text, state:, **html_options(attribute), **)
+    [
+      [ :text_field, :text ],
+      [ :email_field, :email ],
+      [ :password_field, :password ],
+      [ :telephone_field, :tel ],
+      [ :url_field, :url ],
+      [ :number_field, :number ],
+      [ :date_field, :date ],
+      [ :datetime_local_field, :"datetime-local" ],
+      [ :month_field, :month ],
+      [ :week_field, :week ],
+      [ :time_field, :time ],
+      [ :color_field, :color ],
+      [ :search_field, :search ]
+    ].each do |method, type|
+      define_method(method) do |attribute, **opts|
+        state = field_state(attribute)
+        input_field_component(type:, state:, **html_options(attribute), **opts)
+      end
     end
 
     def error_message(attribute, **)
