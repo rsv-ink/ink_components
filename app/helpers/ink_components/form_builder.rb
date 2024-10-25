@@ -71,6 +71,12 @@ module InkComponents
       helper_text_component(state:, **) { error_messages(attribute) }
     end
 
+    def submit(content = nil, **options)
+      content ||= submit_default_value
+      options[:data] = { disable_with: content }.merge(options[:data] || {})
+      button_component(builder: :button_tag, value: content, **options) { content }
+    end
+
     private
     def label_text(attribute)
       content ||= if object_name.present?
