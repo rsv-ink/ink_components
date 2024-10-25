@@ -9,6 +9,8 @@
   <%= f.text_field :name %>
 
   <br><br>
+  <%= f.file_field :arquivo, multiple: true, accept: 'text/html', accept: "image/png,image/gif,image/jpeg" %>
+
 
   <%= f.label :email %>
   <%= f.text_field :email %>
@@ -38,7 +40,7 @@
 
   <%= f.label :email %>
   <%= f.text_field :email %>
-  <%= f.file_field :arquivo %>
+  <%= f.file_field :arquivo, multiple: true, accept: 'text/html', accept: "image/png,image/gif,image/jpeg" %>
 
   <br><br>
 

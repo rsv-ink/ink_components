@@ -7,7 +7,7 @@ class User
   validates :name, length: { minimum: 3 }
   validates :name, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }
 
-  attr_accessor :name, :email, :paid, :type, :color
+  attr_accessor :name, :email, :paid, :type, :color, :arquivo
 
   def initialize(**kwargs)
     super
