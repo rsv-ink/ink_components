@@ -61,6 +61,12 @@ module InkComponents
       end
     end
 
+    def file_field(attribute, multiple = false, **)
+      options = html_options(attribute)
+      options[:name] += "[]" if multiple
+      file_input_component(**html_options(attribute))
+    end
+
     def error_message(attribute, **)
       state = field_state(attribute)
       helper_text_component(state:, **) { error_messages(attribute) }
@@ -100,6 +106,10 @@ module InkComponents
       tag_value = "_#{value}" if value.present?
 
       "#{resource_name}#{attribute}#{tag_value}".delete("]").tr("^-a-zA-Z0-9:.", "_")
+    end
+
+    def format_value(attribute)
+      object.respond_to?(attribute) ? object.public_send(attribute) : nil
     end
 
     def format_name(attribute)
