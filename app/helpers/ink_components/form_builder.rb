@@ -65,9 +65,20 @@ module InkComponents
       file_input_component(**html_options(attribute, opts[:multiple]), **opts)
     end
 
+    def text_area(attribute, **)
+      state = field_state(attribute)
+      text_area_component(state:, **html_options(attribute), **)
+    end
+
     def error_message(attribute, **)
       state = field_state(attribute)
       helper_text_component(state:, **) { error_messages(attribute) }
+    end
+
+    def submit(content = nil, **options)
+      content ||= submit_default_value
+      options[:data] = { disable_with: content }.merge(options[:data] || {})
+      button_component(builder: :button_tag, value: content, **options) { content }
     end
 
     private
