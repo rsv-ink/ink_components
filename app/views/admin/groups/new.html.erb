@@ -1,0 +1,58 @@
+<h1>Com Form Builder</h1>
+<%= form_with model: @group, builder: InkComponents::FormBuilder do |f| %>
+  <% @group.users.each_with_index do |user, index| %>
+    <%= f.fields_for :users, user, index: index do |user_fields| %>
+      <div class="user-fields">
+        <%= user_fields.label :name, "Name" %>
+        <%= user_fields.text_field :name %>
+        <br>
+        <%= user_fields.label :email, "Email" %>
+        <%= user_fields.email_field :email %>
+        <br>
+        <%= user_fields.label :paid, "Paid" %>
+        <%= user_fields.check_box :paid %>
+        <br>
+        <%= user_fields.label :type, "Type" %>
+        <%= user_fields.text_field :type %>
+        <br>
+        <%= user_fields.label :color, "Color" %>
+        <%= user_fields.color_field :color %>
+        <br>
+        <%= user_fields.label :arquivo, "Arquivo" %>
+        <%= user_fields.file_field :arquivo, multiple: true %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= f.submit "Save Group" %>
+<% end %>
+
+<h1>Sem Form Builder</h1>
+<%= form_with model: @group do |f| %>
+  <% @group.users.each_with_index do |user, index| %>
+    <%= f.fields_for :users, user, index: index do |user_fields| %>
+      <div class="user-fields">
+        <%= user_fields.label :name, "Name" %>
+        <%= user_fields.text_field :name %>
+        <br>
+        <%= user_fields.label :email, "Email" %>
+        <%= user_fields.email_field :email %>
+        <br>
+        <%= user_fields.label :paid, "Paid" %>
+        <%= user_fields.check_box :paid %>
+        <br>
+        <%= user_fields.label :type, "Type" %>
+        <%= user_fields.text_field :type %>
+        <br>
+        <%= user_fields.label :color, "Color" %>
+        <%= user_fields.color_field :color %>
+        <br>
+        <%= user_fields.label :arquivo, "Arquivo" %>
+        <%= user_fields.file_field :arquivo, multiple: true %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= f.submit "Save Group" %>
+<% end %>
+

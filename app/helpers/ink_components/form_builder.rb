@@ -62,10 +62,7 @@ module InkComponents
     end
 
     def file_field(attribute, **opts)
-      file_html_options = html_options(attribute)
-      file_html_options[:name] += "[]" if opts[:multiple].present?
-
-      file_input_component(**file_html_options, **opts)
+      file_input_component(**html_options(attribute, opts[:multiple]), **opts)
     end
 
     def error_message(attribute, **)
@@ -94,23 +91,28 @@ module InkComponents
       object.errors[attribute].to_sentence.capitalize.presence&.concat(".")
     end
 
-    def html_options(attribute)
+    def html_options(attribute, multipart = nil)
       {
-        name: format_name(attribute),
+        name: format_name(attribute, multipart),
         id: format_id(attribute),
-        value: object.try(:public_send, attribute)
+        value: object.try(attribute)
       }
     end
 
     def format_id(attribute, value = nil)
       resource_name = "#{object_name}_" if object_name.present?
       tag_value = "_#{value}" if value.present?
+      index_value = "#{index}_" if index.present?
 
-      "#{resource_name}#{attribute}#{tag_value}".delete("]").tr("^-a-zA-Z0-9:.", "_")
+      "#{resource_name}#{index_value}#{attribute}#{tag_value}".delete("]").tr("^-a-zA-Z0-9:.", "_")
     end
 
-    def format_name(attribute)
-      object_name.present? ? "#{object_name}[#{attribute}]" : attribute.to_s
+    def format_name(attribute, multiple = false)
+      if index.present?
+        "#{object_name}[#{index}][#{attribute}]#{multiple ? "[]" : ""}"
+      else
+        object_name.present? ? "#{object_name}[#{attribute}]#{multiple ? "[]" : ""}" : attribute.to_s
+      end
     end
   end
 end
