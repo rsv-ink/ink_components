@@ -102,9 +102,9 @@ module InkComponents
       object.errors[attribute].to_sentence.capitalize.presence&.concat(".")
     end
 
-    def html_options(attribute, multipart = nil)
+    def html_options(attribute, multiple = false)
       {
-        name: format_name(attribute, multipart),
+        name: format_name(attribute, multiple),
         id: format_id(attribute),
         value: object.try(attribute)
       }
