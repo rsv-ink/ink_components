@@ -20,11 +20,13 @@ module InkComponents
       radio_component(id: format_id(attribute, value), name: format_name(attribute), value:, checked:, **) { content }
     end
 
-    def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
+    def check_box(attribute, options = {}, value = 1, checked_value = "1", unchecked_value = "0")
       checked = object.try(:public_send, attribute).in?([ true, checked_value ])
 
+      id = options[:multiple] ? format_id(attribute, value.to_s.downcase) : format_id(attribute)
+
       checkbox_component(
-        id: format_id(attribute), name: format_name(attribute), checked_value:, unchecked_value:, checked:, **options
+        id:, name: format_name(attribute, options[:multiple]), checked_value:, unchecked_value:, checked:, value:, **options
       )
     end
 
