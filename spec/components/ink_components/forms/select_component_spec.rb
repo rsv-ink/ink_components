@@ -12,7 +12,7 @@ RSpec.describe InkComponents::Forms::Select::Component, type: :component do
 
   it "renders select prompt" do
     choices = { red: "Red", green: "Green", blue: "Blue" }
-    component = render_inline(described_class.new(options: {prompt: "Select some option"}, choices:))
+    component = render_inline(described_class.new(options: { prompt: "Select some option" }, choices:))
 
     expect(component.to_html).to include("Select some option")
   end
