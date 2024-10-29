@@ -8,36 +8,36 @@ module InkComponents
 
     delegate :render, to: :template
 
-    def label(attribute, content = nil, **)
+    def label(attribute, content = nil, **opts)
       content ||= label_text(attribute)
 
-      label_component(for: format_id(attribute), **) { content }
+      label_component(for: format_id(attribute, objectify_options(opts)), **opts) { content }
     end
 
-    def radio_button(attribute, value, content = nil, **)
+    def radio_button(attribute, value, content = nil, **opts)
       checked = object.try(:public_send, attribute) == value
+      id = format_id(attribute, objectify_options(opts).merge({ value: }))
 
-      radio_component(id: format_id(attribute, value), name: format_name(attribute), value:, checked:, **) { content }
+      radio_component(id:, name: format_name(attribute, objectify_options(opts)), value:, checked:, **sanitize_options(opts)) { content }
     end
 
-    def check_box(attribute, options = {}, value = 1, checked_value = "1", unchecked_value = "0")
+    def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
       checked = object.try(:public_send, attribute).in?([ true, checked_value ])
-
-      id = options[:multiple] ? format_id(attribute, value.to_s.downcase) : format_id(attribute)
+      id = format_id(attribute, objectify_options(options).merge({ value: checked_value.to_s.downcase }))
 
       checkbox_component(
-        id:, name: format_name(attribute, options[:multiple]), checked_value:, unchecked_value:, checked:, value:, **options
+        id:, name: format_name(attribute, objectify_options(options)), checked_value:, unchecked_value:, checked:, **sanitize_options(options)
       )
     end
 
     def select(attribute, choices = nil, select_options = {}, tag_options = {})
-      html_options = html_options(attribute)
+      html_options = html_options(attribute, objectify_options(tag_options))
       select_component(
         state: field_state(attribute),
         options: choices,
         selected: html_options[:value],
         **select_options,
-        **tag_options,
+        **sanitize_options(options),
         **html_options,
       )
     end
@@ -59,17 +59,17 @@ module InkComponents
     ].each do |method, type|
       define_method(method) do |attribute, **opts|
         state = field_state(attribute)
-        input_field_component(type:, state:, **html_options(attribute), **opts)
+        input_field_component(type:, state:, **html_options(attribute, objectify_options(opts)), **sanitize_options(opts))
       end
     end
 
     def file_field(attribute, **opts)
-      file_input_component(**html_options(attribute, opts[:multiple]), **opts)
+      file_input_component(**html_options(attribute, objectify_options(opts)), **sanitize_options(opts))
     end
 
-    def text_area(attribute, **)
+    def text_area(attribute, **options)
       state = field_state(attribute)
-      text_area_component(state:, **html_options(attribute), **)
+      text_area_component(state:, **html_options(attribute, objectify_options(options)), **sanitize_options(opts))
     end
 
     def error_message(attribute, **)
@@ -104,27 +104,37 @@ module InkComponents
       object.errors[attribute].to_sentence.capitalize.presence&.concat(".")
     end
 
-    def html_options(attribute, multiple = false)
+    def html_options(attribute, options)
       {
-        name: format_name(attribute, multiple),
-        id: format_id(attribute),
+        name: format_name(attribute, options),
+        id: format_id(attribute, options),
         value: object.try(attribute)
       }
     end
 
-    def format_id(attribute, value = nil)
-      resource_name = "#{object_name}_" if object_name.present?
-      tag_value = "_#{value}" if value.present?
-      index_value = "#{index}_" if index.present?
-
-      "#{resource_name}#{index_value}#{attribute}#{tag_value}".delete("]").tr("^-a-zA-Z0-9:.", "_")
+    def sanitize_options(opts)
+      options.except(
+        :index, :namespace, :skip_default_ids, :allow_method_names_outside_object,
+        :builder, :parent_builder, :child_index
+      )
     end
 
-    def format_name(attribute, multiple = false)
-      if index.present?
-        "#{object_name}[#{index}][#{attribute}]#{multiple ? "[]" : ""}"
+    def format_id(attribute, options = {})
+      namespace_value = "#{options[:namespace]}_" if options[:namespace].present?
+      resource_name = "#{object_name}_" if object_name.present?
+      index_value = "#{options[:index]}_" if options[:index].present?
+      value = "_#{options[:value]}" if options[:value].present?
+
+      "#{namespace_value}#{resource_name}#{index_value}#{attribute}#{options[:multiple] ? value : ""}".delete("]").tr("^-a-zA-Z0-9:.", "_")
+    end
+
+    def format_name(attribute, options = {})
+      if object_name.empty?
+        "#{attribute}#{options[:multiple] ? "[]" : ""}"
+      elsif options[:index].present?
+        "#{object_name}[#{options[:index]}][#{attribute}]#{options[:multiple] ? "[]" : ""}"
       else
-        object_name.present? ? "#{object_name}[#{attribute}]#{multiple ? "[]" : ""}" : attribute.to_s
+        "#{object_name}[#{attribute}]#{options[:multiple] ? "[]" : ""}"
       end
     end
   end

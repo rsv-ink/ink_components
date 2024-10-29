@@ -1,7 +1,7 @@
 <h1>Com Form Builder</h1>
-<%= form_with model: @group, builder: InkComponents::FormBuilder do |f| %>
+<%= form_with model: @group, namespace: "teste", builder: InkComponents::FormBuilder do |f| %>
   <% @group.users.each_with_index do |user, index| %>
-    <%= f.fields_for :users, user, index: index do |user_fields| %>
+    <%= f.fields_for :users, user do |user_fields| %>
       <div class="user-fields">
         <%= user_fields.label :name, "Name" %>
         <%= user_fields.text_field :name %>
@@ -23,14 +23,22 @@
       </div>
     <% end %>
   <% end %>
-
+  <br><br>
+  <%= f.select :color,
+    [["Blue", "blue"], ["Pink", "pink"], ["Green", "green"]],
+    { prompt: "Selecione", include_blank: false },
+    { class: "mt-4" }
+  %>
+  <br><br>
+  <%= f.file_field :arquivo, multiple: true, accept: 'text/html', accept: "image/png,image/gif,image/jpeg", index: 2 %>
+  <br><br>
   <%= f.submit "Save Group" %>
 <% end %>
 
 <h1>Sem Form Builder</h1>
-<%= form_with model: @group do |f| %>
+<%= form_with model: @group, namespace: "teste" do |f| %>
   <% @group.users.each_with_index do |user, index| %>
-    <%= f.fields_for :users, user, index: index do |user_fields| %>
+    <%= f.fields_for :users, user do |user_fields| %>
       <div class="user-fields">
         <%= user_fields.label :name, "Name" %>
         <%= user_fields.text_field :name %>
@@ -52,7 +60,14 @@
       </div>
     <% end %>
   <% end %>
-
+  <br><br>
+  <%= f.select :color,
+    [["Blue", "blue"], ["Pink", "pink"], ["Green", "green"]],
+    { prompt: "Selecione", include_blank: false },
+    { class: "mt-4" }
+  %>
+  <br><br>
+  <%= f.file_field :arquivo, multiple: true, accept: 'text/html', accept: "image/png,image/gif,image/jpeg", index: 2 %>
+  <br><br>
   <%= f.submit "Save Group" %>
 <% end %>
-
