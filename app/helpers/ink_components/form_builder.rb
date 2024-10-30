@@ -23,7 +23,8 @@ module InkComponents
 
     def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
       checked = object.try(:public_send, attribute).in?([ true, checked_value ])
-      id = format_id(attribute, objectify_options(options).merge({ value: checked_value.to_s.downcase }))
+      multiple_attribute = checked_value.to_s.downcase if options[:multiple].present?
+      id = format_id(attribute, objectify_options(options).merge({ value: multiple_attribute }))
 
       checkbox_component(
         id:, name: format_name(attribute, objectify_options(options)), checked_value:, unchecked_value:, checked:, **sanitize_options(options)
@@ -125,7 +126,7 @@ module InkComponents
       index_value = "#{options[:index]}_" if options[:index].present?
       value = "_#{options[:value]}" if options[:value].present?
 
-      "#{namespace_value}#{resource_name}#{index_value}#{attribute}#{options[:multiple] ? value : ""}".delete("]").tr("^-a-zA-Z0-9:.", "_")
+      "#{namespace_value}#{resource_name}#{index_value}#{attribute}#{value}".delete("]").tr("^-a-zA-Z0-9:.", "_")
     end
 
     def format_name(attribute, options = {})
