@@ -66,15 +66,14 @@ module InkComponents
           defaults { { size: :md, state: :default } }
         end
 
-        attr_reader :state, :size, :selected, :prompt, :options, :underline
+        attr_reader :state, :size, :choices, :options, :underline
 
-        def initialize(state: nil, size: nil, selected: nil, prompt: nil, options: {}, underline: false, **extra_attributes)
+        def initialize(state: nil, size: nil, underline: false, choices: {}, options: {}, **extra_attributes)
           @state = state
           @size = size
-          @selected = selected
-          @prompt = prompt
-          @options = options
           @underline = underline
+          @choices = choices
+          @options = options
           super(**extra_attributes)
         end
 

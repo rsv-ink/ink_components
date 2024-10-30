@@ -1,1 +1,1 @@
-<%= select_tag "", options_for_select(options, selected:), prompt:, **attributes %>
+<%= select "", "", (content || options_for_select(choices, options[:selected])), options, attributes %>

@@ -28,16 +28,9 @@ module InkComponents
       )
     end
 
-    def select(attribute, choices = nil, select_options = {}, tag_options = {})
-      html_options = html_options(attribute)
-      select_component(
-        state: field_state(attribute),
-        options: choices,
-        selected: html_options[:value],
-        **select_options,
-        **tag_options,
-        **html_options,
-      )
+    def select(attribute, choices = nil, options = {}, tag_options = {}, &)
+      html_options = { id: format_id(attribute), name: format_name(attribute) }.merge(tag_options)
+      select_component(state: field_state(attribute), choices:, options:, **html_options, &)
     end
 
     [
