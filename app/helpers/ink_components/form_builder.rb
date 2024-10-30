@@ -129,12 +129,14 @@ module InkComponents
     end
 
     def format_name(attribute, options = {})
+      multiple_suffix = options[:multiple] ? "[]" : ""
+
       if object_name.empty?
-        "#{attribute}#{options[:multiple] ? "[]" : ""}"
+        "#{attribute}#{multiple_suffix}"
       elsif options[:index].present?
-        "#{object_name}[#{options[:index]}][#{attribute}]#{options[:multiple] ? "[]" : ""}"
+        "#{object_name}[#{options[:index]}][#{attribute}]#{multiple_suffix}"
       else
-        "#{object_name}[#{attribute}]#{options[:multiple] ? "[]" : ""}"
+        "#{object_name}[#{attribute}]#{multiple_suffix}"
       end
     end
   end
