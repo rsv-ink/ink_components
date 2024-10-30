@@ -22,11 +22,6 @@
 
   <br>
 
-  <%= f.select :color, [], { prompt: "Selecione", include_blank: true } do %>
-    <option value="upfront" selected>À vista</option>
-    <option value="installments">Parcelado</option>
-  <% end %>
-
   <%= f.submit %>
 <% end %>
 
@@ -50,11 +45,6 @@
     <%= f.check_box :paid %>
     <%= f.label :paid, class: "mb-0" %>
   </div>
-
-  <%= f.select :color, [], { prompt: "Selecione", include_blank: true } do %>
-    <option value="upfront" selected>À vista</option>
-    <option value="installments">Parcelado</option>
-  <% end %>
 
   <%= f.submit %>
 <% end %>
