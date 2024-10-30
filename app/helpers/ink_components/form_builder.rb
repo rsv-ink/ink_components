@@ -121,18 +121,21 @@ module InkComponents
     end
 
     def format_id(attribute, options = {})
-      namespace_value = "#{options[:namespace]}_" if options[:namespace].present?
-      resource_name = "#{object_name}_" if object_name.present?
-      index_value = "#{options[:index]}_" if options[:index].present?
-      value = "_#{options[:value]}" if options[:value].present?
+      parts = [
+        options[:namespace],
+        object_name.presence,
+        options[:index],
+        attribute,
+        options[:value].presence
+      ]
 
-      "#{namespace_value}#{resource_name}#{index_value}#{attribute}#{value}".delete("]").tr("^-a-zA-Z0-9:.", "_")
+      parts.compact.join('_').delete("]").tr("^-a-zA-Z0-9:.", "_")
     end
 
     def format_name(attribute, options = {})
       multiple_suffix = options[:multiple] ? "[]" : ""
 
-      if object_name.empty?
+      if object_name.blank?
         "#{attribute}#{multiple_suffix}"
       elsif options[:index].present?
         "#{object_name}[#{options[:index]}][#{attribute}]#{multiple_suffix}"
