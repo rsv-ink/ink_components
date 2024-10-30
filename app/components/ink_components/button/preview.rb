@@ -6,7 +6,7 @@ module InkComponents
       # @param content text
       # @param href text
       # @param disabled toggle
-      # @param builder select { choices: [link_to, button_tag, button_to] }
+      # @param builder select { choices: [button_tag, link_to, button_to] }
       # @param color select { choices: [pink, blue, alternative, dark, light, green, red, yellow, purple] }
       # @param size select { choices: [xs, sm, md, lg, xl] }
       # @param shape select { choices: [default, pill, outline] }

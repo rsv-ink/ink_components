@@ -4,7 +4,7 @@ module InkComponents
   module Button
     class Component < ApplicationComponent
       style do
-        base { %w[ focus:ring-4 font-medium text-center me-2 mb-2 focus:outline-none ] }
+        base { %w[ focus:ring-4 font-medium text-center focus:outline-none ] }
 
         variants {
           color {
@@ -101,7 +101,7 @@ module InkComponents
       style :outline do
         base {
           %w[
-            focus:ring-4 font-medium text-center me-2 mb-2 focus:outline-none
+            focus:ring-4 font-medium text-center focus:outline-none
             rounded-lg hover:text-white dark:hover:text-white border bg-transparent dark:bg-transparent
           ]
         }
@@ -135,7 +135,7 @@ module InkComponents
 
       attr_reader :builder, :shape, :color, :size, :href, :disabled
 
-      def initialize(builder: :link_to, shape: :default, color: nil, size: nil, href: "#", **extra_attributes)
+      def initialize(builder: :button_tag, shape: :default, color: nil, size: nil, href: "#", **extra_attributes)
         @builder = builder
         @shape = shape
         @color = color
