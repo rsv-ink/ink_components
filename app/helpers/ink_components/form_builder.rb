@@ -131,7 +131,7 @@ module InkComponents
         options[:value].presence
       ]
 
-      parts.compact.join('_').delete("]").tr("^-a-zA-Z0-9:.", "_")
+      parts.compact.join("_").delete("]").tr("^-a-zA-Z0-9:.", "_")
     end
 
     def format_name(attribute, options = {})
