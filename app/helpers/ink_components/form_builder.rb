@@ -113,7 +113,7 @@ module InkComponents
     end
 
     def sanitize_options(opts)
-      options.except(
+      opts.except(
         :index, :namespace, :skip_default_ids, :allow_method_names_outside_object,
         :builder, :parent_builder, :child_index
       )
