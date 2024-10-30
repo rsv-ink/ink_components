@@ -31,15 +31,17 @@ module InkComponents
       )
     end
 
-    def select(attribute, choices = nil, select_options = {}, tag_options = {})
+    def select(attribute, choices = nil, select_options = {}, tag_options = {}, &)
       html_options = html_options(attribute, objectify_options(tag_options))
       select_component(
         state: field_state(attribute),
-        options: choices,
+        choices:,
+        options:,
         selected: html_options[:value],
         **select_options,
-        **sanitize_options(options),
+        **sanitize_options(tag_options),
         **html_options,
+        &
       )
     end
 

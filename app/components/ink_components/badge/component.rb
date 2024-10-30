@@ -4,7 +4,7 @@ module InkComponents
   module Badge
     class Component < ApplicationComponent
       style do
-        base { "font-medium me-2" }
+        base { "font-medium" }
 
         variants {
           color {
@@ -32,7 +32,7 @@ module InkComponents
             yes { "inline-flex items-center justify-center" }
           }
           dismissible {
-            yes { "inline-flex items-center px-2 py-1 me-2" }
+            yes { "inline-flex items-center px-2 py-1" }
             no { "px-2.5 py-0.5" }
           }
         }
