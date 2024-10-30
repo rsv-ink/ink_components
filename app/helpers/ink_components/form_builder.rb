@@ -11,7 +11,7 @@ module InkComponents
     def label(attribute, content = nil, **opts)
       content ||= label_text(attribute)
 
-      label_component(for: format_id(attribute, objectify_options(opts)), **opts) { content }
+      label_component(for: format_id(attribute, objectify_options(opts)), **sanitize_options(opts)) { content }
     end
 
     def radio_button(attribute, value, content = nil, **opts)
