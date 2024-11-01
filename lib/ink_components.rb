@@ -5,6 +5,7 @@ require "inline_svg"
 require "tailwind_merge"
 require "view_component-contrib"
 
+
 module InkComponents
   # Your code goes here...
 end
