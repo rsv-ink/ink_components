@@ -99,6 +99,7 @@ GEM
     diff-lcs (1.5.1)
     drb (2.2.1)
     erubi (1.13.0)
+    extlib (0.9.16)
     globalid (1.2.1)
       activesupport (>= 6.1)
     htmlbeautifier (1.4.3)
@@ -330,6 +331,7 @@ PLATFORMS
 
 DEPENDENCIES
   cssbundling-rails (= 1.1.2)
+  extlib
   ink_components!
   inline_svg
   jsbundling-rails (= 1.1.1)
