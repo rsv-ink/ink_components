@@ -37,4 +37,14 @@ RSpec.describe InkComponents::Forms::Checkbox::Component, type: :component do
       expect(component.css("p")).not_to be_present
     end
   end
+
+  context "when no id is provided for the component" do
+    context "when content is provided" do
+      it "generates an id for the checkbox and associates it with the label 'for' attribute" do
+        component = render_inline(described_class.new(name: "product[name]")) { "Some label" }
+
+        expect(component.css("label").attr("for").value).to eq("product_name")
+      end
+    end
+  end
 end

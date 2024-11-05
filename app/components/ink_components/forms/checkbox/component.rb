@@ -101,7 +101,7 @@ module InkComponents
         end
 
         def checkbox_id
-          attributes[:id] || content&.tr(" ", "_")&.downcase
+          attributes[:id] || sanitize_to_id(attributes[:name]) || content&.tr(" ", "_")&.downcase
         end
       end
     end
