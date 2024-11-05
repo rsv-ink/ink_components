@@ -87,6 +87,10 @@ module InkComponents
             "Some value"
           end
         end
+
+        def without_helper_text_or_content
+          checkbox_component(id: "product", name: "product[some_value]")
+        end
       end
     end
   end
