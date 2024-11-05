@@ -38,4 +38,13 @@ RSpec.describe InkComponents::Forms::Checkbox::Component, type: :component do
       end
     end
   end
+
+  context "when the helper text and content is not provided" do
+    it "doesn't render the helper text and label" do
+      component = render_inline(described_class.new)
+
+      expect(component.css("label")).not_to be_present
+      expect(component.css("p")).not_to be_present
+    end
+  end
 end
