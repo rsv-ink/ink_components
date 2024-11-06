@@ -5,7 +5,7 @@ module InkComponents
     module Label
       class Component < ApplicationComponent
         style do
-          base { %w[ block mb-2 text-sm font-medium ] }
+          base { %w[ block text-sm font-medium ] }
           variants {
             state {
               default { "text-gray-900 dark:text-white" }

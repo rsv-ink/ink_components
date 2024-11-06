@@ -8,8 +8,9 @@ module InkComponents
 
     delegate :render, to: :template
 
-    def label(attribute, content = nil, **opts)
+    def label(attribute, content = nil, **opts, &)
       content ||= label_text(attribute)
+      content = template.capture(&) if block_given?
 
       label_component(for: format_id(attribute, objectify_options(opts)), **sanitize_options(opts)) { content }
     end
@@ -80,8 +81,10 @@ module InkComponents
       helper_text_component(state:, **) { error_messages(attribute) }
     end
 
-    def submit(content = nil, **options)
+    def submit(content = nil, **options, &)
       content ||= submit_default_value
+      content = template.capture(&) if block_given?
+
       options[:data] = { disable_with: content }.merge(options[:data] || {})
       button_component(builder: :button_tag, value: content, **options) { content }
     end

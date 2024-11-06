@@ -41,10 +41,24 @@
 
   <br><br>
 
+  <%= f.label :full_name do %>
+    Nome completo
+    <%= f.text_field :full_name %>
+  <% end %>
+
+  <br><br>
+
   <div class="flex mb-4">
     <%= f.check_box :paid %>
     <%= f.label :paid, class: "mb-0" %>
   </div>
 
   <%= f.submit %>
+
+  <br><br>
+
+  <%= f.submit class: "flex items-center gap-2" do %>
+    <%= icon_component(name: :github, class: "size-3") %>
+    Salvar
+  <% end %>
 <% end %>
