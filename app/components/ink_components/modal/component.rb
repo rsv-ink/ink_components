@@ -2,6 +2,7 @@ module InkComponents
   module Modal
     class Component < ApplicationComponent
       renders_one :header, "HeaderComponent"
+      renders_one :body, "BodyComponent"
 
 
       style do
@@ -32,6 +33,18 @@ module InkComponents
                                 </svg>'))
               safe_concat(content_tag(:span, "Close modal", class: "sr-only"))
             end)
+          end
+        end
+
+        def render?
+          content.present?
+        end
+      end
+
+      class BodyComponent < ApplicationComponent
+        def call
+          content_tag :div, class: "w-full p-4 md:p-5 space-y-4" do
+            content
           end
         end
 
