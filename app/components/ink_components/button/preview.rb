@@ -30,6 +30,16 @@ module InkComponents
           form: { data: { type: :json } }
         ) { "Button" }
       end
+
+      def toggle_modal
+        button_component(
+          builder: :button_tag,
+          size: :md,
+          data: { "modal-target" => "default-modal",
+                  "modal-toggle" => "default-modal"
+                },
+        ) { "Abrir modal" }
+      end
       # @!endgroup
 
       # @!group Sizes
