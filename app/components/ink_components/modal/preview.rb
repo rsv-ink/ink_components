@@ -49,6 +49,40 @@ module InkComponents
         end
       end
       # @!endgroup
+
+      # @!group Builders
+      def body_to_builder
+        modal_component(id: "body-modal", size: :md) do |component|
+          component.with_header { "Modal com Body Personalizado" }
+          component.with_body do
+            content_tag :div, class: "w-full" do
+              content_tag :div, class: "w-full grid grid-cols-2 gap-2" do
+                content_tag(:div, class: "flex flex-col gap-2") do
+                  content_tag(:label, "Nome", class: "text-sm font-medium text-gray-900 dark:text-white") +
+                  content_tag(:input, nil, type: "text", class: "border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:ring-4 focus:outline-none", placeholder: "João das Neves")
+                end +
+                content_tag(:div, class: "flex flex-col gap-2") do
+                  content_tag(:label, "Idade", class: "text-sm font-medium text-gray-900 dark:text-white") +
+                  content_tag(:input, nil, type: "text", class: "border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:ring-4 focus:outline-none", placeholder: "34")
+                end
+              end
+            end
+          end
+        end
+      end
+
+      def footer_to_builder
+        modal_component(id: "footer-modal", size: :md) do |component|
+          component.with_header { "Modal com Footer Personalizado" }
+          component.with_body { TEXT_BODY }
+          component.with_footer do
+            content_tag :div, class: "w-full flex justify-end items-center p-4" do
+              content_tag(:button, "Salvar", type: "button", class: "focus:ring-4 font-medium text-center focus:outline-none text-white bg-pink-600 hover:bg-pink-800 focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 rounded-lg px-5 py-2.5 text-sm", data: { modal_hide: "footer-modal" })
+            end
+          end
+        end
+      end
+      # @!endgroup
     end
   end
 end
