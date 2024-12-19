@@ -5,7 +5,6 @@ module InkComponents
       renders_one :body, "BodyComponent"
       renders_one :footer, "FooterComponent"
 
-
       style do
         variants {
           size {
@@ -56,9 +55,7 @@ module InkComponents
 
       class FooterComponent < ApplicationComponent
         def call
-          content_tag :div, class: "w-full flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600" do
-            content
-          end
+          content
         end
 
         def render?
