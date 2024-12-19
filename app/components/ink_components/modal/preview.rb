@@ -14,6 +14,40 @@ module InkComponents
           component.with_footer { footer }
         end
       end
+
+      # @!group Sizes
+      def small
+        modal_component(id: "small-modal", size: :sm) do |component|
+          component.with_header { "Small" }
+          component.with_body { "With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply." }
+          component.with_footer { "Rodapé" }
+        end
+      end
+
+      def medium
+        modal_component(id: "medium-modal", size: :md) do |component|
+          component.with_header { "Medium" }
+          component.with_body { "With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply." }
+          component.with_footer { "Rodapé" }
+        end
+      end
+
+      def large
+        modal_component(id: "large-modal", size: :lg) do |component|
+          component.with_header { "Large" }
+          component.with_body { "With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply." }
+          component.with_footer { "Rodapé" }
+        end
+      end
+
+      def extra_large
+        modal_component(id: "extra-large-modal", size: :xl) do |component|
+          component.with_header { "Extra Large" }
+          component.with_body { "With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply." }
+          component.with_footer { "Rodapé" }
+        end
+      end
+      # @!endgroup
     end
   end
 end
