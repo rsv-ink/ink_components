@@ -13,31 +13,40 @@ module InkComponents
             lg { "max-w-4xl" }
             xl { "max-w-7xl" }
           }
+
+          type {
+            static { "static" }
+          }
         }
       end
 
-      attr_reader :id, :size
-      def initialize(id:, size: nil)
+      attr_reader :id, :size, :type
+
+      def initialize(id:, size:, type: nil)
         @id = id
         @size = size
+        @type = type
       end
 
       class HeaderComponent < ApplicationComponent
-        def call
-          content_tag :div, class: "w-full flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600" do
-            safe_concat(content_tag(:h3, content, class: "text-xl font-semibold text-gray-900 dark:text-white"))
+        attr_reader :modal_id, :title
+        def initialize(modal_id:, title:)
+          @modal_id = modal_id
+          @title = title
+        end
 
-            safe_concat(content_tag(:button, type: "button", class: "text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white", data: { modal_hide: "default-modal" }) do
+        def call
+          content_tag :div, class: "w-full flex items-center justify-between p-4 md:p-5 rounded-t" do
+            safe_concat(content_tag(:h3, title, class: "text-xl font-semibold text-gray-900 dark:text-white"))
+
+            safe_concat(content_tag(:button, type: "button", class: "text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center",
+                                    data: { modal_hide: modal_id }) do
               safe_concat(raw('<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                 </svg>'))
               safe_concat(content_tag(:span, "Close modal", class: "sr-only"))
             end)
           end
-        end
-
-        def render?
-          content.present?
         end
       end
 

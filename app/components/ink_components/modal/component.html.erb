@@ -3,15 +3,16 @@
 	builder: :button_tag,
 	size: :md,
 	data: { "modal-target" => id,
-			"modal-toggle" => id
+			    "modal-toggle" => id
 		  },
 ) { "Abrir modal" }  %>
 
 <!-- Main modal -->
-<div id="<%= id %>" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-	<div class="relative p-4 <%= style(size:)%> max-h-full">
+<div id="<%= id %>" tabindex="-1" data-modal-backdrop="<%= style(type:)%>" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+	<%= content_tag :div, class: "relative p-4 max-h-full #{style(size:)}" do %>
 		<!-- Modal content -->
-		<div class="w-full relative bg-white rounded-lg shadow dark:bg-gray-700">
+		<%= content_tag :div, class: "w-full relative bg-white rounded-lg shadow" do %>
+		
 			<!-- Modal header -->
 			<%= header %>
 
@@ -20,6 +21,6 @@
 
 			<!-- Modal footer -->
 			<%= footer %>
-		</div>
-	</div>
+		<% end %>
+	<% end %>
 </div>
