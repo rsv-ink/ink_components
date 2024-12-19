@@ -31,7 +31,7 @@ module InkComponents
         ) { "Button" }
       end
 
-      def toggle_modal
+      def toggle_modal_to_builder
         button_component(
           builder: :button_tag,
           size: :md,
