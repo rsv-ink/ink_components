@@ -4,19 +4,19 @@ module InkComponents
   module Modal
     class Preview < Lookbook::Preview
       TEXT_BODY = "Nossas camisetas são de excelência em algodão brasileiro, ideais para todos os climas. Todas as cores são 100% algodão; exceto cinzas: 88% algodão e 12% poliéster.".freeze
-      # @param id text
+      # @param modal_id text
       # @param title text
       # @param size select { choices: [sm, md, lg, xl] }
       # @param body text
       # @param footer text
       # @param type select { choices: [default, static] }
-      def playground(id: "default-modal", type: :default, title: "Título do modal", size: :md, body: TEXT_BODY, footer: "Rodapé")
-        modal_component(id:, size:, type:) do |component|
-          component.with_header(modal_id: id, title:)
+      def playground(modal_id: "default-modal", type: :default, title: "Título do modal", size: :md, body: TEXT_BODY, footer: "Rodapé")
+        modal_component(modal_id:, size:, type:) do |component|
+          component.with_header(modal_id:, title:)
           component.with_body { body }
           component.with_footer do
             content_tag :div, class: "w-full flex justify-start items-center p-4" do
-              content_tag(:button, "Fechar", type: "button", class: "focus:ring-4 font-medium text-center focus:outline-none text-white bg-pink-600 hover:bg-pink-800 focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 rounded-lg px-5 py-2.5 text-sm", data: { modal_hide: id })
+              content_tag(:button, "Fechar", type: "button", class: "focus:ring-4 font-medium text-center focus:outline-none text-white bg-pink-600 hover:bg-pink-800 focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 rounded-lg px-5 py-2.5 text-sm", data: { modal_hide: modal_id })
             end
           end
         end
@@ -24,7 +24,7 @@ module InkComponents
 
       # @!group Types
       def default_modal
-        modal_component(id: "default-modal", size: :md) do |component|
+        modal_component(modal_id: "default-modal", size: :md) do |component|
           component.with_header(modal_id: "default-modal", title: "Default")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -36,7 +36,7 @@ module InkComponents
       end
 
       def static_modal
-        modal_component(id: "static-modal", size: :md, type: :static) do |component|
+        modal_component(modal_id: "static-modal", size: :md, type: :static) do |component|
           component.with_header(modal_id: "static-modal", title: "Static")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -48,7 +48,7 @@ module InkComponents
       end
 
       def popup_modal
-        modal_component(id: "popup-modal", size: :md) do |component|
+        modal_component(modal_id: "popup-modal", size: :md) do |component|
           component.with_header(modal_id: "popup-modal", title: "Popup")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -63,7 +63,7 @@ module InkComponents
 
       # @!group Sizes
       def small
-        modal_component(id: "small-modal", size: :sm) do |component|
+        modal_component(modal_id: "small-modal", size: :sm) do |component|
           component.with_header(modal_id: "small-modal", title: "Small")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -75,7 +75,7 @@ module InkComponents
       end
 
       def default
-        modal_component(id: "medium-modal", size: :md) do |component|
+        modal_component(modal_id: "medium-modal", size: :md) do |component|
           component.with_header(modal_id: "medium-modal", title: "Medium")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -87,7 +87,7 @@ module InkComponents
       end
 
       def large
-        modal_component(id: "large-modal", size: :lg) do |component|
+        modal_component(modal_id: "large-modal", size: :lg) do |component|
           component.with_header(modal_id: "large-modal", title: "Large")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -99,7 +99,7 @@ module InkComponents
       end
 
       def extra_large
-        modal_component(id: "extra-large-modal", size: :xl) do |component|
+        modal_component(modal_id: "extra-large-modal", size: :xl) do |component|
           component.with_header(modal_id: "extra-large-modal", title: "Extra large")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -113,7 +113,7 @@ module InkComponents
 
       # @!group Builders
       def body_to_builder
-        modal_component(id: "body-modal", size: :md) do |component|
+        modal_component(modal_id: "body-modal", size: :md) do |component|
           component.with_header(modal_id: "body-modal", title: "Modal com Body Personalizado")
           component.with_body do
             content_tag :div, class: "w-full" do
@@ -133,7 +133,7 @@ module InkComponents
       end
 
       def footer_to_builder
-        modal_component(id: "footer-modal", size: :md) do |component|
+        modal_component(modal_id: "footer-modal", size: :md) do |component|
           component.with_header(modal_id: "footer-modal", title: "Modal com Footer Personalizado")
           component.with_body { TEXT_BODY }
           component.with_footer do

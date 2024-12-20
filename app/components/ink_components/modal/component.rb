@@ -20,10 +20,10 @@ module InkComponents
         }
       end
 
-      attr_reader :id, :size, :type
+      attr_reader :modal_id, :size, :type
 
-      def initialize(id:, size:, type: nil)
-        @id = id
+      def initialize(modal_id:, size:, type: nil)
+        @modal_id = modal_id
         @size = size
         @type = type
       end
