@@ -17,15 +17,24 @@ module InkComponents
           type {
             static { "static" }
           }
+
+          placement {
+            center { "center" }
+            top_left { "top-left" }
+            top_right { "top-right" }
+            bottom_left { "bottom-left" }
+            bottom_right { "bottom-right" }
+          }
         }
       end
 
-      attr_reader :modal_id, :size, :type
+      attr_reader :modal_id, :size, :type, :placement
 
-      def initialize(modal_id:, size:, type: nil)
+      def initialize(modal_id:, size:, type: nil, placement: :top_left)
         @modal_id = modal_id
         @size = size
         @type = type
+        @placement = placement
       end
 
       class HeaderComponent < ApplicationComponent
