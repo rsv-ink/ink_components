@@ -6,13 +6,14 @@ module InkComponents
       TEXT_BODY = "Nossas camisetas são de excelência em algodão brasileiro, ideais para todos os climas. Todas as cores são 100% algodão; exceto cinzas: 88% algodão e 12% poliéster.".freeze
       # @param modal_id text
       # @param title text
-      # @param size select { choices: [sm, md, lg, xl] }
+      # @param width text
+      # @param max_width select { choices: [ sm, md, lg, xl] }
       # @param body text
       # @param footer text
       # @param type select { choices: [default, static] }
       # @param placement select { choices: [center, top_left, top_right, bottom_left, bottom_right] }
-      def playground(modal_id: "default-modal", type: :default, title: "Título do modal", placement: :center, size: :md, body: TEXT_BODY, footer: "Rodapé")
-        modal_component(modal_id:, size:, type:, placement:) do |component|
+      def playground(modal_id: "default-modal", type: :default, title: "Título do modal", placement: :center, width: "516px", max_width: :md, body: TEXT_BODY, footer: "Rodapé")
+        modal_component(modal_id:, max_width:, width:, type:, placement:) do |component|
           component.with_header(modal_id:, title:)
           component.with_body { body }
           component.with_footer do
@@ -25,7 +26,7 @@ module InkComponents
 
       # @!group Types
       def default_modal
-        modal_component(modal_id: "default-modal", size: :md, placement: "top-left") do |component|
+        modal_component(modal_id: "default-modal", width: "516px", max_width: :md, placement: "top-left") do |component|
           component.with_header(modal_id: "default-modal", title: "Default")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -37,7 +38,7 @@ module InkComponents
       end
 
       def static_modal
-        modal_component(modal_id: "static-modal", size: :md, type: :static, placement: "top-left") do |component|
+        modal_component(modal_id: "static-modal", width: "516px", max_width: :md, type: :static, placement: "top-left") do |component|
           component.with_header(modal_id: "static-modal", title: "Static")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -49,7 +50,7 @@ module InkComponents
       end
 
       def popup_modal
-        modal_component(modal_id: "popup-modal", size: :md, placement: "top-left") do |component|
+        modal_component(modal_id: "popup-modal", width: "516px", max_width: :md, placement: "top-left") do |component|
           component.with_header(modal_id: "popup-modal", title: "Popup")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -64,7 +65,7 @@ module InkComponents
 
       # @!group Sizes
       def small
-        modal_component(modal_id: "small-modal", size: :sm, placement: "top-left") do |component|
+        modal_component(modal_id: "small-modal", width: "516px", max_width: :sm, placement: "top-left") do |component|
           component.with_header(modal_id: "small-modal", title: "Small")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -76,7 +77,7 @@ module InkComponents
       end
 
       def default
-        modal_component(modal_id: "medium-modal", size: :md, placement: "top-left") do |component|
+        modal_component(modal_id: "medium-modal", width: "516px", max_width: :md, placement: "top-left") do |component|
           component.with_header(modal_id: "medium-modal", title: "Medium")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -88,7 +89,7 @@ module InkComponents
       end
 
       def large
-        modal_component(modal_id: "large-modal", size: :lg, placement: "top-left") do |component|
+        modal_component(modal_id: "large-modal", width: "516px", max_width: :lg, placement: "top-left") do |component|
           component.with_header(modal_id: "large-modal", title: "Large")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -100,7 +101,7 @@ module InkComponents
       end
 
       def extra_large
-        modal_component(modal_id: "extra-large-modal", size: :xl, placement: "top-left") do |component|
+        modal_component(modal_id: "extra-large-modal", width: "516px", max_width: :xl, placement: "top-left") do |component|
           component.with_header(modal_id: "extra-large-modal", title: "Extra large")
           component.with_body { TEXT_BODY }
           component.with_footer do
@@ -114,7 +115,7 @@ module InkComponents
 
       # @!group Builders
       def body_to_builder
-        modal_component(modal_id: "body-modal", size: :md, placement: "top-left") do |component|
+        modal_component(modal_id: "body-modal", width: "516px", max_width: :md, placement: "top-left") do |component|
           component.with_header(modal_id: "body-modal", title: "Modal com Body Personalizado")
           component.with_body do
             content_tag :div, class: "w-full" do
@@ -134,7 +135,7 @@ module InkComponents
       end
 
       def footer_to_builder
-        modal_component(modal_id: "footer-modal", size: :md, placement: "top-left") do |component|
+        modal_component(modal_id: "footer-modal", width: "516px", max_width: :md, placement: "top-left") do |component|
           component.with_header(modal_id: "footer-modal", title: "Modal com Footer Personalizado")
           component.with_body { TEXT_BODY }
           component.with_footer do

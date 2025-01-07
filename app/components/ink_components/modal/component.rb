@@ -7,7 +7,7 @@ module InkComponents
 
       style do
         variants {
-          size {
+          max_width {
             sm { "max-w-md" }
             md { "max-w-lg" }
             lg { "max-w-4xl" }
@@ -28,11 +28,12 @@ module InkComponents
         }
       end
 
-      attr_reader :modal_id, :size, :type, :placement
+      attr_reader :modal_id, :max_width, :width, :type, :placement
 
-      def initialize(modal_id:, size:, type: nil, placement: :top_left)
+      def initialize(modal_id:, max_width:, width:, type: nil, placement: :top_left)
         @modal_id = modal_id
-        @size = size
+        @max_width = max_width
+        @width = width
         @type = type
         @placement = placement
       end
