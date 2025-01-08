@@ -114,29 +114,36 @@ module InkComponents
       # @!endgroup
 
       # @!group Placement
+      def center
+        modal_component(modal_id: "center-modal", max_width: :md) do |component|
+          component.with_header(modal_id: "center-modal", title: "Center")
+          component.with_body { TEXT_BODY }
+        end
+      end
+
       def top_left
-        modal_component(modal_id: "top-left-modal", width: "516px", max_width: :md, placement: :top_left) do |component|
+        modal_component(modal_id: "top-left-modal", max_width: :md, placement: :top_left) do |component|
           component.with_header(modal_id: "top-left-modal", title: "Top Left")
           component.with_body { TEXT_BODY }
         end
       end
 
       def top_right
-        modal_component(modal_id: "top-right-modal", width: "516px", max_width: :md, placement: :top_right) do |component|
+        modal_component(modal_id: "top-right-modal", max_width: :md, placement: :top_right) do |component|
           component.with_header(modal_id: "top-right-modal", title: "Top Right")
           component.with_body { TEXT_BODY }
         end
       end
 
       def bottom_left
-        modal_component(modal_id: "bottom-left-modal", width: "516px", max_width: :md, placement: :bottom_left) do |component|
+        modal_component(modal_id: "bottom-left-modal", max_width: :md, placement: :bottom_left) do |component|
           component.with_header(modal_id: "bottom-left-modal", title: "Bottom Left")
           component.with_body { TEXT_BODY }
         end
       end
 
       def bottom_right
-        modal_component(modal_id: "bottom-right-modal", width: "516px", max_width: :md, placement: :bottom_right) do |component|
+        modal_component(modal_id: "bottom-right-modal", max_width: :md, placement: :bottom_right) do |component|
           component.with_header(modal_id: "bottom-right-modal", title: "Bottom Right")
           component.with_body { TEXT_BODY }
         end

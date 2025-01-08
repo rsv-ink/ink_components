@@ -25,6 +25,14 @@ module InkComponents
             bottom_left { "bottom-left" }
             bottom_right { "bottom-right" }
           }
+
+          placement_classes {
+            center { "justify-center items-center " }
+            top_left { "justify-start items-start" }
+            top_right { "justify-end items-start" }
+            bottom_left { "justify-start items-end" }
+            bottom_right { "justify-end items-end" }
+          }
         }
       end
 
