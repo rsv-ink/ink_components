@@ -1,4 +1,4 @@
-<!-- Modal toggle -->
+<!--  <%= modal_id %> toggle -->
 <%= helpers.button_component(
 	builder: :button_tag,
 	size: :md,
@@ -7,7 +7,7 @@
 		  },
 ) { "Abrir modal" }  %>
 
-<!-- Main modal -->
+<!-- <%= modal_id %> modal -->
 <%= content_tag :div, '', id: modal_id, tabindex: -1, 
                 data: { modal_backdrop: style(type:),
 				        modal_placement: style(placement:)}, 
