@@ -83,7 +83,9 @@ module InkComponents
 
       class FooterComponent < ApplicationComponent
         def call
-          content
+          content_tag :div, class: "w-full p-4 md:p-5 space-y-4" do
+            content
+          end
         end
 
         def render?

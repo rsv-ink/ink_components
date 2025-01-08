@@ -16,11 +16,7 @@ module InkComponents
         modal_component(modal_id:, max_width:, width:, type:, placement:) do |component|
           component.with_header(modal_id:, title:)
           component.with_body { body }
-          component.with_footer do
-            content_tag :div, class: "w-full flex justify-start items-center p-4" do
-              content_tag(:button, "Fechar", type: "button", class: "focus:ring-4 font-medium text-center focus:outline-none text-white bg-pink-600 hover:bg-pink-800 focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 rounded-lg px-5 py-2.5 text-sm", data: { modal_hide: modal_id })
-            end
-          end
+          component.with_footer { footer }
         end
       end
 
