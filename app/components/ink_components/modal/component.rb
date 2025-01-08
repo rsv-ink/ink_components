@@ -15,6 +15,7 @@ module InkComponents
           }
 
           type {
+            dynamic { "dynamic" }
             static { "static" }
           }
 
@@ -38,7 +39,7 @@ module InkComponents
 
       attr_reader :modal_id, :max_width, :width, :type, :placement
 
-      def initialize(modal_id:, max_width:, width:, type: nil, placement: :center)
+      def initialize(modal_id:, max_width:, width: nil, type: :dynamic, placement: :center)
         @modal_id = modal_id
         @max_width = max_width
         @width = width
