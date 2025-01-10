@@ -1,0 +1,10 @@
+<%= content_tag :div, class: "w-full flex items-center justify-between p-4 md:p-5 rounded-t" do %>
+  <%= content_tag :h3, title, class: "text-xl font-semibold text-gray-900 dark:text-white" %>
+
+  <%= content_tag :button, type: "button", 
+                  class: "text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center", 
+                  data: { modal_hide: modal_id } do %>
+    <%= helpers.icon_component(name: :close, type: :outline, class: "w-5 h-5") %>
+    <%= content_tag :span, "Close modal", class: "sr-only" %>
+  <% end %>
+<% end %>
