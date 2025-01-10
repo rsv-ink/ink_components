@@ -1,6 +1,7 @@
 module InkComponents
   module Modal
     class Component < ApplicationComponent
+      renders_one :trigger, "TriggerComponent"
       renders_one :header, "HeaderComponent"
       renders_one :body, "BodyComponent"
       renders_one :footer, "FooterComponent"
@@ -56,6 +57,15 @@ module InkComponents
         width.present? ? "width: #{width};" : nil
       end
 
+      class TriggerComponent < ApplicationComponent
+        def call
+          content
+        end
+
+        def render?
+          content.present?
+        end
+      end
       class HeaderComponent < ApplicationComponent
         attr_reader :modal_id, :title
         def initialize(modal_id:, title:)

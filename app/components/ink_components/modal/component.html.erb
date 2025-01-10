@@ -1,11 +1,6 @@
 <!--  <%= modal_id %> toggle -->
-<%= helpers.button_component(
-	builder: :button_tag,
-	size: :md,
-	data: { "modal-target" => modal_id,
-			"modal-toggle" => modal_id
-		  },
-) { "Abrir modal" }  %>
+
+<%= trigger %>
 
 <!-- <%= modal_id %> modal -->
 <%= content_tag :div, '', id: modal_id, tabindex: -1, 
