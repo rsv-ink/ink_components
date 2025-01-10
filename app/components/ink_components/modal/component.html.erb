@@ -15,7 +15,7 @@
 				role: 'dialog',
                 class: "hidden overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 #{style(placement_classes: :placement)} w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900/50" do %>
 
-	<%= content_tag :div, class: "relative p-4 max-h-full #{width.present? ? nil : style(max_width:)}", style: width.present? ? "width: #{width};" : nil do %>
+	<%= content_tag :div, class: "relative p-4 max-h-full #{style_with_max_width}", style: style_with_width do %>
 		<!-- Modal content -->
 		<%= content_tag :div, class: "w-full relative bg-white rounded-lg shadow" do %>
 		

@@ -47,6 +47,15 @@ module InkComponents
         @placement = placement
       end
 
+      private
+      def style_with_max_width
+        width.present? ? nil : style(max_width:)
+      end
+
+      def style_with_width
+        width.present? ? "width: #{width};" : nil
+      end
+
       class HeaderComponent < ApplicationComponent
         attr_reader :modal_id, :title
         def initialize(modal_id:, title:)
