@@ -1,0 +1,19 @@
+<%= trigger %>
+
+<%= content_tag :div, '', id: modal_id, tabindex: -1, 
+                data: { modal_backdrop: style(type:),
+				        modal_placement: style(placement:)}, 
+                aria: { hidden: 'true' },
+				role: 'dialog',
+                class: "hidden overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 #{style(placement_classes: :placement)} w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900/50" do %>
+
+	<%= content_tag :div, class: "relative p-4 max-h-full #{style_with_max_width}", style: style_with_width do %>
+		<%= content_tag :div, class: "w-full relative bg-white rounded-lg shadow" do %>
+			<%= header %>
+
+			<%= body %>
+
+			<%= footer %>
+		<% end %>
+	<% end %>
+<% end %>
