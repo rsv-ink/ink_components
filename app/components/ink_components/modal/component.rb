@@ -38,23 +38,23 @@ module InkComponents
         }
       end
 
-      attr_reader :modal_id, :max_width, :width, :type, :placement
+      attr_reader :modal_id, :max_width, :type, :placement, :responsive_sizes
 
-      def initialize(modal_id:, max_width: :md, width: nil, type: :dynamic, placement: :center)
+      def initialize(modal_id:, max_width: nil, type: :dynamic, placement: :center, responsive_sizes: nil)
         @modal_id = modal_id
         @max_width = max_width
-        @width = width
         @type = type
         @placement = placement
+        @responsive_sizes = responsive_sizes
       end
 
       private
-      def style_with_max_width
-        width.present? ? nil : style(max_width:)
+      def size
+        max_width.present? ? style(max_width:) : responsive_sizes
       end
 
-      def style_with_width
-        width.present? ? "width: #{width};" : nil
+      def padding
+        max_width.present? ? nil : "p-4"
       end
     end
   end

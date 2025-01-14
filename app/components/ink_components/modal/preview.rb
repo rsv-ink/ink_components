@@ -7,14 +7,14 @@ module InkComponents
       # @param modal_id text "Id do modal"
       # @param title text "Título do modal"
       # @param subtitle text "Subtítulo do modal"
-      # @param width text "Largura fixa do modal. Especifique a unidade (px, rem, %, etc.)"
-      # @param max_width select "Largura máxima do modal" { choices: [ ~, sm, md, lg, xl] }
+      # @param responsive_sizes text "Classes Tailwind para tratar tamanho em todas as telas, incluindo dimensões fixas e responsivas (ex: w-[346px] md:w-[678px])"
+      # @param max_width select "Largura máxima do modal. Quando definido, invalida o uso de 'responsive_sizes'." { choices: [ ~, sm, md, lg, xl] }
       # @param body text "Corpo do modal"
       # @param footer text "Rodapé do modal"
       # @param type select "Define o tipo de fechamento do modal" { choices: [[Permite fechar clicando fora do modal, default], [Impede fechamento ao clicar fora, static]] }
       # @param placement select "Posição do modal na tela" { choices: [[Centralizado, center], [Canto superior esquerdo, top_left], [Canto superior direito, top_right], [Canto inferior esquerdo, bottom_left], [Canto inferior direito, bottom_right]] }
-      def playground(modal_id: "playground-modal", type: :default, title: "Título do modal", subtitle: "Subtítulo do modal", width: nil, placement: :center, max_width: :md, body: TEXT_BODY, footer: "Rodapé", id: nil)
-        modal_component(modal_id:, max_width:, width:, type:, placement:) do |component|
+      def playground(modal_id: "playground-modal", type: :default, title: "Título do modal", subtitle: "Subtítulo do modal", responsive_sizes: nil, placement: :center, max_width: :md, body: TEXT_BODY, footer: "Rodapé", id: nil)
+        modal_component(modal_id:, max_width:, type:, placement:, responsive_sizes:) do |component|
           component.with_trigger { button("playground-modal") }
           component.with_header(modal_id:, title:, subtitle:)
           component.with_body { body }
