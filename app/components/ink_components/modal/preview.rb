@@ -6,16 +6,17 @@ module InkComponents
       TEXT_BODY = "Nossas camisetas são de excelência em algodão brasileiro, ideais para todos os climas. Todas as cores são 100% algodão; exceto cinzas: 88% algodão e 12% poliéster.".freeze
       # @param modal_id text "Id do modal"
       # @param title text "Título do modal"
+      # @param subtitle text "Subtítulo do modal"
       # @param width text "Largura fixa do modal. Especifique a unidade (px, rem, %, etc.)"
       # @param max_width select "Largura máxima do modal" { choices: [ ~, sm, md, lg, xl] }
       # @param body text "Corpo do modal"
       # @param footer text "Rodapé do modal"
       # @param type select "Define o tipo de fechamento do modal" { choices: [[Permite fechar clicando fora do modal, default], [Impede fechamento ao clicar fora, static]] }
       # @param placement select "Posição do modal na tela" { choices: [[Centralizado, center], [Canto superior esquerdo, top_left], [Canto superior direito, top_right], [Canto inferior esquerdo, bottom_left], [Canto inferior direito, bottom_right]] }
-      def playground(modal_id: "playground-modal", type: :default, title: "Título do modal", width: nil, placement: :center, max_width: :md, body: TEXT_BODY, footer: "Rodapé", id: nil)
+      def playground(modal_id: "playground-modal", type: :default, title: "Título do modal", subtitle: "Subtítulo do modal", width: nil, placement: :center, max_width: :md, body: TEXT_BODY, footer: "Rodapé", id: nil)
         modal_component(modal_id:, max_width:, width:, type:, placement:) do |component|
           component.with_trigger { button("playground-modal") }
-          component.with_header(modal_id:, title:)
+          component.with_header(modal_id:, title:, subtitle:)
           component.with_body { body }
           component.with_footer { footer }
         end
