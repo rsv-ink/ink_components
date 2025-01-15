@@ -54,7 +54,7 @@ module InkComponents
       end
 
       def padding
-        max_width.present? ? nil : "p-4"
+     "p-4" if max_width.blank?
       end
     end
   end
