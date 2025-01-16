@@ -6,14 +6,7 @@ module InkComponents
       renders_one :body, InkComponents::Modal::Body::Component
       renders_one :footer, InkComponents::Modal::Footer::Component
 
-      style :wrapper do
-        base do
-          %w[
-            hidden overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50
-            w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900/50
-          ]
-        end
-
+      style do
         variants {
           type {
             dynamic { "dynamic" }
@@ -27,7 +20,18 @@ module InkComponents
             bottom_left { "bottom-left" }
             bottom_right { "bottom-right" }
           }
+        }
+      end
 
+      style :wrapper do
+        base do
+          %w[
+            hidden overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50
+            w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900/50
+          ]
+        end
+
+        variants {
           placement_classes {
             center { "justify-center items-center " }
             top_left { "justify-start items-start" }
@@ -41,7 +45,7 @@ module InkComponents
       style :modal do
         base do
           %w[
-            relative max-h-full
+            relative max-h-full p-4
           ]
         end
 
@@ -51,11 +55,6 @@ module InkComponents
             md { "max-w-lg" }
             lg { "max-w-4xl" }
             xl { "max-w-7xl" }
-          }
-
-          padding {
-            yes { "p-4" }
-            no {  }
           }
         }
       end
@@ -89,7 +88,7 @@ module InkComponents
       end
 
       def default_attributes
-        { class: style(:modal, max_width:, padding: max_width.blank?) }
+        { class: style(:modal, max_width:) }
       end
     end
   end
