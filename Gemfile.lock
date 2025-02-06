@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ink_components (2.0.0)
+    ink_components (2.0.1)
       inline_svg
       lookbook (= 2.3.2)
       rails (>= 6.1.7.4)
