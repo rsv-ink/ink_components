@@ -17,6 +17,9 @@ module InkComponents
           table.with_row do |row|
             row.with_cell { "Row 2, Cell 1" }
           end
+          table.with_footer do
+            "testing"
+          end
         end
       end
     end
