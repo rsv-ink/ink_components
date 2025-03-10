@@ -3,22 +3,26 @@
 module InkComponents
  module Table
   class Component < ApplicationComponent
-    renders_one :header, InkComponents::Table::Header::Component
-    renders_one :footer, InkComponents::Table::Footer::Component
-    renders_many :rows, InkComponents::Table::Row::Component
+    renders_one :header, Header::Component
+    renders_one :footer, Footer::Component
+    renders_many :rows, ->(**attrs) { Row::Component.new(hover: @hover, border: @border, **attrs) }
 
     style :wrapper do
       base { %w[relative overflow-x-auto] }
 
       variants {
         rounded {
-          lg { %w[rounded-lg] }
+          yes { %w[rounded-lg] }
+        }
+
+        shadow {
+          yes { %w[shadow-md] }
         }
       }
     end
 
     style do
-      base { %w[w-full ] }
+      base { %w[w-full text-gray-500] }
 
       variants {
         displacement {
@@ -31,18 +35,21 @@ module InkComponents
       defaults { { displacement: :left } }
     end
 
-    attr_reader :rounded, :displacement
+    attr_reader :rounded, :displacement, :shadow
 
-    def initialize(rounded: false, displacement: nil, **extra_attributes)
+    def initialize(rounded: false, displacement: nil, hover: false, border: true, shadow: false, **extra_attributes)
       @rounded = rounded
       @displacement = displacement
+      @hover = hover
+      @shadow = shadow
+      @border = border
 
       super(**extra_attributes)
     end
 
     private
     def wrapper_attributes
-      { class: style(:wrapper, rounded:) }
+      { class: style(:wrapper, rounded:, shadow:) }
     end
 
     def default_attributes

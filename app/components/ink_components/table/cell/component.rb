@@ -7,11 +7,14 @@ module InkComponents
         style do
           variants {
             size {
+              xs { %w[text-xs] }
+              sm { %w[text-sm] }
               md { %w[text-md] }
+              lg { %w[text-lg] }
             }
 
             spacing {
-              md { %w[px-6 py-3] }
+              md { %w[px-6 py-4] }
             }
 
             displacement {
