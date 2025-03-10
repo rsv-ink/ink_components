@@ -59,19 +59,27 @@ module InkComponents
         }
       end
 
-      attr_reader :modal_id, :max_width, :type, :placement
+      attr_reader :modal_id, :max_width, :type, :placement, :wrapper_attributes
 
-      def initialize(modal_id:, max_width: nil, type: :dynamic, placement: :center, **extra_attributes)
+      def initialize(
+        modal_id:,
+        max_width: nil,
+        type: :dynamic,
+        placement: :center,
+        wrapper_attributes: {},
+        **extra_attributes
+      )
         @modal_id = modal_id
         @max_width = max_width
         @type = type
         @placement = placement
+        @wrapper_attributes = mix(default_wrapper_attributes, wrapper_attributes)
 
         super(**extra_attributes)
       end
 
       private
-      def wrapper_attributes
+      def default_wrapper_attributes
         {
           id: modal_id,
           tabindex: -1,
