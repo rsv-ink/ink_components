@@ -12,6 +12,7 @@ RSpec.describe InkComponents::Table::Component, type: :component do
       end
 
       expect(component.to_html).to include("Header")
+      expect(component.to_html).to include("thead")
     end
   end
 
