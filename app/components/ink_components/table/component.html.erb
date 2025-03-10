@@ -1,11 +1,11 @@
-<div>
-  <table>
+<%= content_tag(:div, wrapper_attributes) do %>
+  <%= content_tag(:table, attributes) do %>
     <%= header %>
     <tbody>
       <% rows.each do |row| %>
         <%= row %>
       <% end %>
     </tbody>
-  </table>
-<%= footer %>
-</div>
+    <%= footer %>
+  <% end %>
+<% end %>

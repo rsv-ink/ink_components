@@ -4,7 +4,7 @@ module InkComponents
   module Table
     module Row
       class Component < ApplicationComponent
-        renders_many :cells, InkComponents::Table::Cell::Component
+        renders_many :cells, Cell::Component
 
         def initialize; end
       end

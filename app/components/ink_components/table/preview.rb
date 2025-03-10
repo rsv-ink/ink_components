@@ -17,8 +17,10 @@ module InkComponents
           table.with_row do |row|
             row.with_cell { "Row 2, Cell 1" }
           end
-          table.with_footer do
-            "testing"
+          table.with_footer do |footer|
+            footer.with_cell(scope: :row, type: :th) { "Footer" }
+            footer.with_cell { "Footer" }
+            footer.with_cell { "Footer" }
           end
         end
       end

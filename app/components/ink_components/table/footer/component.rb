@@ -4,11 +4,9 @@ module InkComponents
   module Table
     module Footer
       class Component < ApplicationComponent
-        def initialize; end
+        renders_many :cells, Cell::Component
 
-        def call
-          content
-        end
+        def initialize; end
       end
     end
   end
