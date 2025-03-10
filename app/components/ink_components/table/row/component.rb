@@ -9,7 +9,7 @@ module InkComponents
         style do
           variants {
             hover {
-              yes { %w[hover:bg-gray-100 dark:hover:bg-gray-800] }
+              yes { %w[hover:bg-gray-50 dark:hover:bg-gray-800] }
             }
 
             border {

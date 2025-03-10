@@ -9,8 +9,8 @@ module InkComponents
       # @param hover toggle
       # @param displacement select { choices: [left, right, center] }
       def default(
-        shadow: false,
-        rounded: false,
+        shadow: true,
+        rounded: true,
         displacement: :left,
         border: true,
         hover: false

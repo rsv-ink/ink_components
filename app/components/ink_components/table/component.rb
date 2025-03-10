@@ -37,7 +37,7 @@ module InkComponents
 
     attr_reader :rounded, :displacement, :shadow
 
-    def initialize(rounded: false, displacement: nil, hover: false, border: true, shadow: false, **extra_attributes)
+    def initialize(rounded: true, displacement: nil, hover: false, border: true, shadow: true, **extra_attributes)
       @rounded = rounded
       @displacement = displacement
       @hover = hover
