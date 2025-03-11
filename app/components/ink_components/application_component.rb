@@ -9,14 +9,17 @@ module InkComponents
     attr_reader :attributes
 
     def initialize(**extra_attributes)
-      @attributes = InkComponents::AttributeMerger.new(
-        default_attributes: default_attributes,
-        extra_attributes: extra_attributes
-      ).merge
+      @attributes = mix(default_attributes, extra_attributes)
+    end
 
-      if @attributes[:class].is_a?(String)
-        @attributes[:class] = TailwindMerge::Merger.new.merge(@attributes[:class])
+    def mix(default_attributes, extra_attributes)
+      attributes = AttributeMerger.new(default_attributes:, extra_attributes:).merge
+
+      if attributes[:class].is_a?(String)
+        attributes[:class] = TailwindMerge::Merger.new.merge(attributes[:class])
       end
+
+      attributes
     end
 
     private
