@@ -35,20 +35,21 @@ module InkComponents
       defaults { { displacement: :left } }
     end
 
-    attr_reader :rounded, :displacement, :shadow
+    attr_reader :rounded, :displacement, :shadow, :wrapper_attributes
 
-    def initialize(rounded: true, displacement: nil, hover: false, border: true, shadow: true, **extra_attributes)
+    def initialize(rounded: true, displacement: nil, hover: false, border: true, shadow: true, wrapper_attributes: {}, **extra_attributes)
       @rounded = rounded
       @displacement = displacement
       @hover = hover
       @shadow = shadow
       @border = border
+      @wrapper_attributes = mix(default_wrapper_attributes, wrapper_attributes)
 
       super(**extra_attributes)
     end
 
     private
-    def wrapper_attributes
+    def default_wrapper_attributes
       { class: style(:wrapper, rounded:, shadow:) }
     end
 
