@@ -4,7 +4,7 @@ module InkComponents
   module Table
     module Header
       class Component < ApplicationComponent
-        renders_many :cells, -> { Cell::Component.new(type: :th, scope: :col, class: "px-6 py-3") }
+        renders_many :cells, ->(**attrs) { Cell::Component.new(type: :th, scope: :col, class: "px-6 py-3", **attrs) }
 
         style do
           base { %w[text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400] }

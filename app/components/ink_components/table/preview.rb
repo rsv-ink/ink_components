@@ -8,7 +8,7 @@ module InkComponents
       # @param border toggle
       # @param hover toggle
       # @param displacement select { choices: [left, right, center] }
-      def default(
+      def playground(
         shadow: true,
         rounded: true,
         displacement: :left,
