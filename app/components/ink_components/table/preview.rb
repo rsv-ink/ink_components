@@ -3,13 +3,13 @@
 module InkComponents
   module Table
     class Preview < Lookbook::Preview
-      # @param shadow toggle
+      # @param shadow select { choices: [sm, md, lg] }
       # @param rounded toggle
       # @param border toggle
       # @param hover toggle
       # @param displacement select { choices: [left, right, center] }
       def playground(
-        shadow: true,
+        shadow: :sm,
         rounded: true,
         displacement: :left,
         border: true,
