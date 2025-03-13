@@ -8,7 +8,7 @@ module InkComponents
     renders_many :rows, ->(**attrs) { Row::Component.new(hover: @hover, border: @border, **attrs) }
 
     style :wrapper do
-      base { %w[relative overflow-x-auto] }
+      base { %w[overflow-x-auto] }
 
       variants {
         rounded {
@@ -16,7 +16,9 @@ module InkComponents
         }
 
         shadow {
-          yes { %w[shadow-md] }
+          sm { %w[shadow-sm] }
+          md { %w[shadow-md] }
+          lg { %w[shadow-lg] }
         }
       }
     end
@@ -37,7 +39,7 @@ module InkComponents
 
     attr_reader :rounded, :displacement, :shadow, :wrapper_attributes
 
-    def initialize(rounded: true, displacement: nil, hover: false, border: true, shadow: true, wrapper_attributes: {}, **extra_attributes)
+    def initialize(rounded: true, displacement: nil, hover: false, border: true, shadow: :sm, wrapper_attributes: {}, **extra_attributes)
       @rounded = rounded
       @displacement = displacement
       @hover = hover
