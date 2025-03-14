@@ -15,7 +15,7 @@ RSpec.describe InkComponents::Popover::Component, type: :component do
         expect(component.to_html).to include("Popover body")
       end
     end
-    
+
     context "when the button trigger is not provided" do
       it "doesn't render the component" do
         component = render_inline(described_class.new(id: "popover-id")) do |component|
