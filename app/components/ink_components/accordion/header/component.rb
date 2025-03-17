@@ -29,14 +29,15 @@ module InkComponents
           }
         end
 
-        attr_reader :data_target, :position, :flush, :expanded, :color
+        attr_reader :data_target, :position, :flush, :expanded, :color, :has_arrow
 
-        def initialize(data_target:, color: nil, position: :middle, flush: false, expanded: false, **extra_attributes)
+        def initialize(data_target:, color: nil, position: :middle, flush: false, expanded: false, has_arrow: true, **extra_attributes)
           @data_target = data_target
           @position = position
           @flush = flush
           @expanded = expanded
           @color = color
+          @has_arrow = has_arrow
 
           super(**extra_attributes)
         end
