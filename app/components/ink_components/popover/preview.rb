@@ -30,6 +30,9 @@ module InkComponents
           component.with_body do
             content_tag(:div, class: "px-3 py-2") { text }
           end
+          if display_arrow
+            component.with_arrow
+          end
         end
       end
 
@@ -40,6 +43,7 @@ module InkComponents
           component.with_body do
             content_tag(:div, class: "px-3 py-2") { TEXT_BODY }
           end
+          component.with_arrow
         end
       end
 
@@ -56,6 +60,7 @@ module InkComponents
           component.with_body do
             content_tag(:div, class: "px-3 py-2") { TEXT_BODY }
           end
+          component.with_arrow
         end
       end
 
@@ -73,6 +78,7 @@ module InkComponents
               </div>
             </div>".html_safe
           end
+          component.with_arrow
         end
       end
 
@@ -124,6 +130,7 @@ module InkComponents
             </div>".html_safe
           end
         end
+        component.with_arrow
       end
       # @!endgroup
     end
