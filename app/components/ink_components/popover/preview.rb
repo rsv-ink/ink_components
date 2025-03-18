@@ -8,12 +8,12 @@ module InkComponents
       # @param popover_id text "Id do popover"
       # @param text text "Título do popover"
       # @param body text "Corpo do popover"
-      # @param display_arrow toggle "Exibir seta indicando o popover?"
+      # @param arrow toggle "Exibir seta indicando o popover?"
       # @param placement select { choices: [top, right, bottom, left]} "Defina a posição do componente popover em relação ao elemento de gatilho"
       # @param trigger select { choices: [hover, click]} "Defina o evento de gatilho"
       # @param offset number "Aumente ou diminua o deslocamento padrão"
-      def playground(popover_id: "playground-popover", text: "Título do Popover", body: TEXT_BODY, display_arrow: true, placement: :top, trigger: :hover, offset: nil)
-        popover_component(id: popover_id, display_arrow:, class: "inline-block") do |component|
+      def playground(popover_id: "playground-popover", text: "Título do Popover", body: TEXT_BODY, arrow: true, placement: :top, trigger: :hover, offset: nil)
+        popover_component(id: popover_id, arrow:, class: "inline-block") do |component|
           component.with_button(data: {
             popover_target: popover_id,
             popover_placement: placement,
@@ -30,7 +30,7 @@ module InkComponents
           component.with_body do
             content_tag(:div, class: "px-3 py-2") { text }
           end
-          if display_arrow
+          if arrow
             component.with_arrow
           end
         end
