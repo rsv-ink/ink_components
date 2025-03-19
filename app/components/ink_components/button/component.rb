@@ -108,13 +108,59 @@ module InkComponents
 
         variants {
           color {
-            pink { %w[ hover:bg-pink-800 text-pink-600 border-pink-600 dark:border-pink-500 dark:text-pink-500 dark:hover:bg-pink-500 ] }
-            blue { %w[ hover:bg-blue-800 text-blue-700 border-blue-700 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 ] }
-            dark { %w[ hover:bg-gray-900 text-gray-800 border-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 ] }
-            green { %w[ hover:bg-green-800 text-green-700 border-green-700 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 ] }
-            red { %w[ hover:bg-red-800 text-red-700 border-red-700 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 ] }
-            yellow { %w[ hover:bg-yellow-500 text-yellow-400 border-yellow-400 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 ] }
-            purple { %w[ hover:bg-purple-800 text-purple-700 border-purple-700 dark:border-purple-400 dark:text-purple-400 dark:hover:bg-purple-500 ] }
+            pink {
+              %w[
+                hover:bg-pink-800 text-pink-600 border-pink-600
+                focus:ring-pink-300 dark:border-pink-500
+                dark:text-pink-500 dark:hover:bg-pink-500
+                dark:focus:ring-pink-800
+              ]
+            }
+            blue {
+              %w[
+                hover:bg-blue-800 text-blue-700 border-blue-700
+                focus:ring-blue-300 dark:border-blue-500 dark:text-blue-500
+                dark:hover:bg-blue-500 dark:focus:ring-blue-800
+              ]
+            }
+            dark {
+              %w[
+                hover:bg-gray-900 text-gray-800 border-gray-800
+                focus:ring-dark-300 dark:border-gray-600 dark:text-gray-400
+                dark:hover:bg-gray-600 dark:focus:ring-gray-800
+              ]
+            }
+            green {
+              %w[
+                hover:bg-green-800 text-green-700 border-green-700
+                focus:ring-green-300 dark:border-green-500 dark:text-green-500
+                dark:hover:bg-green-600 dark:focus:ring-green-800
+              ]
+            }
+            red {
+              %w[
+                hover:bg-red-800 text-red-700 border-red-700
+                focus:ring-red-300 dark:border-red-500
+                dark:text-red-500 dark:hover:bg-red-600
+                dark:focus:ring-red-800
+              ]
+            }
+            yellow {
+              %w[
+                hover:bg-yellow-500 text-yellow-400 border-yellow-400
+                focus:ring-yellow-300 dark:border-yellow-300
+                dark:text-yellow-300 dark:hover:bg-yellow-400
+                dark:focus:ring-yellow-800
+              ]
+            }
+            purple {
+              %w[
+                hover:bg-purple-800 text-purple-700 border-purple-700
+                focus:ring-purple-300 dark:border-purple-400
+                dark:text-purple-400 dark:hover:bg-purple-500
+                dark:focus:ring-purple-800
+              ]
+            }
           }
 
           size {
