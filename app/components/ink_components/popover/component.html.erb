@@ -1,0 +1,10 @@
+<%= button %>
+
+<%= content_tag :div, attributes do %>
+  <%= title %>
+  <%= body %>
+  
+  <% if arrow? %>
+    <div data-popper-arrow></div>
+  <% end %>
+<% end %>
