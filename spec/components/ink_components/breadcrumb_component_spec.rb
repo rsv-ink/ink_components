@@ -9,8 +9,7 @@ RSpec.describe InkComponents::Breadcrumb::Component, type: :component do
         component = render_inline(described_class.new) do |breadcrumb|
           breadcrumb.with_list do |list|
             list.with_item do |item|
-              safe_join([
-              item.with_link(href: "/home") { "Home" } ])
+              item.with_link(href: "/home") { "Home" }
             end
             list.with_item do |item|
               item.with_link(href: "/products") { "Products" }
