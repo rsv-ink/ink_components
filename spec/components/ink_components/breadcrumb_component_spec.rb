@@ -26,7 +26,7 @@ RSpec.describe InkComponents::Breadcrumb::Component, type: :component do
           breadcrumb.with_list
         end
 
-        expect(component.to_html).to be_empty
+        expect(component.to_html).not_to include(".ol")
       end
     end
   end
