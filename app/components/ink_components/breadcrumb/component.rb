@@ -53,11 +53,11 @@ module InkComponents
           end
         end
 
+        private
+
         def render?
           !items.empty?
         end
-
-        private
 
         def default_attributes
           { class: style }
