@@ -1,0 +1,13 @@
+<%= breadcrumb_component(background: "") do |breadcrumb| %>
+  <% breadcrumb.with_list do |list| %>
+    <% list.with_item(href: "#") do |item| %>
+      <% item.with_icon(name: :home, type: :solid, class: "size-3 mr-1") %>
+      Home
+      <%= item.with_next_page %>
+    <% end %>
+    <% list.with_item(href: "#") do |item| %>
+      <% item.with_icon(name: :book, type: :solid, class: "size-3 mr-1") %>
+      InkComponents
+    <% end %>
+  <% end %>
+<% end %>
