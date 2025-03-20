@@ -19,15 +19,5 @@ RSpec.describe InkComponents::Breadcrumb::Component, type: :component do
         expect(component.to_html).to include("href=\"/products\"")
       end
     end
-
-    context "when no items are provided" do
-      it "does not render the list" do
-        component = render_inline(described_class.new) do |breadcrumb|
-          breadcrumb.with_list
-        end
-
-        expect(component.to_html).not_to include(".ol")
-      end
-    end
   end
 end

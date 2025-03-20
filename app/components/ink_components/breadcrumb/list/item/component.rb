@@ -21,10 +21,6 @@ module InkComponents
 
           private
 
-          def render?
-            content.present?
-          end
-
           def default_attributes
             { class: style }
           end

@@ -14,10 +14,6 @@ module InkComponents
 
         private
 
-        def render?
-          !items.empty?
-        end
-
         def default_attributes
           { class: style }
         end
