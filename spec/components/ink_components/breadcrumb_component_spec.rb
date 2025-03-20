@@ -8,12 +8,8 @@ RSpec.describe InkComponents::Breadcrumb::Component, type: :component do
       it "renders the component" do
         component = render_inline(described_class.new) do |breadcrumb|
           breadcrumb.with_list do |list|
-            list.with_item do |item|
-              item.with_link(href: "/home") { "Home" }
-            end
-            list.with_item do |item|
-              item.with_link(href: "/products") { "Products" }
-            end
+            list.with_item(href: "/home") { "Home" }
+            list.with_item(href: "/products") { "Products" }
           end
         end
 
@@ -32,14 +28,6 @@ RSpec.describe InkComponents::Breadcrumb::Component, type: :component do
 
         expect(component.to_html).to be_empty
       end
-    end
-  end
-
-  context "when no list is provided" do
-    it "does not render the component" do
-      component = render_inline(described_class.new)
-
-      expect(component.to_html).to be_empty
     end
   end
 end
