@@ -18,8 +18,6 @@ module InkComponents
             orange { "bg-orange-100 text-orange-600" }
             yellow { "bg-yellow-100 text-yellow-600" }
           }
-
-          defaults { { position: :middle } }
         }
       end
 
@@ -36,7 +34,8 @@ module InkComponents
       private
       def default_attributes
         {
-          "data-accordion": data_accordion
+          "data-accordion": data_accordion,
+          class: !flush && "border-b border-gray-200"
         }.tap do |attrs|
           if flush
             attrs["data-active-classes"] = "bg-white dark:bg-gray-900 text-gray-900 dark:text-white"

@@ -5,7 +5,7 @@ module InkComponents
     class Preview < Lookbook::Preview
       def default
         accordion_component do |component|
-          component.with_section(data_target: "section-1", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-1", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -23,7 +23,7 @@ module InkComponents
             end
           end
 
-          component.with_section(data_target: "section-3", position: :last) do |section|
+          component.with_section(data_target: "section-3") do |section|
             section.with_header { "What are the differences between Flowbite and Tailwind UI?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -36,7 +36,7 @@ module InkComponents
 
       def always_open
         accordion_component(data_accordion: :open) do |component|
-          component.with_section(data_target: "section-1", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-1", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -54,7 +54,7 @@ module InkComponents
             end
           end
 
-          component.with_section(data_target: "section-3", position: :last) do |section|
+          component.with_section(data_target: "section-3") do |section|
             section.with_header { "What are the differences between Flowbite and Tailwind UI?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -68,7 +68,7 @@ module InkComponents
       # @!group Colors
       def blue
         accordion_component(color: :blue) do |component|
-          component.with_section(data_target: "section-1", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-1", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -81,7 +81,7 @@ module InkComponents
 
       def pink
         accordion_component(color: :pink) do |component|
-          component.with_section(data_target: "section-2", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-2", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -94,7 +94,7 @@ module InkComponents
 
       def green
         accordion_component(color: :green) do |component|
-          component.with_section(data_target: "section-3", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-3", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -107,7 +107,7 @@ module InkComponents
 
       def red
         accordion_component(color: :red) do |component|
-          component.with_section(data_target: "section-4", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-4", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -120,7 +120,7 @@ module InkComponents
 
       def purple
         accordion_component(color: :purple) do |component|
-          component.with_section(data_target: "section-5", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-5", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -133,7 +133,7 @@ module InkComponents
 
       def orange
         accordion_component(color: :orange) do |component|
-          component.with_section(data_target: "section-6", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-6", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -146,7 +146,7 @@ module InkComponents
 
       def yellow
         accordion_component(color: :yellow) do |component|
-          component.with_section(data_target: "section-7", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-7", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -191,7 +191,7 @@ module InkComponents
 
       def arrow_style
         accordion_component do |component|
-          component.with_section(data_target: "section-1", expanded: true, position: :first) do |section|
+          component.with_section(data_target: "section-1", expanded: true) do |section|
             section.with_header(has_arrow: false) { "What is Flowbite?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
@@ -200,7 +200,7 @@ module InkComponents
             end
           end
 
-          component.with_section(data_target: "section-3", position: :last) do |section|
+          component.with_section(data_target: "section-3") do |section|
             section.with_header { "What are the differences between Flowbite and Tailwind UI?" }
             section.with_body do |body|
               body.content_tag :p, class: "mb-2 text-gray-500 dark:text-gray-400" do
