@@ -14,6 +14,10 @@ module InkComponents
 
       private
 
+      def render?
+        File.exist?(InkComponents::Engine.root.join("app/assets/images/#{path}"))
+      end
+
       def path
         "ink_components/icons/#{type}/#{name}.svg"
       end
