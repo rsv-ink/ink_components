@@ -1,7 +1,10 @@
 
 <%= content_tag :li, attributes do %>
   <%= icon %>
-  <%= content_tag :a, href: @href, class: "inline-flex items-center text-sm font-medium text-gray-700 hover:text-pink-600 dark:text-gray-400 dark:hover:text-white" do %>
-    <%= content %>
+  <% if previous_page? %>
+    <%= previous_page %>
+  <% else %>
+    <%= current_page %>
   <% end %>
+  <%= separator %>
 <% end %>
