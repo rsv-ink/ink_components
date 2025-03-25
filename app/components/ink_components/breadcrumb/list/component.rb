@@ -5,7 +5,7 @@ module InkComponents
         renders_many :items, Item::Component
 
         style do
-          base { %w[inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse] }
+          base { %w[inline-flex items-center] }
         end
 
         def initialize(**extra_attributes)
