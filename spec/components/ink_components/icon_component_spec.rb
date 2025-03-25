@@ -12,10 +12,8 @@ RSpec.describe InkComponents::Icon::Component, type: :component do
   end
 
   context "when the icon does not exist" do
-    it "does not render the icon" do
-      component = render_inline(described_class.new(name: :non_existent, type: :solid))
-
-      expect(component.css("svg")).not_to be_present
+    it "raises an error" do
+      expect { described_class.new(name: :non_existent, type: :solid) }.to raise_error(ArgumentError, "Invalid icon, non_existent with type solid does not exist")
     end
   end
 end
