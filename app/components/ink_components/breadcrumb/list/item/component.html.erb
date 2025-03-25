@@ -1,0 +1,10 @@
+
+<%= content_tag :li, attributes do %>
+  <%= icon %>
+  <% if previous_page? %>
+    <%= previous_page %>
+  <% else %>
+    <%= current_page %>
+  <% end %>
+  <%= separator %>
+<% end %>

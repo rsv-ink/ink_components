@@ -1,0 +1,17 @@
+<%= breadcrumb_component(background: "") do |breadcrumb| %>
+  <% breadcrumb.with_list do |list| %>
+    <% list.with_item do |item| %>
+      <% item.with_icon(name: :home, type: :solid, class: "size-3 mr-1") %>
+      <% item.with_previous_page(href: "#") do %>
+        Home
+      <% end %>
+      <%= item.with_separator %>
+    <% end %>
+    <% list.with_item do |item| %>
+      <% item.with_icon(name: :book, type: :solid, class: "size-3 mr-1") %>
+      <% item.with_current_page do %>
+        InkComponents
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

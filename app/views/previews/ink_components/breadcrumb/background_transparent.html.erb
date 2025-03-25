@@ -1,0 +1,15 @@
+<%= breadcrumb_component(background: :transparent) do |breadcrumb| %>
+  <%= breadcrumb.with_list do |list| %>
+    <%= list.with_item do |item|%>
+      <% item.with_previous_page(href: "#") do %>
+        <%= "Home" %>
+      <% end %>
+      <%= item.with_separator %>
+    <% end %>
+    <%= list.with_item do |item| %>
+      <% item.with_current_page do %>
+        <%= "InkComponents" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
