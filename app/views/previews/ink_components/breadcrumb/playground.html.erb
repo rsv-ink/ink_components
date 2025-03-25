@@ -1,14 +1,18 @@
 <%= breadcrumb_component(background:) do |breadcrumb| %>
   <%= breadcrumb.with_list do |list| %>
     <% list_name[0..-2].each do |name| %>
-      <%= list.with_item(href: "#") do |item|%>
-        <%= name %>
-        <%= item.with_next_page %>
+      <%= list.with_item do |item|%>
+        <%= item.with_previous_page(href: "#") do %>
+          <%= name %>
+        <% end %>
+        <%= item.with_separator %>
       <% end %>
     <% end %>
     <% list_name[-1..-1].each do |name| %>
-      <%= list.with_item(href: "#") do %>
-        <%= name %>
+      <%= list.with_item do |item|%>
+        <%= item.with_current_page do %>
+          <%= name %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
