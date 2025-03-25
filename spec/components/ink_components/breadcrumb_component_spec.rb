@@ -8,15 +8,19 @@ RSpec.describe InkComponents::Breadcrumb::Component, type: :component do
       it "renders the component" do
         component = render_inline(described_class.new) do |breadcrumb|
           breadcrumb.with_list do |list|
-            list.with_item(href: "/home") { "Home" }
-            list.with_item(href: "/products") { "Products" }
+            list.with_item do |item|
+              item.with_previous_page(href: "/home") { "Home" }
+              item.with_separator
+            end
+            list.with_item do |item|
+              item.with_current_page { "Products" }
+            end
           end
         end
 
         expect(component.to_html).to include("Home")
         expect(component.to_html).to include("Products")
         expect(component.to_html).to include("href=\"/home\"")
-        expect(component.to_html).to include("href=\"/products\"")
       end
     end
   end
