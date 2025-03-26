@@ -1,0 +1,13 @@
+<%= skeleton_component(loading:, class: "space-y-8 md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center") do |skeleton| %>
+  <div class="flex items-center justify-center w-full h-48 bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700">
+    <%= icon_component(name: "image", class: "w-10 h-10 text-gray-200 dark:text-gray-600") %>
+  </div>
+  <div class="w-full">
+    <%= skeleton.with_node(class: "h-2.5 w-48 mb-4") %>
+    <%= skeleton.with_node(class: "h-2 max-w-[480px] mb-2.5") %>
+    <%= skeleton.with_node(class: "h-2 mb-2.5") %>
+    <%= skeleton.with_node(class: "h-2 max-w-[440px] mb-2.5") %>
+    <%= skeleton.with_node(class: "h-2 max-w-[460px] mb-2.5") %>
+    <%= skeleton.with_node(class: "h-2 max-w-[360px]") %>
+  </div>
+<% end %>
