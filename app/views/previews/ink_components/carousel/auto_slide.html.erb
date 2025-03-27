@@ -1,0 +1,17 @@
+<%= carousel_component(class: "w-56 h-56") do |carousel| %>
+  <% carousel.with_wrapper(class: "w-56 h-56") do |wrapper| %>
+    <% wrapper.with_item(class: "w-full h-full") do %>
+      <img src="https://i.pravatar.cc/150?img=1" class="w-full h-full" alt="">
+    <% end %>
+    <% wrapper.with_item(class: "w-full h-full") do %>
+      <img src="https://i.pravatar.cc/150?img=2" class="w-full h-full" alt="">
+    <% end %>
+  <% end %>
+  <% carousel.with_prev_button(class: "top-1/3") %>
+  <% carousel.with_next_button(class: "top-1/3") %>
+  <% carousel.with_indicators_container do |indicator| %>
+    <% 2.times do |index| %>
+      <% indicator.with_item(index: index) %>
+    <% end %>
+  <% end %>
+<% end %>
