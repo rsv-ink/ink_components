@@ -15,7 +15,7 @@ module InkComponents
         def default_attributes
           {
             class: style,
-            data: { carousel_prev: "" },
+            data: { "carousel-prev": "" },
             type: "button"
           }
         end

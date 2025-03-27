@@ -25,7 +25,7 @@ module InkComponents
             {
               class: style,
               type: "button",
-              aria_label: "Slide #{index}",
+              "aria-label": "Slide #{index}",
               data: {
                 carousel_slide_to: index
               }

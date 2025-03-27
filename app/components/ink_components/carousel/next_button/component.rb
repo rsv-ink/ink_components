@@ -15,7 +15,7 @@ module InkComponents
         def default_attributes
           {
             class: style,
-            data: { carousel_next: "" },
+            data: { "carousel-next": "" },
             type: "button"
           }
         end
