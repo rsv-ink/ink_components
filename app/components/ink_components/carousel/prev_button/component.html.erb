@@ -1,0 +1,7 @@
+<%= render InkComponents::Button::Component.new **attributes do %>
+  <%= render InkComponents::Icon::Component.new(
+    name: "chevron-left",
+    type: :outline,
+    class: "w-12 h-12 text-white dark:text-gray-800"
+  ) %>
+<% end %>
