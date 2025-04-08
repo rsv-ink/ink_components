@@ -1,7 +1,3 @@
-<%= render InkComponents::Button::Component.new **attributes do %>
-  <%= render InkComponents::Icon::Component.new(
-    name: "chevron-right",
-    type: :outline,
-    class: "w-12 h-12 text-white dark:text-gray-800"
-  ) %>
+<%= tag.button **attributes do %>
+  <%= icon_container %>
 <% end %>
