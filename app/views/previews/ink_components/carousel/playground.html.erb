@@ -1,0 +1,39 @@
+<%= carousel_component(slider:, class: "w-80 h-80") do |carousel| %>
+  <% carousel.with_wrapper(class: "w-80 h-80") do |wrapper| %>
+    <% wrapper.with_item(animation_duration: duration, animation_transition: transition, class: "w-full h-full") do %>
+      <img src="https://i.pravatar.cc/150?img=1" class="w-full h-full" alt="">
+    <% end %>
+    <% wrapper.with_item(animation_duration: duration, animation_transition: transition, class: "w-full h-full") do %>
+      <img src="https://i.pravatar.cc/150?img=2" class="w-full h-full" alt="">
+    <% end %>
+  <% end %>
+  <% if prev_button %>
+    <% carousel.with_prev_button do |button| %>
+      <% button.with_icon_container do %>
+        <%= render InkComponents::Icon::Component.new(
+          name: "chevron-left",
+          type: :outline,
+          class: "w-12 h-12 text-white dark:text-gray-800"
+        ) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if next_button %>
+    <% carousel.with_next_button do |button| %>
+      <% button.with_icon_container do %>
+        <%= render InkComponents::Icon::Component.new(
+          name: "chevron-right",
+          type: :outline,
+          class: "w-12 h-12 text-white dark:text-gray-800"
+        ) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if indicators %>
+    <% carousel.with_indicators_container do |indicator| %>
+      <% 2.times do |index| %>
+        <% indicator.with_item(index:) %>
+      <% end %>
+    <% end %>
+  <% end %>  
+<% end %>
