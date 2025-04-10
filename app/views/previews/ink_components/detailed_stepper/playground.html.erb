@@ -1,0 +1,14 @@
+<%= detailed_stepper_component do |stepper| %>
+  <% step_count.times do |i| %>
+    <%
+      num = i + 1
+      is_current = (num == 1) # Default first step to current
+    %>
+    <%= stepper.with_item(
+          number: num,
+          title: "Step #{num} Title",
+          description: "Details for step number #{num}.",
+          state: is_current ? :current : :upcoming
+        ) %>
+  <% end %>
+<% end %>
