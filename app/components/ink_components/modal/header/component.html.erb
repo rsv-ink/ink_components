@@ -6,10 +6,5 @@
     <% end %>
   <% end %>
 
-  <%= content_tag :button, type: "button", 
-                  class: "text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center", 
-                  data: { modal_hide: modal_id } do %>
-    <%= helpers.icon_component(name: :close, type: :outline, class: "w-5 h-5") %>
-    <%= content_tag :span, "Close modal", class: "sr-only" %>
-  <% end %>
+  <%= close_button %>
 <% end %>

@@ -1,0 +1,4 @@
+<%= button_tag(attributes) do %>
+  <%= render InkComponents::Icon::Component.new(name: :close, type: :outline, class: "w-5 h-5") %>
+  <%= content_tag(:span, "Close modal", class: "sr-only") %>
+<% end %>
