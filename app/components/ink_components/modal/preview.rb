@@ -16,7 +16,9 @@ module InkComponents
       def playground(modal_id: "playground-modal", type: :default, title: "Título do modal", subtitle: "Subtítulo do modal", placement: :center, max_width: :md, body: TEXT_BODY, footer: "Rodapé", class: "w-[345px] md:w-[678px]")
         modal_component(modal_id:, max_width:, type:, placement:, class:) do |component|
           component.with_trigger { button("playground-modal") }
-          component.with_header(modal_id:, title:, subtitle:)
+          component.with_header(modal_id:, title:, subtitle:) do |header|
+            header.with_close_button(data: { action: "close-modal", target: modal_id })
+          end
           component.with_body { body }
           component.with_footer { footer }
         end
@@ -26,7 +28,9 @@ module InkComponents
       def default_modal
         modal_component(modal_id: "default-modal", max_width: :md) do |component|
           component.with_trigger { button("default-modal") }
-          component.with_header(modal_id: "default-modal", title: "Default")
+          component.with_header(modal_id: "default-modal", title: "Default") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
           component.with_footer do
             component.content_tag :div, class: "w-full flex justify-start items-center p-4" do
@@ -39,7 +43,9 @@ module InkComponents
       def static_modal
         modal_component(modal_id: "static-modal", max_width: :md, type: :static) do |component|
           component.with_trigger { button("static-modal") }
-          component.with_header(modal_id: "static-modal", title: "Static")
+          component.with_header(modal_id: "static-modal", title: "Static") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
           component.with_footer do
             component.content_tag :div, class: "w-full flex justify-start items-center p-4" do
@@ -52,7 +58,9 @@ module InkComponents
       def popup_modal
         modal_component(modal_id: "popup-modal", max_width: :md) do |component|
           component.with_trigger { button("popup-modal") }
-          component.with_header(modal_id: "popup-modal", title: "Popup")
+          component.with_header(modal_id: "popup-modal", title: "Popup") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
           component.with_footer do
             component.content_tag :div, class: "w-full flex justify-center items-center p-4 gap-2" do
@@ -68,7 +76,9 @@ module InkComponents
       def small
         modal_component(modal_id: "small-modal", max_width: :sm) do |component|
           component.with_trigger { button("small-modal") }
-          component.with_header(modal_id: "small-modal", title: "Small")
+          component.with_header(modal_id: "small-modal", title: "Small") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
           component.with_footer do
             component.content_tag :div, class: "w-full flex justify-end items-center p-4" do
@@ -81,7 +91,9 @@ module InkComponents
       def default
         modal_component(modal_id: "medium-modal", max_width: :md) do |component|
           component.with_trigger { button("medium-modal") }
-          component.with_header(modal_id: "medium-modal", title: "Default")
+          component.with_header(modal_id: "medium-modal", title: "Default") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
           component.with_footer do
             component.content_tag :div, class: "w-full flex justify-end items-center p-4" do
@@ -94,7 +106,9 @@ module InkComponents
       def large
         modal_component(modal_id: "large-modal", max_width: :lg) do |component|
           component.with_trigger { button("large-modal") }
-          component.with_header(modal_id: "large-modal", title: "Large")
+          component.with_header(modal_id: "large-modal", title: "Large") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
           component.with_footer do
             component.content_tag :div, class: "w-full flex justify-end items-center p-4" do
@@ -107,7 +121,9 @@ module InkComponents
       def extra_large
         modal_component(modal_id: "extra-large-modal", max_width: :xl) do |component|
           component.with_trigger { button("extra-large-modal") }
-          component.with_header(modal_id: "extra-large-modal", title: "Extra large")
+          component.with_header(modal_id: "extra-large-modal", title: "Extra large") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
           component.with_footer do
             component.content_tag :div, class: "w-full flex justify-end items-center p-4" do
@@ -122,7 +138,9 @@ module InkComponents
       def center
         modal_component(modal_id: "center-modal", max_width: :md) do |component|
           component.with_trigger { button("center-modal") }
-          component.with_header(modal_id: "center-modal", title: "Center")
+          component.with_header(modal_id: "center-modal", title: "Center") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
         end
       end
@@ -130,7 +148,9 @@ module InkComponents
       def top_left
         modal_component(modal_id: "top-left-modal", max_width: :md, placement: :top_left) do |component|
           component.with_trigger { button("top-left-modal") }
-          component.with_header(modal_id: "top-left-modal", title: "Top Left")
+          component.with_header(modal_id: "top-left-modal", title: "Top Left") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
         end
       end
@@ -138,7 +158,9 @@ module InkComponents
       def top_right
         modal_component(modal_id: "top-right-modal", max_width: :md, placement: :top_right) do |component|
           component.with_trigger { button("top-right-modal") }
-          component.with_header(modal_id: "top-right-modal", title: "Top Right")
+          component.with_header(modal_id: "top-right-modal", title: "Top Right") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
         end
       end
@@ -146,7 +168,9 @@ module InkComponents
       def bottom_left
         modal_component(modal_id: "bottom-left-modal", max_width: :md, placement: :bottom_left) do |component|
           component.with_trigger { button("bottom-left-modal") }
-          component.with_header(modal_id: "bottom-left-modal", title: "Bottom Left")
+          component.with_header(modal_id: "bottom-left-modal", title: "Bottom Left") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
         end
       end
@@ -154,7 +178,9 @@ module InkComponents
       def bottom_right
         modal_component(modal_id: "bottom-right-modal", max_width: :md, placement: :bottom_right) do |component|
           component.with_trigger { button("bottom-right-modal") }
-          component.with_header(modal_id: "bottom-right-modal", title: "Bottom Right")
+          component.with_header(modal_id: "bottom-right-modal", title: "Bottom Right") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
         end
       end
@@ -164,7 +190,9 @@ module InkComponents
       def body_to_builder
         modal_component(modal_id: "body-modal",  max_width: :md) do |component|
           component.with_trigger { button("body-modal") }
-          component.with_header(modal_id: "body-modal", title: "Modal com Body Personalizado")
+          component.with_header(modal_id: "body-modal", title: "Modal com Body Personalizado") do |header|
+            header.with_close_button
+          end
           component.with_body do
             component.content_tag :div, class: "w-full" do
               component.content_tag :div, class: "w-full grid grid-cols-2 gap-2" do
@@ -185,7 +213,9 @@ module InkComponents
       def fixed_width_builder
         modal_component(modal_id: "fixed-width-modal", width: "716px") do |component|
           component.with_trigger { button("fixed-width-modal") }
-          component.with_header(modal_id: "fixed-width-modal", title: "Modal com largura fixa")
+          component.with_header(modal_id: "fixed-width-modal", title: "Modal com largura fixa") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
         end
       end
@@ -193,7 +223,9 @@ module InkComponents
       def footer_to_builder
         modal_component(modal_id: "footer-modal", max_width: :md) do |component|
           component.with_trigger { button("footer-modal") }
-          component.with_header(modal_id: "footer-modal", title: "Modal com Footer Personalizado")
+          component.with_header(modal_id: "footer-modal", title: "Modal com Footer Personalizado") do |header|
+            header.with_close_button
+          end
           component.with_body { TEXT_BODY }
           component.with_footer do
             component.content_tag :div, class: "w-full flex justify-end items-center p-4" do
