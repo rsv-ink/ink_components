@@ -5,6 +5,9 @@ require "tailwind_merge"
 module InkComponents
   class ApplicationComponent < ViewComponentContrib::Base
     include ViewComponentContrib::StyleVariants
+    include Helpers
+
+    TAILWIND_MERGER = TailwindMerge::Merger.new.freeze
 
     attr_reader :attributes
 
@@ -13,10 +16,10 @@ module InkComponents
     end
 
     def mix(default_attributes, extra_attributes)
-      attributes = AttributeMerger.new(default_attributes:, extra_attributes:).merge
+      attributes = super(default_attributes, extra_attributes)
 
       if attributes[:class].is_a?(String)
-        attributes[:class] = TailwindMerge::Merger.new.merge(attributes[:class])
+        attributes[:class] = TAILWIND_MERGER.merge(attributes[:class])
       end
 
       attributes
