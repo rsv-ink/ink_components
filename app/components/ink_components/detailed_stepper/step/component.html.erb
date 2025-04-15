@@ -1,0 +1,9 @@
+<%= tag.li(**attributes) do %>
+  <span class="flex items-center justify-center w-8 h-8 border rounded-full shrink-0 <%= active ? 'border-pink-600 dark:border-pink-500' : 'border-gray-500 dark:border-gray-400' %>">
+    <%= number %>
+  </span>
+  <span>
+    <h3 class="font-medium leading-tight"><%= title %></h3>
+    <p class="text-sm"><%= subtitle %></p>
+  </span>
+<% end %>
