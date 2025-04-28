@@ -129,8 +129,8 @@ module InkComponents
               </div>
             </div>".html_safe
           end
+          component.with_arrow
         end
-        component.with_arrow
       end
       # @!endgroup
     end
