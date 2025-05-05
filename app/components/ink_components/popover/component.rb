@@ -28,6 +28,7 @@ module InkComponents
           id: @id,
           class: style,
           role: :tooltip,
+          data: { popover: true },
           aria: { hidden: true }
         }
       end
