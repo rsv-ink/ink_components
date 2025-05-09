@@ -14,7 +14,7 @@ gem "sprockets-rails"
 gem "view_component", "3.14.0"
 
 # A collection of extension and developer tools for ViewComponent [https://github.com/palkan/view_component-contrib]
-gem "view_component-contrib", "0.2.3"
+gem "view_component-contrib", "0.2.4"
 
 # Bundle and process CSS in Rails with Tailwind, PostCSS, and Sass via Node.js [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails", "1.1.2"
