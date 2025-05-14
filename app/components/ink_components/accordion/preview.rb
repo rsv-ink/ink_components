@@ -158,8 +158,9 @@ module InkComponents
       end
       # @!endgroup
 
-      def flush
-        accordion_component(flush: true) do |component|
+      # @param color select { choices: [gray, pink, green, red, purple, orange, yellow, blue] }
+      def flush(color: :gray)
+        accordion_component(flush: true, color: color) do |component|
           component.with_section(data_target: "section-1", expanded: true) do |section|
             section.with_header { "What is Flowbite?" }
             section.with_body do |body|
