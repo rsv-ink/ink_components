@@ -4,12 +4,12 @@ module InkComponents
       # @!group Types
       # @param name select :icon_names "The icon name"
       def with_solid_type(name: :bell)
-        icon_component(name:, class: "w-6 h-6 fill-gray-500")
+        render_with_template(template: "previews/ink_components/icon/solid", locals: { name: })
       end
 
       # @param name select :icon_names "The icon name"
       def with_outline_type(name: :bell)
-        icon_component(name:, type: :outline, class: "w-6 h-6 text-gray-500")
+        render_with_template(template: "previews/ink_components/icon/outline", locals: { name: })
       end
       # @!endgroup
 
