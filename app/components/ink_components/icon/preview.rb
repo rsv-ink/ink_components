@@ -4,12 +4,12 @@ module InkComponents
       # @!group Types
       # @param name select :icon_names "The icon name"
       def with_solid_type(name: :bell)
-        icon_component(name:, class: "w-6 h-6 fill-gray-500")
+        icon_component(name:, class: "w-6 h-6 fill-gray-500") rescue "Ícone não encontrado para o type: solid"
       end
 
       # @param name select :icon_names "The icon name"
       def with_outline_type(name: :bell)
-        icon_component(name:, type: :outline, class: "w-6 h-6 text-gray-500")
+        icon_component(name:, type: :outline, class: "w-6 h-6 text-gray-500") rescue "Ícone não encontrado para o type: outline"
       end
       # @!endgroup
 
