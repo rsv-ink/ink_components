@@ -68,12 +68,13 @@ module InkComponents
     end
 
     def file_field(attribute, **opts)
+      self.multipart = true
       file_input_component(**html_options(attribute, objectify_options(opts)), **sanitize_options(opts))
     end
 
     def text_area(attribute, **options)
       state = field_state(attribute)
-      text_area_component(state:, **html_options(attribute, objectify_options(options)), **sanitize_options(opts))
+      text_area_component(state:, **html_options(attribute, objectify_options(options)), **sanitize_options(options))
     end
 
     def error_message(attribute, **)
