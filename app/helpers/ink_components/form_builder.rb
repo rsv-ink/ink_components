@@ -22,13 +22,13 @@ module InkComponents
       radio_component(id:, name: format_name(attribute, objectify_options(opts)), value:, checked:, **sanitize_options(opts)) { content }
     end
 
-    def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
+    def check_box(attribute, opts = {}, checked_value = "1", unchecked_value = "0")
       checked = object.try(:public_send, attribute).in?([ true, checked_value ])
-      multiple_attribute = checked_value.to_s.downcase if options[:multiple].present?
-      id = format_id(attribute, objectify_options(options).merge({ value: multiple_attribute }))
+      multiple_attribute = checked_value.to_s.downcase if opts[:multiple].present?
+      id = format_id(attribute, objectify_options(opts).merge({ value: multiple_attribute }))
 
       checkbox_component(
-        id:, name: format_name(attribute, objectify_options(options)), checked_value:, unchecked_value:, checked:, **sanitize_options(options)
+        id:, name: format_name(attribute, objectify_options(opts)), checked_value:, unchecked_value:, checked:, **sanitize_options(opts)
       )
     end
 
@@ -68,12 +68,13 @@ module InkComponents
     end
 
     def file_field(attribute, **opts)
+      self.multipart = true
       file_input_component(**html_options(attribute, objectify_options(opts)), **sanitize_options(opts))
     end
 
-    def text_area(attribute, **options)
+    def text_area(attribute, **opts)
       state = field_state(attribute)
-      text_area_component(state:, **html_options(attribute, objectify_options(options)), **sanitize_options(opts))
+      text_area_component(state:, **html_options(attribute, objectify_options(opts)), **sanitize_options(opts))
     end
 
     def error_message(attribute, **)
@@ -81,12 +82,12 @@ module InkComponents
       helper_text_component(state:, **) { error_messages(attribute) }
     end
 
-    def submit(content = nil, **options, &)
+    def submit(content = nil, **opts, &)
       content ||= submit_default_value
       content = template.capture(&) if block_given?
 
-      options[:data] = { disable_with: content }.merge(options[:data] || {})
-      button_component(builder: :button_tag, value: content, **options) { content }
+      opts[:data] = { disable_with: content }.merge(opts[:data] || {})
+      button_component(builder: :button_tag, value: content, **opts) { content }
     end
 
     private
@@ -110,10 +111,10 @@ module InkComponents
       object.errors[attribute].to_sentence.capitalize.presence&.concat(".")
     end
 
-    def html_options(attribute, options)
+    def html_options(attribute, opts)
       {
-        name: format_name(attribute, options),
-        id: format_id(attribute, options),
+        name: format_name(attribute, opts),
+        id: format_id(attribute, opts),
         value: object.try(attribute)
       }
     end
@@ -125,25 +126,25 @@ module InkComponents
       )
     end
 
-    def format_id(attribute, options = {})
+    def format_id(attribute, opts = {})
       parts = [
-        options[:namespace],
+        opts[:namespace],
         object_name.presence,
-        options[:index],
+        opts[:index],
         attribute,
-        options[:value].presence
+        opts[:value].presence
       ]
 
       parts.compact.join("_").delete("]").tr("^-a-zA-Z0-9:.", "_")
     end
 
-    def format_name(attribute, options = {})
-      multiple_suffix = options[:multiple] ? "[]" : ""
+    def format_name(attribute, opts = {})
+      multiple_suffix = opts[:multiple] ? "[]" : ""
 
       if object_name.blank?
         "#{attribute}#{multiple_suffix}"
-      elsif options[:index].present?
-        "#{object_name}[#{options[:index]}][#{attribute}]#{multiple_suffix}"
+      elsif opts[:index].present?
+        "#{object_name}[#{opts[:index]}][#{attribute}]#{multiple_suffix}"
       else
         "#{object_name}[#{attribute}]#{multiple_suffix}"
       end
