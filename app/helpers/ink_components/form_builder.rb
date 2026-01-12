@@ -100,13 +100,13 @@ module InkComponents
     end
 
     def field_state(attribute)
-      return :default if object.nil?
+      return :default unless object.respond_to?(:errors)
 
       object.errors.include?(attribute) ? :error : :default
     end
 
     def error_messages(attribute)
-      return if object.nil?
+      return unless object.respond_to?(:errors)
 
       object.errors[attribute].to_sentence.capitalize.presence&.concat(".")
     end
