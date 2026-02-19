@@ -77,9 +77,9 @@ module InkComponents
       text_area_component(state:, **html_options(attribute, objectify_options(opts)), **sanitize_options(opts))
     end
 
-    def error_message(attribute, **)
+    def error_message(attribute, full: false, **opts)
       state = field_state(attribute)
-      helper_text_component(state:, **) { error_messages(attribute) }
+      helper_text_component(state:, **opts) { error_messages(attribute, full: full) }
     end
 
     def submit(content = nil, **opts, &)
@@ -105,10 +105,14 @@ module InkComponents
       object.errors.include?(attribute) ? :error : :default
     end
 
-    def error_messages(attribute)
+    def error_messages(attribute, full: false)
       return unless object.respond_to?(:errors)
 
-      object.errors[attribute].to_sentence.capitalize.presence&.concat(".")
+      if full
+        object.errors.full_messages_for(attribute).to_sentence.capitalize.presence&.concat(".")
+      else
+        object.errors[attribute].to_sentence.capitalize.presence&.concat(".")
+      end
     end
 
     def html_options(attribute, opts)
