@@ -146,4 +146,72 @@ RSpec.describe InkComponents::FormBuilder, type: :helper do
       expect(result).not_to include('enctype="multipart/form-data"')
     end
   end
+
+  describe "#error_message" do
+    context "when full option is true" do
+      it "uses full error messages" do
+        object = User.new(name: "John Doe", email: "invalid")
+        object.errors.add(:email, "is invalid")
+        form_builder = described_class.new(:user, object, helper, {})
+
+        expect(form_builder).to receive(:helper_text_component).with(state: :error) do |**_opts, &block|
+          expect(block.call).to eq("E-mail is invalid.")
+        end
+
+        form_builder.send(:error_message, :email, full: true)
+      end
+
+      it "uses full error messages multiple errors exist" do
+        object = User.new(name: "John Doe", email: "invalid")
+        object.errors.add(:email, "is invalid")
+        object.errors.add(:email, "must be a valid email address")
+        form_builder = described_class.new(:user, object, helper, {})
+
+        expect(form_builder).to receive(:helper_text_component).with(state: :error) do |**_opts, &block|
+          expect(block.call).to eq("E-mail is invalid and e-mail must be a valid email address.")
+        end
+
+        form_builder.send(:error_message, :email, full: true)
+      end
+    end
+
+    context "when full option is false" do
+      it "uses basic error messages when full: false" do
+        object = User.new(name: "John Doe", email: "invalid")
+        object.errors.add(:email, "is invalid")
+        form_builder = described_class.new(:user, object, helper, {})
+
+        expect(form_builder).to receive(:helper_text_component).with(state: :error) do |**_opts, &block|
+          expect(block.call).to eq("Is invalid.")
+        end
+
+        form_builder.send(:error_message, :email, full: false)
+      end
+
+      it "capitalizes and formats basic error messages" do
+        object = User.new(name: "John Doe", email: "invalid")
+        object.errors.add(:email, "is invalid")
+        form_builder = described_class.new(:user, object, helper, {})
+
+        expect(form_builder).to receive(:helper_text_component).with(state: :error) do |**_opts, &block|
+          expect(block.call).to eq("Is invalid.")
+        end
+
+        form_builder.send(:error_message, :email)
+      end
+
+      it "uses error messages multiple errors exist" do
+        object = User.new(name: "John Doe", email: "invalid")
+        object.errors.add(:email, "is invalid")
+        object.errors.add(:email, "must be a valid email address")
+        form_builder = described_class.new(:user, object, helper, {})
+
+        expect(form_builder).to receive(:helper_text_component).with(state: :error) do |**_opts, &block|
+          expect(block.call).to eq("Is invalid and must be a valid email address.")
+        end
+
+        form_builder.send(:error_message, :email)
+      end
+    end
+  end
 end
