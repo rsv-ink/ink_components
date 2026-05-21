@@ -336,7 +336,7 @@ DEPENDENCIES
   puma
   rspec-rails (= 6.1.4)
   rubocop-rails-omakase (= 1.0.0)
-  sprockets-rails (= 3.5.2)
+  sprockets-rails
   sqlite3 (= 2.1.0)
   tailwind_merge (= 0.13.1)
   view_component (= 3.14.0)
