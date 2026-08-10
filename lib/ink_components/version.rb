@@ -1,3 +1,3 @@
 module InkComponents
-  VERSION = "4.2.4"
+  VERSION = "4.3.4"
 end
