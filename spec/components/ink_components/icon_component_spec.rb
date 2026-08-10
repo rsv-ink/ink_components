@@ -16,4 +16,18 @@ RSpec.describe InkComponents::Icon::Component, type: :component do
       expect { described_class.new(name: :non_existent, type: :solid) }.to raise_error(ArgumentError, "Invalid icon, non_existent with type solid does not exist")
     end
   end
+
+  context "when the name is not in the canonical form" do
+    it "normalizes the name" do
+      component = described_class.new(name: "X", type: :solid)
+
+      expect(component.name).to eq("x")
+    end
+
+    it "renders the icon" do
+      component = render_inline(described_class.new(name: "X", type: :solid))
+
+      expect(component.css("svg")).to be_present
+    end
+  end
 end
