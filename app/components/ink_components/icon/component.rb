@@ -3,12 +3,15 @@
 module InkComponents
   module Icon
     class Component < ApplicationComponent
+      TYPES = %w[solid outline].freeze
+
       attr_reader :name, :type, :extra_attributes
 
       def initialize(name:, type: :solid, **extra_attributes)
         @name = name.to_s.parameterize
         @type = type.to_s
 
+        raise ArgumentError, "Invalid icon type #{type}, must be one of #{TYPES.join(", ")}" unless TYPES.include?(@type)
         raise ArgumentError, "Invalid icon, #{name} with type #{type} does not exist" unless file_exists?
 
         super(**extra_attributes)
