@@ -3,27 +3,27 @@
 module InkComponents
   module Icon
     class Component < ApplicationComponent
+      TYPES = %w[solid outline].freeze
+
       attr_reader :name, :type, :extra_attributes
 
       def initialize(name:, type: :solid, **extra_attributes)
-        if file_exists?(name, type)
-          @name = name.to_s
-          @type = type.to_s
+        @name = name.to_s.parameterize
+        @type = type.to_s
 
-          super(**extra_attributes)
-        else
-          raise ArgumentError, "Invalid icon, #{name} with type #{type} does not exist"
-        end
+        raise ArgumentError, "Invalid icon type #{type}, must be one of #{TYPES.join(", ")}" unless TYPES.include?(@type)
+        raise ArgumentError, "Invalid icon, #{name} with type #{type} does not exist" unless file_exists?
+
+        super(**extra_attributes)
       end
 
       private
 
-      def file_exists?(name, type)
-        file_path = InkComponents::Engine.root.join("app/assets/images/#{path(name, type)}")
-        File.exist?(file_path)
+      def file_exists?
+        InkComponents::Engine.root.join("app/assets/images", path).exist?
       end
 
-      def path(name, type)
+      def path
         "ink_components/icons/#{type}/#{name}.svg"
       end
     end
