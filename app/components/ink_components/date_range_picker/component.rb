@@ -86,8 +86,6 @@ module InkComponents
         defaults { { selected: false } }
       end
 
-      # The calendar is built in JS, so the color classes have to exist as strings
-      # here: Tailwind scans this file, not the runtime DOM.
       style :accent_solid do
         variants {
           color {
@@ -300,8 +298,6 @@ module InkComponents
         date&.strftime(date_format).to_s
       end
 
-      # A GET to the current url replaces the whole query string, dropping the other
-      # filters and the pagination already on the page.
       def forwarded_query_params
         return [] if url.present? || form_method.to_sym != :get
 
@@ -409,7 +405,6 @@ module InkComponents
 
       def campaign_id(campaign) = "campaign:#{campaign[:id]}"
 
-      # Struct and ActiveRecord respond to `[]` but raise on an unknown key.
       def normalize_campaign(campaign)
         fetch = lambda do |key|
           if campaign.is_a?(Hash)
