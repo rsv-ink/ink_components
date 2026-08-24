@@ -8,12 +8,6 @@ module InkComponents
         { id: "christmas-2025", label: "Natal 2025", starts_on: Date.new(2025, 12, 1), ends_on: Date.new(2025, 12, 25) }
       ].freeze
 
-      # Date Range Picker Playground
-      # ---------------
-      # Period filter with grouped presets, navigable months and range selection.
-      # Applying fills the hidden start_date, end_date and preset fields, fires the
-      # ink:date-range-picker:change event and submits the form.
-      #
       # @param months select { choices: [1, 2] }
       # @param show_presets toggle
       # @param campaigns toggle
