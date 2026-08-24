@@ -1,6 +1,5 @@
 require("flowbite")
 
-// This code below is for reference only
-// import { foo } from 'ink_components'
-
-// foo()
+// Componentes da engine que precisam de JS (ex.: date range picker) se registram
+// sozinhos ao importar o pacote.
+import "ink_components"

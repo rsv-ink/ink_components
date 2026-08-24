@@ -52,6 +52,25 @@ And execute:
 $ yarn build:css
 ```
 
+## JavaScript
+Some components need JavaScript to work (for example, `date_range_picker_component`). Add the
+package to the project's `package.json` and import it once from the JS entrypoint — the
+components register themselves on load, and also on `turbo:load` / `turbo:frame-load`:
+
+```javascript
+// app/javascript/application.js
+import "ink_components";
+```
+
+To initialize components rendered later (outside of Turbo), call the initializer with the
+container:
+
+```javascript
+import { initDateRangePickers } from "ink_components";
+
+initDateRangePickers(container);
+```
+
 ## Development
 To get started:
 
