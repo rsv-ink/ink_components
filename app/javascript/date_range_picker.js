@@ -1,7 +1,3 @@
-// Calendário e seleção de range no cliente; o servidor só recebe o período aplicado.
-// A marcação (trigger, presets, rodapé) vem renderizada do
-// InkComponents::DateRangePicker::Component — aqui só montamos os meses e o estado.
-
 const SELECTOR = "[data-date-range-picker]"
 const CHANGE_EVENT = "ink:date-range-picker:change"
 
@@ -89,7 +85,6 @@ export class DateRangePicker {
     })
   }
 
-  // ---- abrir / fechar -------------------------------------------------------
   toggle() {
     this.target("panel").classList.contains("hidden") ? this.open() : this.close()
   }
@@ -114,7 +109,6 @@ export class DateRangePicker {
     document.removeEventListener("keydown", this.onKeydown)
   }
 
-  // ---- ações ---------------------------------------------------------------
   selectPreset(id) {
     const preset = this.presets.get(id)
 
@@ -166,8 +160,7 @@ export class DateRangePicker {
     if (this.config.submitOnApply) this.target("form").requestSubmit()
   }
 
-  // Pane da esquerda ancora no mês do início, o da direita no do fim. Meses iguais
-  // renderizariam o mesmo calendário duas vezes, então a direita avança um mês.
+  // Meses iguais renderizariam o mesmo calendário duas vezes.
   anchorsFor(start, end) {
     const first = firstOfMonth(start)
     if (this.months === 1) return [first]
@@ -176,8 +169,6 @@ export class DateRangePicker {
     return [first, monthDiff(first, last) >= 1 ? last : addMonths(first, 1)]
   }
 
-  // Cada pane navega sozinho: mover um lado nunca arrasta o outro. O único limite é
-  // não deixar os panes se cruzarem nem exibirem o mesmo mês.
   canAnchor(index, date) {
     if (this.months === 1) return true
 
@@ -218,7 +209,6 @@ export class DateRangePicker {
     return button.querySelector('[data-date-range-picker-target="preset-label"]').textContent.trim()
   }
 
-  // ---- render --------------------------------------------------------------
   render() {
     this.renderPresets()
     this.renderRangeLabel()
@@ -232,8 +222,8 @@ export class DateRangePicker {
     this.paintDays()
   }
 
-  // Hover e seleção só repintam as células existentes: remontar o grid sob o cursor
-  // destrói o elemento hospedeiro do mouseenter e dispara o evento em loop.
+  // Repinta no lugar: remontar o grid sob o cursor destrói o elemento hospedeiro do
+  // mouseenter e dispara o evento em loop.
   paintDays() {
     const from = key(this.start)
     const to = key(this.end || this.hover || this.start)
@@ -318,8 +308,8 @@ export class DateRangePicker {
     return pane
   }
 
-  // Espaçador entre os panes. Ocupa espaço sempre — some por `visibility`, não por
-  // `display` — senão o painel encolhe e cresce a cada navegação.
+  // Some por `visibility`, não `display`: com `display` o painel encolhe e cresce a
+  // cada navegação.
   gapMarker() {
     const marker = el("span", this.classes.gap)
     marker.textContent = "…"

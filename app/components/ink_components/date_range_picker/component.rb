@@ -7,7 +7,6 @@ module InkComponents
       CLOSED_PRESETS = %w[this_week last_week this_month last_month this_year max].freeze
       CUSTOM_PRESET = "custom"
 
-      # Params que o próprio component escreve; qualquer outro na URL é reenviado.
       OWN_PARAMS = %w[start_date end_date preset].freeze
 
       TYPES = %i[both label range].freeze
@@ -87,8 +86,8 @@ module InkComponents
         defaults { { selected: false } }
       end
 
-      # Classes entregues ao cliente: o calendário é montado em JS, então as variantes
-      # de cor precisam existir como string aqui (é este arquivo que o Tailwind escaneia).
+      # O calendário é montado em JS, então as classes de cor precisam existir como
+      # string aqui: é este arquivo que o Tailwind escaneia, não o DOM de runtime.
       style :accent_solid do
         variants {
           color {
@@ -229,7 +228,6 @@ module InkComponents
         @preset || inferred_preset || CUSTOM_PRESET
       end
 
-      # Grupos na ordem de exibição. `range` nulo significa seleção manual.
       def preset_groups
         groups = [
           { title: labels.dig(:groups, :moving), items: MOVING_PRESETS.map { |preset_id| preset_item(preset_id) } },
@@ -277,9 +275,6 @@ module InkComponents
         "#{preset_label(preset)}#{preset_label_suffix}"
       end
 
-      # O rótulo do preset varia de largura e faria o gatilho pular de tamanho a cada
-      # seleção. Um sizer invisível com o maior rótulo da lista fixa a largura, e o
-      # rótulo real fica sobreposto, alinhado à esquerda.
       def trigger_sizer_label
         longest = preset_groups.flat_map { |group| group[:items] }.map { |item| item[:label].to_s }.max_by(&:length)
 
@@ -305,8 +300,8 @@ module InkComponents
         date&.strftime(date_format).to_s
       end
 
-      # Um GET para a própria URL troca a query string inteira. Sem reenviar o que já
-      # estava lá (outros filtros, paginação, ordenação), aplicar o período os descarta.
+      # Um GET para a própria URL troca a query string inteira, descartando os outros
+      # filtros e a paginação da página.
       def forwarded_query_params
         return [] if url.present? || form_method.to_sym != :get
 
@@ -340,7 +335,6 @@ module InkComponents
         classes
       end
 
-      # Estado inicial entregue ao JS; o cliente assume o calendário daí em diante.
       def client_config
         {
           start: iso(start_date),
@@ -415,8 +409,7 @@ module InkComponents
 
       def campaign_id(campaign) = "campaign:#{campaign[:id]}"
 
-      # Struct e ActiveRecord respondem a `[]` mas levantam em chave desconhecida, então
-      # o acesso por índice fica restrito a Hash de verdade.
+      # Struct e ActiveRecord respondem a `[]` mas levantam em chave desconhecida.
       def normalize_campaign(campaign)
         fetch = lambda do |key|
           if campaign.is_a?(Hash)
