@@ -415,8 +415,16 @@ module InkComponents
 
       def campaign_id(campaign) = "campaign:#{campaign[:id]}"
 
+      # Struct e ActiveRecord respondem a `[]` mas levantam em chave desconhecida, então
+      # o acesso por índice fica restrito a Hash de verdade.
       def normalize_campaign(campaign)
-        fetch = ->(key) { campaign.respond_to?(:[]) ? (campaign[key] || campaign[key.to_s]) : campaign.public_send(key) }
+        fetch = lambda do |key|
+          if campaign.is_a?(Hash)
+            campaign[key] || campaign[key.to_s]
+          elsif campaign.respond_to?(key)
+            campaign.public_send(key)
+          end
+        end
 
         {
           id: fetch.call(:id),
