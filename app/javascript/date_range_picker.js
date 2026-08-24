@@ -160,7 +160,7 @@ export class DateRangePicker {
     if (this.config.submitOnApply) this.target("form").requestSubmit()
   }
 
-  // Meses iguais renderizariam o mesmo calendário duas vezes.
+  // The same month would render the same calendar twice.
   anchorsFor(start, end) {
     const first = firstOfMonth(start)
     if (this.months === 1) return [first]
@@ -222,8 +222,8 @@ export class DateRangePicker {
     this.paintDays()
   }
 
-  // Repinta no lugar: remontar o grid sob o cursor destrói o elemento hospedeiro do
-  // mouseenter e dispara o evento em loop.
+  // Repaint in place: rebuilding the grid under the cursor destroys the element
+  // hosting the mouseenter and fires the event in a loop.
   paintDays() {
     const from = key(this.start)
     const to = key(this.end || this.hover || this.start)
@@ -308,8 +308,8 @@ export class DateRangePicker {
     return pane
   }
 
-  // Some por `visibility`, não `display`: com `display` o painel encolhe e cresce a
-  // cada navegação.
+  // Hidden through `visibility`, not `display`: with `display` the panel shrinks and
+  // grows on every navigation.
   gapMarker() {
     const marker = el("span", this.classes.gap)
     marker.textContent = "…"

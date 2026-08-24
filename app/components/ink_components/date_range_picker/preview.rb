@@ -10,9 +10,9 @@ module InkComponents
 
       # Date Range Picker Playground
       # ---------------
-      # Filtro de período com presets agrupados, meses navegáveis e seleção de range.
-      # Ao aplicar, os campos ocultos `start_date`, `end_date` e `preset` são preenchidos,
-      # o evento `ink:date-range-picker:change` é disparado e o formulário é submetido.
+      # Period filter with grouped presets, navigable months and range selection.
+      # Applying fills the hidden start_date, end_date and preset fields, fires the
+      # ink:date-range-picker:change event and submits the form.
       #
       # @param months select { choices: [1, 2] }
       # @param show_presets toggle
