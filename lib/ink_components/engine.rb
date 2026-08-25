@@ -9,6 +9,8 @@ module InkComponents
     initializer "InkComponents setup lookbook" do
       Engine.config.lookbook.project_name = "ink components"
       Engine.config.lookbook.preview_paths = [ InkComponents::Engine.root.join("app/components") ]
+      Engine.config.lookbook.page_paths = Array(Engine.config.lookbook.page_paths) +
+        [ InkComponents::Engine.root.join("app/views/ink_components/lookbook_pages").to_s ]
       Engine.config.lookbook.preview_params_options_eval = true
       Engine.config.lookbook.preview_layout = "ink_components_lookbook"
       Engine.config.lookbook.ui_theme = "rose"

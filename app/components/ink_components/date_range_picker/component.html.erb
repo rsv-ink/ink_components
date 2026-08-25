@@ -1,0 +1,98 @@
+<%= tag.div(**attributes, data: { date_range_picker: "", date_range_picker_config: client_config }) do %>
+  <div class="flex items-center gap-3">
+    <button
+      type="button"
+      class="<%= style(:trigger) %>"
+      aria-expanded="false"
+      aria-controls="<%= panel_id %>"
+      data-date-range-picker-target="trigger"
+    >
+      <%= render InkComponents::Icon::Component.new(name: "calendar-month", type: :outline, class: "size-[18px] shrink-0 text-gray-500 dark:text-gray-400") %>
+      <% if show_preset_label? %>
+        <span class="relative block shrink-0 text-left">
+          <span class="invisible whitespace-nowrap" aria-hidden="true"><%= trigger_sizer_label %></span>
+          <span class="absolute left-0 top-0 whitespace-nowrap" data-date-range-picker-target="trigger-preset"><%= trigger_preset_label %></span>
+        </span>
+      <% end %>
+
+      <% if show_range_label? %>
+        <span class="shrink-0 whitespace-nowrap tabular-nums" data-date-range-picker-target="trigger-range"><%= trigger_range_label %></span>
+      <% end %>
+      <%= render InkComponents::Icon::Component.new(name: "chevron-down", type: :outline, class: "size-4 shrink-0 text-gray-500 dark:text-gray-400") %>
+    </button>
+
+    <%= action %>
+  </div>
+
+  <div
+    id="<%= panel_id %>"
+    class="<%= style(:panel) %>"
+    role="dialog"
+    aria-modal="false"
+    aria-label="<%= labels[:selected] %>"
+    data-date-range-picker-target="panel"
+  >
+    <% if show_presets %>
+      <div class="relative w-[232px] shrink-0 overflow-hidden border-r border-gray-200 dark:border-gray-700">
+        <div class="absolute inset-0 box-border flex flex-col gap-px overflow-y-auto p-2">
+          <% preset_groups.each do |group| %>
+            <% if group[:title].present? %>
+              <span class="block px-3 pb-1.5 pt-3.5 text-[11px] font-semibold tracking-[.06em] text-gray-400 dark:text-gray-500">
+                <%= group[:title] %>
+              </span>
+            <% end %>
+
+            <% group[:items].each do |item| %>
+              <button
+                type="button"
+                class="<%= preset_row_classes(item) %>"
+                aria-pressed="<%= selected?(item) %>"
+                data-date-range-picker-target="preset"
+                data-preset-id="<%= item[:id] %>"
+              >
+                <span class="<%= preset_dot_classes(item).join(" ") %>" data-date-range-picker-target="preset-dot"></span>
+                <span class="block">
+                  <span class="<%= preset_label_classes(item).join(" ") %>" data-date-range-picker-target="preset-label"><%= item[:label] %></span>
+                  <span
+                    class="<%= preset_hint_classes(item).join(" ") %>"
+                    data-date-range-picker-target="preset-hint"
+                  ><%= preset_hint(item) %></span>
+                </span>
+              </button>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="box-border flex flex-col gap-[18px] px-6 pb-[18px] pt-5">
+      <div class="flex min-h-[272px] items-start gap-2" data-date-range-picker-target="calendar"></div>
+
+      <div class="mt-auto flex flex-col items-center gap-3.5 border-t border-gray-200 pt-[18px] dark:border-gray-700">
+        <p class="m-0 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+          <%= labels[:selected] %>
+          <span class="font-medium text-gray-900 dark:text-white" data-date-range-picker-target="range-label"><%= range_label %></span>
+        </p>
+
+        <div class="flex gap-3">
+          <%= render InkComponents::Button::Component.new(color: :alternative, type: "button", class: "px-6 py-2.5", data: { date_range_picker_target: "cancel" }) do %>
+            <%= labels[:cancel] %>
+          <% end %>
+          <%= render InkComponents::Button::Component.new(type: "button", class: "#{style(:accent_button, color:)} px-6 py-2.5", data: { date_range_picker_target: "apply" }) do %>
+            <%= labels[:apply] %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= form_with(url: url.to_s, method: form_method, id: form_id, data: { date_range_picker_target: "form" }) do %>
+    <% forwarded_query_params.each do |name, value| %>
+      <%= tag.input type: "hidden", name: name, value: value %>
+    <% end %>
+
+    <%= hidden_field_tag "start_date", start_date.strftime("%Y-%m-%d"), id: "#{id}-start-date", data: { date_range_picker_target: "start-field" } %>
+    <%= hidden_field_tag "end_date", end_date.strftime("%Y-%m-%d"), id: "#{id}-end-date", data: { date_range_picker_target: "end-field" } %>
+    <%= hidden_field_tag "preset", preset, id: "#{id}-preset", data: { date_range_picker_target: "preset-field" } %>
+  <% end %>
+<% end %>

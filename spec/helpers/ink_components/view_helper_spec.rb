@@ -12,6 +12,7 @@ RSpec.describe InkComponents::ViewHelper, type: :helper do
     button: { args: { builder: :link_to, href: "#" }, block: "Some content" },
     card: { args: {}, block: "Some content" },
     checkbox: { args: {}, block: "Some content" },
+    date_range_picker: { args: { id: "period" }, block: "Some content" },
     dropzone: { args: {}, block: "Some content" },
     file_input: { args: {}, block: "Some content" },
     helper_text: { args: {}, block: "Some content" },
