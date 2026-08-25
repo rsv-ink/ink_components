@@ -9,7 +9,7 @@ module InkComponents
       # @param size select { choices: [sm, md, lg] }
       # @param home_indicator toggle
       # @param blank_screen toggle
-      def playground(color: :space_black, size: :md, home_indicator: true, blank_screen: false)
+      def playground(color: :space_black, size: :lg, home_indicator: true, blank_screen: false)
         render_with_template(
           template: "#{TEMPLATES}/playground",
           locals: { color:, size:, home_indicator:, blank_screen: }
