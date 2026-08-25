@@ -8,28 +8,37 @@ module InkComponents
       COLORS = %i[space_black black_dark black_mid deep_blue silver].freeze
 
       SIDE_BUTTONS = {
-        action: "-left-[0.6522cqw] rounded-l-[0.4348cqw] top-[39.5652cqw] h-[10.6522cqw]",
-        volume_up: "-left-[0.6522cqw] rounded-l-[0.4348cqw] top-[54.3478cqw] h-[18.2609cqw]",
-        volume_down: "-left-[0.6522cqw] rounded-l-[0.4348cqw] top-[74.7826cqw] h-[18.2609cqw]",
-        power: "-right-[0.6522cqw] rounded-r-[0.4348cqw] top-[56.087cqw] h-[27.1739cqw]"
+        action: { side: :left, position: "top-[182px] h-[49px]" },
+        volume_up: { side: :left, position: "top-[250px] h-[84px]" },
+        volume_down: { side: :left, position: "top-[344px] h-[84px]" },
+        power: { side: :right, position: "top-[258px] h-[125px]" }
       }.freeze
 
       style do
-        base { %w[ relative flex-none [container-type:inline-size] w-[460px] aspect-[115/244] ] }
+        base {
+          %w[
+            relative flex-none aspect-[115/244]
+            [container-type:inline-size] [--frame:10px] [--radius:72px]
+          ]
+        }
 
         variants {
           size {
-            sm { "[zoom:0.5]" }
-            md { "[zoom:0.75]" }
-            lg { "[zoom:1]" }
+            sm { "w-[230px]" }
+            md { "w-[345px]" }
+            lg { "w-[460px]" }
           }
         }
 
         defaults { { size: :lg } }
       end
 
+      style :device do
+        base { %w[ relative w-[460px] h-[976px] [zoom:calc(100cqw_/_460px)] ] }
+      end
+
       style :body do
-        base { %w[ absolute inset-0 box-border bg-transparent rounded-[15.6522cqw] border-[2.1739cqw] ] }
+        base { %w[ absolute inset-0 box-border bg-transparent rounded-[var(--radius)] border-[length:var(--frame)] ] }
 
         variants {
           color {
@@ -45,7 +54,7 @@ module InkComponents
       end
 
       style :side_button do
-        base { %w[ absolute w-[1.087cqw] ] }
+        base { %w[ absolute w-[5px] ] }
 
         variants {
           color {
@@ -55,41 +64,46 @@ module InkComponents
             deep_blue { "bg-[#7F9BB8]" }
             silver { "bg-[#EDEFF1]" }
           }
+
+          side {
+            left { "-left-[3px] rounded-l-[2px]" }
+            right { "-right-[3px] rounded-r-[2px]" }
+          }
         }
 
-        defaults { { color: :space_black } }
+        defaults { { color: :space_black, side: :left } }
       end
 
       style :screen do
-        base { %w[ absolute inset-[2.1739cqw] rounded-[13.4783cqw] overflow-hidden isolate ] }
-      end
-
-      style :dynamic_island do
         base {
           %w[
-            absolute left-[34.3478cqw] top-[3.2609cqw] w-[26.9565cqw] h-[7.6087cqw]
-            rounded-full bg-black pointer-events-none
+            absolute inset-[var(--frame)] rounded-[calc(var(--radius)-var(--frame))]
+            overflow-hidden isolate
           ]
         }
       end
 
+      style :dynamic_island do
+        base { %w[ absolute left-[158px] top-[15px] w-[124px] h-[35px] rounded-full bg-black pointer-events-none ] }
+      end
+
       style :home_indicator do
-        base { %w[ absolute inset-x-0 bottom-[1.5217cqw] flex justify-center pointer-events-none ] }
+        base { %w[ absolute inset-x-0 bottom-[7px] flex justify-center pointer-events-none ] }
       end
 
       style :home_indicator_bar do
-        base { %w[ w-[30.4348cqw] h-[1.087cqw] rounded-full bg-[#0b0b0c] ] }
+        base { %w[ w-[140px] h-[5px] rounded-full bg-[#0b0b0c] ] }
       end
 
       attr_reader :color, :size, :home_indicator
 
-      def initialize(color: :space_black, size: :lg, home_indicator: true, **extra_attributes)
-        @color = color.to_sym
-        @size = size.to_sym
-        @home_indicator = home_indicator
+      def initialize(color: nil, size: nil, home_indicator: nil, **extra_attributes)
+        @color = color&.to_sym
+        @size = size&.to_sym
+        @home_indicator = home_indicator.nil? || ActiveModel::Type::Boolean.new.cast(home_indicator)
 
-        raise ArgumentError, "Invalid color #{color}, must be one of #{COLORS.join(", ")}" unless COLORS.include?(@color)
-        raise ArgumentError, "Invalid size #{size}, must be one of #{SIZES.join(", ")}" unless SIZES.include?(@size)
+        raise ArgumentError, "Invalid color #{color}, must be one of #{COLORS.join(", ")}" if @color && COLORS.exclude?(@color)
+        raise ArgumentError, "Invalid size #{size}, must be one of #{SIZES.join(", ")}" if @size && SIZES.exclude?(@size)
 
         super(**extra_attributes)
       end
@@ -98,17 +112,21 @@ module InkComponents
         SIDE_BUTTONS
       end
 
+      def screen_state
+        content.present? ? "filled" : "transparent"
+      end
+
       def screen_class
         [ style(:screen), content.present? ? "bg-white" : "bg-transparent" ].join(" ")
       end
 
-      def side_button_class(geometry)
-        [ style(:side_button, color:), geometry ].join(" ")
+      def side_button_class(button)
+        [ style(:side_button, color:, side: button[:side]), button[:position] ].join(" ")
       end
 
       private
       def default_attributes
-        { class: style(size:) }
+        { class: style(size:), data: { iphone_mockup: "root" } }
       end
     end
   end
