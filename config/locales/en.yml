@@ -1,0 +1,14 @@
+en:
+  ink_components:
+    pagination:
+      aria_label: "Page navigation"
+      previous: "Previous"
+      next: "Next"
+      select_option: "Select an option"
+      per_page: "%{count} per page"
+      go_to: "Go to"
+      page: "page"
+      go: "Go"
+      of_pages: "of %{count} pages"
+      page_of: "%{current} of %{total}"
+      entries_html: "Showing %{from} to %{to} of %{total} Entries"

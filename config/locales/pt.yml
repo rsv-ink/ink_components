@@ -1,0 +1,16 @@
+pt: &pt
+  ink_components:
+    pagination:
+      aria_label: "Navegação de páginas"
+      previous: "Anterior"
+      next: "Próximo"
+      select_option: "Selecione uma opção"
+      per_page: "%{count} por página"
+      go_to: "Ir para"
+      page: "página"
+      go: "Ir"
+      of_pages: "de %{count} páginas"
+      page_of: "%{current} de %{total}"
+      entries_html: "Exibindo %{from} a %{to} de %{total} registros"
+
+pt-BR: *pt

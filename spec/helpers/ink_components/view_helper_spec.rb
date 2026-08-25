@@ -17,6 +17,7 @@ RSpec.describe InkComponents::ViewHelper, type: :helper do
     file_input: { args: {}, block: "Some content" },
     helper_text: { args: {}, block: "Some content" },
     label: { args: {}, block: "Some content" },
+    pagination: { args: { id: "pagination", current_page: 2, total_pages: 5, url: "/products" }, block: "Some content" },
     radio: { args: {}, block: "Some content" },
     select: { args: {}, block: "Some content" },
     text_area: { args: {}, block: "Some content" },
