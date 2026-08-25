@@ -20,6 +20,21 @@ module InkComponents
         render_with_template(template: "#{TEMPLATES}/default")
       end
 
+      # Overriding only the width through `class` keeps the proportion.
+      def responsive
+        render_with_template(template: "#{TEMPLATES}/responsive")
+      end
+
+      # With no content the screen stays transparent.
+      def blank_screen
+        render_with_template(template: "#{TEMPLATES}/blank_screen")
+      end
+
+      # The slot is clipped to the screen box: any HTML fits.
+      def custom_content
+        render_with_template(template: "#{TEMPLATES}/custom_content")
+      end
+
       # @!group Colors
       def space_black
         render_with_template(template: "#{TEMPLATES}/colors", locals: { color: :space_black })
@@ -63,23 +78,6 @@ module InkComponents
 
       def without_home_indicator
         render_with_template(template: "#{TEMPLATES}/home_indicator", locals: { home_indicator: false })
-      end
-      # @!endgroup
-
-      # @!group Examples
-      # Overriding only the width through `class` keeps the proportion.
-      def responsive
-        render_with_template(template: "#{TEMPLATES}/responsive")
-      end
-
-      # With no content the screen stays transparent.
-      def blank_screen
-        render_with_template(template: "#{TEMPLATES}/blank_screen")
-      end
-
-      # The slot is clipped to the screen box: any HTML fits.
-      def custom_content
-        render_with_template(template: "#{TEMPLATES}/custom_content")
       end
       # @!endgroup
     end
