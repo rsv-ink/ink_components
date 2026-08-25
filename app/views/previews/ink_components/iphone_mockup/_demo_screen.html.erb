@@ -1,5 +1,5 @@
-<div class="h-[50px] flex-none flex items-center justify-between bg-white pl-[36px] pr-[32px] text-[15px] font-semibold tracking-[-0.01em] text-[#0b0b0c]">
-  <span class="w-[54px]">9:41</span>
+<div class="h-12 flex-none flex items-center justify-between bg-white px-8 text-sm font-semibold text-gray-900">
+  <span class="w-14">9:41</span>
   <div class="flex items-center gap-1.5">
     <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="4.6" y="5.6" width="3" height="6.4" rx="1"></rect><rect x="9.2" y="3" width="3" height="9" rx="1"></rect><rect x="13.8" y="0" width="3" height="12" rx="1"></rect></svg>
     <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.6 5.8 8.2A3.1 3.1 0 0 1 8 7.3c.85 0 1.62.33 2.2.9L8 10.6Zm0-6.1c-1.7 0-3.24.68-4.36 1.79L2.2 4.87A8.16 8.16 0 0 1 8 2.45c2.27 0 4.32.93 5.8 2.42l-1.44 1.42A6.14 6.14 0 0 0 8 4.5Z" fill="currentColor"></path></svg>
@@ -7,41 +7,45 @@
   </div>
 </div>
 
-<div class="h-[60px] flex-none flex items-center justify-between border-b border-gray-100 bg-white px-5">
-  <div class="flex items-center gap-3.5">
+<div class="h-14 flex-none flex items-center justify-between border-b border-gray-100 bg-white px-4">
+  <div class="flex items-center gap-3">
     <%= icon_component(name: "bars", type: :outline, class: "size-6 text-gray-400") %>
-    <span class="text-[28px] font-extrabold leading-none tracking-[-0.03em] text-gray-900">INK</span>
+    <span class="text-2xl font-extrabold leading-none tracking-tight text-gray-900">INK</span>
   </div>
-  <div class="flex items-center gap-[18px]">
-    <%= icon_component(name: "cart", type: :outline, class: "size-[23px] text-gray-700") %>
-    <%= icon_component(name: "tag", type: :outline, class: "size-[23px] text-gray-700") %>
-    <span class="flex size-[34px] items-center justify-center rounded-full bg-gray-200 text-xs font-semibold text-gray-600">JL</span>
+  <div class="flex items-center gap-4">
+    <%= icon_component(name: "cart", type: :outline, class: "size-6 text-gray-700") %>
+    <%= icon_component(name: "tag", type: :outline, class: "size-6 text-gray-700") %>
+    <%= avatar_component(name_abbreviation: "JL", size: :sm) %>
   </div>
 </div>
 
-<div class="flex-1 min-h-0 overflow-y-auto bg-gray-50 px-[18px] pb-10 pt-[22px] flex flex-col gap-[22px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-  <span class="text-[19px] font-medium text-gray-400">Início</span>
+<div class="flex-1 min-h-0 overflow-y-auto bg-gray-50 px-4 pb-10 pt-5 flex flex-col gap-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+  <span class="text-lg font-medium text-gray-400">Início</span>
 
-  <div class="flex flex-col gap-2.5 rounded-lg border border-pink-200 bg-pink-50 p-[18px]">
-    <div class="flex items-center gap-2">
-      <%= icon_component(name: "info-circle", type: :outline, class: "size-[18px] flex-none text-pink-700") %>
-      <span class="text-base font-semibold text-pink-700">Proteja sua conta</span>
-    </div>
-    <span class="text-sm leading-relaxed text-pink-700">Deixe a sua conta mais protegida. Habilite a autenticação de dois fatores.</span>
-    <div class="mt-1 flex gap-2.5">
-      <button class="rounded-lg bg-pink-600 px-4 py-[11px] text-[13px] font-semibold text-white hover:bg-pink-800">Habilitar agora</button>
-      <button class="rounded-lg border border-gray-300 bg-white px-4 py-[11px] text-[13px] font-medium text-gray-700 hover:bg-gray-100 hover:text-pink-600">Não mostrar novamente</button>
-    </div>
-  </div>
+  <%= alert_component(state: :info, bordered: true, class: "mb-0") do |alert| %>
+    <% alert.with_title do %>
+      <span class="flex items-center gap-2">
+        <%= icon_component(name: "info-circle", type: :outline, class: "size-5 flex-none") %>
+        Proteja sua conta
+      </span>
+    <% end %>
+    <% alert.with_body do %>
+      Deixe a sua conta mais protegida. Habilite a autenticação de dois fatores.
+    <% end %>
+    <% alert.with_actions do %>
+      <%= button_component(size: :xs) { "Habilitar agora" } %>
+      <%= button_component(size: :xs, color: :alternative) { "Não mostrar novamente" } %>
+    <% end %>
+  <% end %>
 
-  <div class="flex flex-col gap-3.5">
+  <div class="flex flex-col gap-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="text-lg font-semibold text-gray-900">Radar Empreendedor</span>
-        <%= icon_component(name: "eye", type: :outline, class: "size-[19px] text-pink-600") %>
+        <%= icon_component(name: "eye", type: :outline, class: "size-5 text-pink-600") %>
       </div>
-      <div class="flex items-center gap-2.5">
-        <%= icon_component(name: "calendar-month", type: :outline, class: "size-[21px] text-gray-700") %>
+      <div class="flex items-center gap-2">
+        <%= icon_component(name: "calendar-month", type: :outline, class: "size-5 text-gray-700") %>
         <span class="text-sm font-medium text-gray-700">Hoje</span>
         <%= icon_component(name: "chevron-down", type: :outline, class: "size-4 text-gray-500") %>
       </div>
@@ -54,52 +58,54 @@
            { icon: "chart-pie", value: "R$ 0,00", label: "Lucro Bruto" },
            { icon: "chart-mixed", value: "R$ 0,00", label: "Meta Ads" }
          ].each do |kpi| %>
-        <div class="flex flex-col gap-2 rounded-lg border border-gray-200 bg-white px-3.5 pb-3 pt-3.5 shadow-sm">
-          <div class="flex items-center gap-2.5">
-            <%= icon_component(name: kpi[:icon], type: :outline, class: "size-[21px] flex-none text-gray-700") %>
-            <span class="text-[15px] font-semibold text-gray-900"><%= kpi[:value] %></span>
+        <%= card_component(class: "max-w-none p-3") do %>
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+              <%= icon_component(name: kpi[:icon], type: :outline, class: "size-5 flex-none text-gray-700") %>
+              <span class="text-sm font-semibold text-gray-900"><%= kpi[:value] %></span>
+            </div>
+            <span class="text-xs text-gray-500"><%= kpi[:label] %></span>
           </div>
-          <span class="text-[13px] text-gray-500"><%= kpi[:label] %></span>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </div>
 
-  <div class="flex flex-col gap-3.5">
+  <div class="flex flex-col gap-3">
     <div class="flex items-center gap-2">
       <span class="text-lg font-semibold text-gray-900">Lucro pendente</span>
-      <%= icon_component(name: "eye", type: :outline, class: "size-[19px] text-pink-600") %>
+      <%= icon_component(name: "eye", type: :outline, class: "size-5 text-pink-600") %>
     </div>
 
-    <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-      <div class="flex items-end justify-between px-4 pb-3.5 pt-4">
+    <%= card_component(class: "max-w-none p-0 overflow-hidden") do %>
+      <div class="flex items-end justify-between p-4">
         <div class="flex flex-col gap-1">
           <span class="text-sm text-gray-600">Total em lucro pendente</span>
-          <span class="text-xl font-bold text-pink-700">R$ 0,00</span>
+          <span class="text-lg font-bold text-pink-700">R$ 0,00</span>
         </div>
-        <a href="#" class="text-[13px] font-semibold text-pink-600 hover:text-pink-800">Ver todos</a>
+        <a href="#" class="text-xs font-semibold text-pink-600 hover:text-pink-800">Ver todos</a>
       </div>
       <div class="h-px bg-gray-100"></div>
-      <div class="flex flex-col gap-3.5 px-4 py-3.5">
+      <div class="flex flex-col gap-3 p-4">
         <% [ { icon: "credit-card", label: "Pix" }, { icon: "file", label: "Boleto" } ].each do |method| %>
           <div class="flex flex-col gap-1">
-            <div class="flex items-center gap-2.5">
+            <div class="flex items-center gap-2">
               <%= icon_component(name: method[:icon], type: :outline, class: "size-5 flex-none text-gray-700") %>
               <span class="text-sm font-medium text-gray-700"><%= method[:label] %></span>
             </div>
-            <span class="text-[15px] font-semibold text-gray-900">R$ 0,00</span>
+            <span class="text-sm font-semibold text-gray-900">R$ 0,00</span>
           </div>
         <% end %>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
 
-<div class="absolute bottom-[34px] right-[22px] flex flex-col items-end gap-3">
-  <button class="flex size-[30px] items-center justify-center rounded-full bg-pink-300 shadow-sm">
-    <%= icon_component(name: "user-circle", type: :outline, class: "size-[17px] text-white") %>
-  </button>
-  <button class="flex size-[58px] items-center justify-center rounded-full bg-pink-600 shadow-[0_6px_16px_rgba(219,39,119,0.35)] hover:bg-pink-800">
-    <%= icon_component(name: "messages", type: :outline, class: "size-[26px] text-white") %>
-  </button>
+<div class="absolute bottom-8 right-4 flex flex-col items-end gap-3">
+  <%= button_component(shape: :pill, size: :xs, class: "flex size-8 items-center justify-center p-0 bg-pink-300") do %>
+    <%= icon_component(name: "user-circle", type: :outline, class: "size-4") %>
+  <% end %>
+  <%= button_component(shape: :pill, size: :xs, class: "flex size-14 items-center justify-center p-0 shadow-lg") do %>
+    <%= icon_component(name: "messages", type: :outline, class: "size-6") %>
+  <% end %>
 </div>
