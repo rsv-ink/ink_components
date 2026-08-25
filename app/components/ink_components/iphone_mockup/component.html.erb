@@ -1,0 +1,23 @@
+<%= content_tag :div, attributes do %>
+  <div class="absolute inset-0 pointer-events-none">
+    <% side_buttons.each_value do |geometry| %>
+      <span data-iphone-mockup="side-button" class="<%= side_button_class(geometry) %>"></span>
+    <% end %>
+
+    <div data-iphone-mockup="body" class="<%= style(:body, color:) %>"></div>
+  </div>
+
+  <div data-iphone-mockup="screen" class="<%= screen_class %>">
+    <div class="absolute inset-0 overflow-hidden flex flex-col">
+      <%= content %>
+    </div>
+
+    <div data-iphone-mockup="dynamic-island" class="<%= style(:dynamic_island) %>"></div>
+
+    <% if home_indicator %>
+      <div data-iphone-mockup="home-indicator" class="<%= style(:home_indicator) %>">
+        <span class="<%= style(:home_indicator_bar) %>"></span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

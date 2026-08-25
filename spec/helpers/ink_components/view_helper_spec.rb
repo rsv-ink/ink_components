@@ -16,6 +16,7 @@ RSpec.describe InkComponents::ViewHelper, type: :helper do
     dropzone: { args: {}, block: "Some content" },
     file_input: { args: {}, block: "Some content" },
     helper_text: { args: {}, block: "Some content" },
+    iphone_mockup: { args: {}, block: "Some content" },
     label: { args: {}, block: "Some content" },
     radio: { args: {}, block: "Some content" },
     select: { args: {}, block: "Some content" },
