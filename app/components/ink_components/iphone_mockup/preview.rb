@@ -20,16 +20,6 @@ module InkComponents
         render_with_template(template: "#{TEMPLATES}/default")
       end
 
-      # Overriding only the width through `class` keeps the proportion.
-      def responsive
-        render_with_template(template: "#{TEMPLATES}/responsive")
-      end
-
-      # With no content the screen stays transparent.
-      def blank_screen
-        render_with_template(template: "#{TEMPLATES}/blank_screen")
-      end
-
       # The slot is clipped to the screen box: any HTML fits.
       def custom_content
         render_with_template(template: "#{TEMPLATES}/custom_content")
