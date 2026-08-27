@@ -3,6 +3,12 @@
 module InkComponents::Helpers
   private
 
+  def flat_query_params(params)
+    Rack::Utils.parse_query(params.to_h.to_query).flat_map do |name, value|
+      Array(value).map { |item| [ name, item ] }
+    end
+  end
+
   def mix(*args)
     args.each_with_object({}) do |object, result|
       result.merge!(object) do |_key, old, new|

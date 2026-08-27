@@ -1,0 +1,7 @@
+<%= content_tag :ul, attributes do %>
+  <li><%= edge_cell(:previous) %></li>
+  <% items.each do |page| %>
+    <li><%= page_cell(page) %></li>
+  <% end %>
+  <li><%= edge_cell(:next) %></li>
+<% end %>
