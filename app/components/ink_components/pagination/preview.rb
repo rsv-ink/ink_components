@@ -21,6 +21,15 @@ module InkComponents
         pagination_component(id: "default-pagination", current_page: 3, total_pages: 5)
       end
 
+      # Slots compose any layout the presets do not cover.
+      def composed
+        pagination_component(id: "composed-pagination", layout: :row, current_page: 3, total_pages: 20, total_entries: 200) do |pagination|
+          pagination.with_pages(edges: :chevron, spaced: true)
+          pagination.with_entries
+          pagination.with_form(control: :per_page_select)
+        end
+      end
+
       # @!group Colors
       def pink
         pagination_component(id: "pink-pagination", color: :pink, current_page: 3, total_pages: 5)

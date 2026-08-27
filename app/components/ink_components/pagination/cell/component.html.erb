@@ -1,0 +1,12 @@
+<%= content_tag tag_name, attributes do %>
+  <% if content.present? %>
+    <%= content %>
+  <% elsif icon_only? %>
+    <span class="sr-only"><%= label %></span>
+    <%= icon_tag %>
+  <% else %>
+    <%= icon_tag if leading_icon? %>
+    <%= label %>
+    <%= icon_tag if trailing_icon? %>
+  <% end %>
+<% end %>

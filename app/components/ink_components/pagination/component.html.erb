@@ -1,62 +1,6 @@
-<%= content_tag :nav, attributes do %>
-  <% if numbered? %>
-    <ul class="<%= list_classes %>">
-      <li><%= edge_cell(:previous) %></li>
-      <% page_items.each do |page| %>
-        <li><%= page_cell(page) %></li>
-      <% end %>
-      <li><%= edge_cell(:next) %></li>
-    </ul>
-  <% end %>
-
-  <% if entries? %>
-    <span class="<%= style(:help_text) %>"><%= entries_text %></span>
-  <% end %>
-
-  <% if standalone? %>
-    <div class="<%= standalone_group_classes %>">
-      <%= standalone_edge(:previous) %>
-      <%= standalone_edge(:next) %>
-    </div>
-  <% end %>
-
-  <% if form_shape %>
-    <%= content_tag :form, method: :get, action: form_action, class: "flex shrink-0 items-center gap-3" do %>
-      <%= hidden_query_params %>
-
-      <% case form_shape %>
-      <% when :per_page_select %>
-        <label for="<%= per_page_select_id %>" class="sr-only"><%= translation(:select_option) %></label>
-        <%= select_tag per_page_param, options_for_select(per_page_choices, per_page), id: per_page_select_id, class: field_classes, **handler_attributes %>
-
-      <% when :page_select %>
-        <label for="<%= page_field_id %>" class="sr-only"><%= translation(:select_option) %></label>
-        <% if select_control? %>
-          <%= select_tag param_name, options_for_select(page_choices, current_page), id: page_field_id, class: "#{field_classes} w-20", **handler_attributes %>
-        <% else %>
-          <%= number_field_tag param_name, current_page, id: page_field_id, min: 1, max: total_pages, class: "#{field_classes} w-20" %>
-        <% end %>
-        <%= text_field_tag :total_pages, of_pages_text, id: total_pages_field_id, name: nil, disabled: true, class: "#{disabled_field_classes} w-32" %>
-
-      <% when :page_field %>
-        <label for="<%= page_field_id %>" class="<%= style(:label) %>"><%= translation(:go_to) %></label>
-        <%= number_field_tag param_name, current_page, id: page_field_id, min: 1, max: total_pages, class: "#{field_classes} w-16" %>
-        <span class="<%= style(:label) %>"><%= translation(:page) %></span>
-      <% end %>
-
-      <% if submit_button? %>
-        <button type="submit" class="<%= submit_classes %>"><%= translation(:go) %></button>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <% if grouped? %>
-    <div class="<%= style(:group, shadowed: true) %>" role="group">
-      <%= edge_cell(:previous, position: :leading) %>
-      <% if counter? %>
-        <span class="<%= counter_classes %>"><%= page_of_text %></span>
-      <% end %>
-      <%= edge_cell(:next, position: :trailing) %>
-    </div>
-  <% end %>
+<%= content_tag :nav, nav_attributes do %>
+  <%= pages %>
+  <%= entries %>
+  <%= form %>
+  <%= controls %>
 <% end %>
