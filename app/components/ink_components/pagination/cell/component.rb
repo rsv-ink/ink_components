@@ -5,7 +5,11 @@ module InkComponents
     module Cell
       class Component < ApplicationComponent
         VARIANTS = %i[cell standalone].freeze
-        APPEARANCES = %i[idle active muted decorative static].freeze
+        WIDTHS = %i[fixed minimum auto].freeze
+
+        PALETTE = InkComponents::Pagination::Component::COLORS
+        SCALE = InkComponents::Pagination::Component::SIZES
+        APPEARANCES = %i[idle active muted decorative].freeze
         POSITIONS = %i[leading trailing alone none].freeze
 
         style :cell do
@@ -19,14 +23,17 @@ module InkComponents
             }
           }
 
-          compound(size: :sm, square: true) { %w[ w-8 ] }
-          compound(size: :md, square: true) { %w[ w-9 ] }
-          compound(size: :lg, square: true) { %w[ w-10 ] }
-          compound(size: :sm, square: false) { %w[ px-3 ] }
-          compound(size: :md, square: false) { %w[ px-3 ] }
-          compound(size: :lg, square: false) { %w[ px-4 ] }
+          compound(size: :sm, width: :fixed) { %w[ w-8 ] }
+          compound(size: :md, width: :fixed) { %w[ w-9 ] }
+          compound(size: :lg, width: :fixed) { %w[ w-10 ] }
+          compound(size: :sm, width: :minimum) { %w[ px-3 min-w-8 ] }
+          compound(size: :md, width: :minimum) { %w[ px-3 min-w-9 ] }
+          compound(size: :lg, width: :minimum) { %w[ px-4 min-w-10 ] }
+          compound(size: :sm, width: :auto) { %w[ px-3 ] }
+          compound(size: :md, width: :auto) { %w[ px-3 ] }
+          compound(size: :lg, width: :auto) { %w[ px-4 ] }
 
-          defaults { { size: :md, square: false } }
+          defaults { { size: :md, width: :auto } }
         end
 
         style :standalone do
@@ -66,9 +73,6 @@ module InkComponents
               green { %w[ hover:bg-green-50 hover:text-green-700 dark:hover:bg-green-900/20 dark:hover:text-green-200 ] }
               purple { %w[ hover:bg-purple-50 hover:text-purple-700 dark:hover:bg-purple-900/20 dark:hover:text-purple-200 ] }
               yellow { %w[ hover:bg-yellow-50 hover:text-yellow-700 dark:hover:bg-yellow-900/20 dark:hover:text-yellow-200 ] }
-              teal { %w[ hover:bg-teal-50 hover:text-teal-700 dark:hover:bg-teal-900/20 dark:hover:text-teal-200 ] }
-              orange { %w[ hover:bg-orange-50 hover:text-orange-700 dark:hover:bg-orange-900/20 dark:hover:text-orange-200 ] }
-              indigo { %w[ hover:bg-indigo-50 hover:text-indigo-700 dark:hover:bg-indigo-900/20 dark:hover:text-indigo-200 ] }
               dark { %w[ hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white ] }
             }
           }
@@ -87,9 +91,6 @@ module InkComponents
               green { %w[ focus:ring-green-300 dark:focus:ring-green-800 ] }
               purple { %w[ focus:ring-purple-300 dark:focus:ring-purple-800 ] }
               yellow { %w[ focus:ring-yellow-300 dark:focus:ring-yellow-800 ] }
-              teal { %w[ focus:ring-teal-300 dark:focus:ring-teal-800 ] }
-              orange { %w[ focus:ring-orange-300 dark:focus:ring-orange-800 ] }
-              indigo { %w[ focus:ring-indigo-300 dark:focus:ring-indigo-800 ] }
               dark { %w[ focus:ring-gray-300 dark:focus:ring-gray-600 ] }
             }
           }
@@ -106,9 +107,6 @@ module InkComponents
               green { %w[ z-10 text-green-600 bg-green-50 border-green-300 hover:bg-green-100 hover:text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-200 dark:hover:bg-green-900/40 ] }
               purple { %w[ z-10 text-purple-600 bg-purple-50 border-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:bg-purple-900/30 dark:border-purple-800 dark:text-purple-200 dark:hover:bg-purple-900/40 ] }
               yellow { %w[ z-10 text-yellow-600 bg-yellow-50 border-yellow-300 hover:bg-yellow-100 hover:text-yellow-700 dark:bg-yellow-900/30 dark:border-yellow-800 dark:text-yellow-200 dark:hover:bg-yellow-900/40 ] }
-              teal { %w[ z-10 text-teal-600 bg-teal-50 border-teal-300 hover:bg-teal-100 hover:text-teal-700 dark:bg-teal-900/30 dark:border-teal-800 dark:text-teal-200 dark:hover:bg-teal-900/40 ] }
-              orange { %w[ z-10 text-orange-600 bg-orange-50 border-orange-300 hover:bg-orange-100 hover:text-orange-700 dark:bg-orange-900/30 dark:border-orange-800 dark:text-orange-200 dark:hover:bg-orange-900/40 ] }
-              indigo { %w[ z-10 text-indigo-600 bg-indigo-50 border-indigo-300 hover:bg-indigo-100 hover:text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-800 dark:text-indigo-200 dark:hover:bg-indigo-900/40 ] }
               dark { %w[ z-10 text-gray-900 bg-gray-100 border-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:bg-gray-600 ] }
             }
           }
@@ -139,10 +137,10 @@ module InkComponents
         end
 
         attr_reader :href, :label, :icon, :icon_position, :variant, :appearance, :position,
-                    :square, :color, :size, :current
+                    :width, :color, :size, :current
 
         def initialize(href: nil, label: nil, icon: nil, icon_only: false, icon_position: :leading,
-                       variant: :cell, appearance: :idle, position: :none, square: false,
+                       variant: :cell, appearance: :idle, position: :none, width: :auto,
                        current: false, color: :pink, size: :md, **extra_attributes)
           @href = href
           @label = label
@@ -152,14 +150,17 @@ module InkComponents
           @variant = variant.to_sym
           @appearance = appearance.to_sym
           @position = position.to_sym
-          @square = square
+          @width = width.to_sym
           @current = current
-          @color = color
-          @size = size
+          @color = color.to_sym
+          @size = size.to_sym
 
           raise ArgumentError, "Invalid variant #{variant}, must be one of #{VARIANTS.join(", ")}" unless VARIANTS.include?(@variant)
           raise ArgumentError, "Invalid appearance #{appearance}, must be one of #{APPEARANCES.join(", ")}" unless APPEARANCES.include?(@appearance)
           raise ArgumentError, "Invalid position #{position}, must be one of #{POSITIONS.join(", ")}" unless POSITIONS.include?(@position)
+          raise ArgumentError, "Invalid width #{width}, must be one of #{WIDTHS.join(", ")}" unless WIDTHS.include?(@width)
+          raise ArgumentError, "Invalid color #{color}, must be one of #{PALETTE.join(", ")}" unless PALETTE.include?(@color)
+          raise ArgumentError, "Invalid size #{size}, must be one of #{SCALE.join(", ")}" unless SCALE.include?(@size)
 
           super(**extra_attributes)
         end
@@ -187,7 +188,7 @@ module InkComponents
         end
 
         def chrome_classes
-          variant == :standalone ? style(:standalone, size:) : style(:cell, size:, square:)
+          variant == :standalone ? style(:standalone, size:) : style(:cell, size:, width:)
         end
 
         def appearance_classes
@@ -195,7 +196,6 @@ module InkComponents
           when :active then token_list(style(:active, color:), style(:focus, color:))
           when :muted then style(:muted)
           when :decorative then style(:decorative)
-          when :static then style(:idle)
           else token_list(style(:idle), style(:hover, color:), style(:focus, color:))
           end
         end

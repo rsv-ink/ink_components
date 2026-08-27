@@ -4,12 +4,7 @@ module InkComponents
   module Pagination
     module Pages
       class Component < ApplicationComponent
-        EDGES = %i[text chevron arrow].freeze
-
-        ICONS = {
-          chevron: { previous: "chevron-left", next: "chevron-right" },
-          arrow: { previous: "arrow-left", next: "arrow-right" }
-        }.freeze
+        EDGES = InkComponents::Pagination::Component::EDGES
 
         style do
           base { %w[ flex text-sm ] }
@@ -24,7 +19,7 @@ module InkComponents
           defaults { { spaced: false } }
         end
 
-        delegate :page_items, :page_url, :current_page?, :edge_url, :edge_label, to: :pagination
+        delegate :page_items, :page_url, :current_page?, :edge_cell_options, to: :pagination
 
         attr_reader :pagination, :edges, :spaced, :color, :size
 
@@ -42,13 +37,14 @@ module InkComponents
 
         def items = page_items
 
+        # Numbered cells grow with the digits: a fixed square clips a four digit page.
         def page_cell(page)
           return gap_cell if page == :gap
 
           cell(
             href: page_url(page),
             label: page,
-            square: true,
+            width: :minimum,
             position: number_position,
             appearance: current_page?(page) ? :active : :idle,
             current: current_page?(page)
@@ -56,17 +52,10 @@ module InkComponents
         end
 
         def edge_cell(direction)
-          href = edge_url(direction)
-
           cell(
-            href:,
-            label: edge_label(direction),
-            icon: ICONS.dig(edges, direction),
-            icon_only: edges == :chevron,
-            icon_position: direction == :previous ? :leading : :trailing,
-            square: edges == :chevron,
-            position: edge_position(direction),
-            appearance: href.present? ? :idle : :muted
+            **edge_cell_options(direction, edges),
+            width: edges == :chevron ? :fixed : :auto,
+            position: edge_position(direction)
           )
         end
 
@@ -81,7 +70,7 @@ module InkComponents
         end
 
         def gap_cell
-          cell(label: "…", square: true, appearance: :decorative, position: number_position)
+          cell(label: "…", width: :minimum, position: number_position, appearance: :decorative)
         end
 
         def number_position = spaced ? :alone : :none

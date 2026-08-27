@@ -1,8 +1,8 @@
 module InkComponents
   module Pagination
     class Preview < Lookbook::Preview
-      # @param type select { choices: [default, icons, spaced, spaced_icons, simple, simple_icons, table, table_icons, dropdown, input, input_button, select_buttons, single] }
-      # @param color select { choices: [pink, blue, red, green, purple, yellow, teal, orange, indigo, dark] }
+      # @param type select { choices: [default, icons, spaced, spaced_icons, simple, simple_icons, table, table_icons, dropdown] }
+      # @param color select { choices: [pink, blue, dark, green, red, yellow, purple] }
       # @param size select { choices: [sm, md, lg] }
       # @param current_page number
       # @param total_pages number
@@ -26,7 +26,7 @@ module InkComponents
         pagination_component(id: "composed-pagination", layout: :row, current_page: 3, total_pages: 20, total_entries: 200) do |pagination|
           pagination.with_pages(edges: :chevron, spaced: true)
           pagination.with_entries
-          pagination.with_form(control: :per_page_select)
+          pagination.with_per_page
         end
       end
 
@@ -53,18 +53,6 @@ module InkComponents
 
       def yellow
         pagination_component(id: "yellow-pagination", color: :yellow, current_page: 3, total_pages: 5)
-      end
-
-      def teal
-        pagination_component(id: "teal-pagination", color: :teal, current_page: 3, total_pages: 5)
-      end
-
-      def orange
-        pagination_component(id: "orange-pagination", color: :orange, current_page: 3, total_pages: 5)
-      end
-
-      def indigo
-        pagination_component(id: "indigo-pagination", color: :indigo, current_page: 3, total_pages: 5)
       end
 
       def dark

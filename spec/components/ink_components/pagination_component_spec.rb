@@ -55,7 +55,7 @@ RSpec.describe InkComponents::Pagination::Component, type: :component do
       ) do |pagination|
         pagination.with_entries
         pagination.with_pages
-        pagination.with_form(control: :per_page_select)
+        pagination.with_per_page
       end
 
       expect(component.text.squish).to include("Showing 11 to 20 of 50 Entries")
@@ -123,13 +123,6 @@ RSpec.describe InkComponents::Pagination::Component, type: :component do
       expect(component.css("span[aria-disabled='true']").text.strip).to eq("Next")
     end
 
-    it "clamps a window wider than the cap" do
-      component = render_inline(
-        described_class.new(id: "pagination", current_page: 5_000, total_pages: 1_000_000, window: 50_000)
-      )
-
-      expect(component.css("li").count).to be <= described_class::MAX_PAGES + 8
-    end
 
     it "rejects an unknown edges value" do
       expect {
@@ -202,65 +195,7 @@ RSpec.describe InkComponents::Pagination::Component, type: :component do
         [ "10 per page", "25 per page", "50 per page", "100 per page" ]
       )
     end
-
-    it "renders the page field for the input type" do
-      component = render_inline(described_class.new(id: "pagination", type: :input, current_page: 2, total_pages: 5))
-
-      field = component.css("input[type='number']").first
-
-      expect(field["name"]).to eq("page")
-      expect(field["value"]).to eq("2")
-      expect(field["max"]).to eq("5")
-    end
-
-    it "renders the submit button for the input_button type" do
-      component = render_inline(described_class.new(id: "pagination", type: :input_button, current_page: 2, total_pages: 5))
-
-      expect(component.css("button[type='submit']").text).to eq("Go")
-    end
-
-    it "renders one option per page and the total for the select_buttons type" do
-      component = render_inline(described_class.new(id: "pagination", type: :select_buttons, current_page: 2, total_pages: 9))
-
-      expect(component.css("select option").count).to eq(9)
-      expect(component.css("input[disabled]").first["value"]).to eq("of 9 pages")
-    end
-
-    it "renders the current page over the total for the single type" do
-      component = render_inline(described_class.new(id: "pagination", type: :single, current_page: 4, total_pages: 99))
-
-      expect(component.text.squish).to include("4 of 99")
-    end
-
-    it "keeps the static counter of the single type without hover or focus classes" do
-      component = render_inline(described_class.new(id: "pagination", type: :single, current_page: 4, total_pages: 99))
-
-      counter = component.css("span").find { |span| span.text.include?("of 99") }
-
-      expect(counter["class"]).not_to include("hover:")
-      expect(counter["class"]).not_to include("focus:ring")
-    end
-
-    it "renders the total in the singular when there is a single page" do
-      component = render_inline(described_class.new(id: "pagination", type: :select_buttons, current_page: 1, total_pages: 1))
-
-      expect(component.css("input[disabled]").first["value"]).to eq("of 1 page")
-    end
-
-    it "falls back to a number field when the page select would overflow the cap" do
-      component = render_inline(
-        described_class.new(
-          id: "pagination",
-          type: :select_buttons,
-          current_page: 1,
-          total_pages: described_class::MAX_PAGES + 1
-        )
-      )
-
-      expect(component.css("select")).to be_empty
-      expect(component.css("input[type='number']").first["max"]).to eq("101")
-    end
-  end
+      end
 
   describe "colors" do
     it "reflects a softer shade of the color on the hover of the clickable cells" do
@@ -293,7 +228,7 @@ RSpec.describe InkComponents::Pagination::Component, type: :component do
     it "raises when a url proc is combined with a form, which submits with GET" do
       expect {
         render_inline(described_class.new(id: "pagination", type: :dropdown, url: ->(page) { "/products?page=#{page}" }))
-      }.to raise_error(ArgumentError, /url must be a String for a pagination form/)
+      }.to raise_error(ArgumentError, /url must be a String for the per page form/)
     end
 
     it "keeps the query params of a url string on the page links" do
@@ -335,14 +270,6 @@ RSpec.describe InkComponents::Pagination::Component, type: :component do
   end
 
   describe "forms" do
-    it "forwards the request params the form does not own" do
-      component = with_request_url("/users/new?per_page=50&status=active") do
-        render_inline(described_class.new(id: "pagination", type: :input, current_page: 2, total_pages: 5))
-      end
-
-      expect(hidden_fields(component)).to contain_exactly([ "per_page", "50" ], [ "status", "active" ])
-    end
-
     it "lets the dropdown own the per page param and drop the current page" do
       component = with_request_url("/users/new?page=8&per_page=10&status=active") do
         render_inline(described_class.new(id: "pagination", type: :dropdown, current_page: 8, total_pages: 10))
@@ -381,21 +308,97 @@ RSpec.describe InkComponents::Pagination::Component, type: :component do
       )
     end
 
-    it "renders a submit button when the inline handler is turned off" do
-      component = render_inline(
-        described_class.new(id: "pagination", type: :dropdown, current_page: 1, total_pages: 5, auto_submit: false)
-      )
+    it "submits with a plain button instead of an inline handler" do
+      component = render_inline(described_class.new(id: "pagination", type: :dropdown, current_page: 1, total_pages: 5))
 
-      expect(component.css("select").first["onchange"]).to be_nil
-      expect(component.css("form button[type='submit']").text).to eq("Go")
+      expect(component.to_html).not_to include("onchange")
+      expect(component.css("form button[type='submit']").text.strip).to eq("Go")
+    end
+      end
+
+  describe "reuse and limits" do
+    it "renders the per page select through the design system component" do
+      component = render_inline(described_class.new(id: "pagination", type: :dropdown, current_page: 1, total_pages: 5))
+
+      select = component.css("select").first
+
+      expect(select["class"]).to include("bg-gray-50", "border-gray-300")
+      expect(select["class"]).to include("w-auto")
     end
 
-    it "rejects an unknown control" do
+    it "renders the submit through the button component" do
+      component = render_inline(described_class.new(id: "pagination", type: :dropdown, color: :blue, current_page: 1, total_pages: 5))
+
+      button = component.css("button[type='submit']").first
+
+      expect(button["class"]).to include("bg-blue-600")
+      expect(button["name"]).to be_nil
+    end
+
+    it "grows a numbered cell instead of clipping four digits" do
+      component = render_inline(described_class.new(id: "pagination", current_page: 1, total_pages: 1_234))
+
+      last = component.css("li a").to_a[-2]
+
+      expect(last.text.strip).to eq("1234")
+      expect(last["class"]).to include("min-w-9")
+      expect(last["class"]).not_to include(" w-9")
+    end
+
+    it "clamps the window to the documented maximum" do
+      component = render_inline(described_class.new(id: "pagination", current_page: 5_000, total_pages: 1_000_000, window: 50_000))
+
+      numbered = component.css("li a").map(&:text).map(&:strip).grep(/\A\d+\z/)
+
+      # a janela mais a primeira e a última página
+      expect(numbered.count).to eq((described_class::MAX_WINDOW * 2) + 3)
+    end
+
+    it "keeps the fragment on the form action, like the page links" do
+      component = render_inline(
+        described_class.new(id: "pagination", type: :dropdown, current_page: 1, total_pages: 5, url: "/products?a=1#list")
+      )
+
+      expect(component.css("form").first["action"]).to eq("/products#list")
+      expect(component.css("li a").first["href"]).to end_with("#list")
+    end
+
+    it "degrades a malformed url query to an empty one instead of raising" do
+      expect {
+        render_inline(described_class.new(id: "pagination", current_page: 1, total_pages: 3, url: "/products?a[]=1&a[b]=2"))
+      }.not_to raise_error
+    end
+
+    it "coerces per page options given as strings" do
+      component = render_inline(
+        described_class.new(id: "pagination", type: :dropdown, current_page: 1, total_pages: 5, per_page: 25, per_page_options: %w[10 25 50])
+      )
+
+      expect(component.css("select option").map(&:text)).to eq([ "10 per page", "25 per page", "50 per page" ])
+      expect(component.css("select option[selected]").text).to eq("25 per page")
+    end
+
+    it "validates a color coming through the composition path" do
       expect {
         render_inline(described_class.new(id: "pagination", type: nil, current_page: 1, total_pages: 3)) do |pagination|
-          pagination.with_form(control: :telepathy)
+          pagination.with_pages(color: :magenta)
         end
-      }.to raise_error(ArgumentError, /Invalid control telepathy/)
+      }.to raise_error(ArgumentError, /Invalid color magenta/)
+    end
+
+    it "validates a size coming through the composition path" do
+      expect {
+        render_inline(described_class.new(id: "pagination", type: nil, current_page: 1, total_pages: 3)) do |pagination|
+          pagination.with_pages(size: :xl)
+        end
+      }.to raise_error(ArgumentError, /Invalid size xl/)
+    end
+
+    it "does not leak the shared child options as html attributes" do
+      component = render_inline(described_class.new(id: "pagination", type: :table, current_page: 1, total_entries: 50, per_page: 10))
+
+      expect(component.to_html).not_to include("color=")
+      expect(component.to_html).not_to include("size=")
     end
   end
 

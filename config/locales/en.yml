@@ -8,11 +8,5 @@ en:
       per_page:
         one: "%{count} per page"
         other: "%{count} per page"
-      go_to: "Go to"
-      page: "page"
       go: "Go"
-      of_pages:
-        one: "of %{count} page"
-        other: "of %{count} pages"
-      page_of: "%{current} of %{total}"
       entries_html: "Showing %{from} to %{to} of %{total} Entries"

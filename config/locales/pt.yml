@@ -8,13 +8,7 @@ pt: &pt
       per_page:
         one: "%{count} por página"
         other: "%{count} por página"
-      go_to: "Ir para"
-      page: "página"
       go: "Ir"
-      of_pages:
-        one: "de %{count} página"
-        other: "de %{count} páginas"
-      page_of: "%{current} de %{total}"
       entries_html: "Exibindo %{from} a %{to} de %{total} registros"
 
 pt-BR: *pt

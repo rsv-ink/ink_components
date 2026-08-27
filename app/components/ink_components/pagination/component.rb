@@ -3,13 +3,20 @@
 module InkComponents
   module Pagination
     class Component < ApplicationComponent
-      COLORS = %i[pink blue red green purple yellow teal orange indigo dark].freeze
+      # Mirrors the colors of Button::Component, which renders the submit of the per page form.
+      COLORS = %i[pink blue dark green red yellow purple].freeze
       SIZES = %i[sm md lg].freeze
-      LAYOUTS = %i[row inline stack].freeze
+      LAYOUTS = %i[row stack].freeze
+      EDGES = %i[text chevron arrow].freeze
+
+      EDGE_ICONS = {
+        chevron: { previous: "chevron-left", next: "chevron-right" },
+        arrow: { previous: "arrow-left", next: "arrow-right" }
+      }.freeze
 
       I18N_SCOPE = "ink_components.pagination"
       DEFAULT_PER_PAGE_OPTIONS = [ 10, 25, 50, 100 ].freeze
-      MAX_PAGES = 100
+      MAX_WINDOW = 50
 
       # Recipes from the Flowbite docs. Each one only fills slots, so a caller composing by hand
       # passes type: nil and needs none of this.
@@ -20,26 +27,15 @@ module InkComponents
         spaced_icons: { pages: { spaced: true, edges: :chevron } },
         simple: { controls: {} },
         simple_icons: { controls: { edges: :arrow } },
-        table: { layout: :stack, entries: {}, controls: { layout: :joined, offset: true } },
-        table_icons: { layout: :stack, entries: {}, controls: { layout: :joined, offset: true, edges: :arrow } },
-        dropdown: { layout: :row, pages: {}, form: { control: :per_page_select } },
-        input: { layout: :row, pages: {}, form: { control: :page_field } },
-        input_button: { layout: :inline, form: { control: :page_field, submit: true } },
-        select_buttons: {
-          layout: :inline,
-          form: { control: :page_select },
-          controls: { layout: :joined, variant: :cell, edges: :chevron, shadowed: true }
-        },
-        single: {
-          controls: { layout: :joined, variant: :cell, edges: :chevron, shadowed: true, counter: true }
-        }
+        table: { layout: :stack, entries: {}, controls: { grouping: :joined, offset: true } },
+        table_icons: { layout: :stack, entries: {}, controls: { grouping: :joined, offset: true, edges: :arrow } },
+        dropdown: { layout: :row, pages: {}, per_page: {} }
       }.freeze
 
       style do
         variants {
           layout {
             row { %w[ flex items-center gap-4 ] }
-            inline { %w[ inline-flex items-center gap-3 ] }
             stack { %w[ flex flex-col items-center ] }
           }
         }
@@ -47,14 +43,13 @@ module InkComponents
 
       renders_one :pages, ->(**attrs) { Pages::Component.new(**child_options, **attrs) }
       renders_one :controls, ->(**attrs) { Controls::Component.new(**child_options, **attrs) }
-      renders_one :form, ->(**attrs) { Form::Component.new(**child_options, **attrs) }
-      renders_one :entries, ->(**attrs) { Entries::Component.new(**child_options, **attrs) }
+      renders_one :per_page, ->(**attrs) { PerPage::Component.new(**child_options, **attrs) }
+      renders_one :entries, ->(**attrs) { Entries::Component.new(pagination: self, **attrs) }
 
-      attr_reader :id, :type, :color, :size, :layout, :auto_submit, :current_page, :total_pages,
-                  :total_entries, :per_page, :per_page_options, :param_name, :per_page_param,
-                  :window, :url
+      attr_reader :id, :type, :color, :size, :layout, :current_page, :total_pages, :total_entries,
+                  :per_page_size, :per_page_options, :param_name, :per_page_param, :window, :url
 
-      def initialize(id:, type: :default, color: :pink, size: :md, layout: nil, auto_submit: true,
+      def initialize(id:, type: :default, color: :pink, size: :md, layout: nil,
                      current_page: 1, total_pages: nil, total_entries: nil, per_page: 10,
                      per_page_options: DEFAULT_PER_PAGE_OPTIONS, param_name: :page,
                      per_page_param: :per_page, window: 1, url: nil,
@@ -63,7 +58,6 @@ module InkComponents
         @type = type&.to_sym
         @color = color.to_sym
         @size = size.to_sym
-        @auto_submit = auto_submit
         @url = url
         @param_name = param_name
         @per_page_param = per_page_param
@@ -80,11 +74,11 @@ module InkComponents
         raise ArgumentError, "Invalid layout #{@layout}, must be one of #{LAYOUTS.join(", ")}" unless @layout.nil? || LAYOUTS.include?(@layout)
 
         @total_entries = total_entries&.to_i
-        @per_page = [ per_page.to_i, 1 ].max
+        @per_page_size = [ per_page.to_i, 1 ].max
         @per_page_options = normalize_per_page_options(per_page_options)
         @total_pages = [ (total_pages || derived_total_pages).to_i, 1 ].max
         @current_page = current_page.to_i.clamp(1, @total_pages)
-        @window = [ window.to_i, 0 ].max
+        @window = window.to_i.clamp(0, MAX_WINDOW)
 
         super(**extra_attributes)
 
@@ -99,27 +93,17 @@ module InkComponents
 
       def edge_label(direction) = direction == :previous ? previous_label : next_label
 
-      def of_pages_text = translation(:of_pages, count: total_pages)
-
-      def page_of_text = translation(:page_of, current: current_page, total: total_pages)
-
-      def go_to_label = translation(:go_to)
-
-      def page_label = translation(:page)
-
       def go_label = translation(:go)
 
       def select_option_label = translation(:select_option)
+
+      def per_page_label(count) = translation(:per_page, count:)
 
       # The _html suffix marks the result as safe and escapes the interpolations, so the counters
       # can be emphasized without escaping the whole sentence.
       def entries_translation(**options) = t("#{I18N_SCOPE}.entries_html", **options)
 
       def current_page?(page) = page == current_page
-
-      def previous_page = current_page > 1 ? current_page - 1 : nil
-
-      def next_page = current_page < total_pages ? current_page + 1 : nil
 
       def edge_page(direction) = direction == :previous ? previous_page : next_page
 
@@ -129,22 +113,33 @@ module InkComponents
         page && page_url(page)
       end
 
+      # Everything a prev/next cell needs, so Pages and Controls do not each build it.
+      def edge_cell_options(direction, edges)
+        href = edge_url(direction)
+
+        {
+          href:,
+          label: edge_label(direction),
+          icon: EDGE_ICONS.dig(edges, direction),
+          icon_only: edges == :chevron,
+          icon_position: direction == :previous ? :leading : :trailing,
+          appearance: href.present? ? :idle : :muted
+        }
+      end
+
       def entries? = total_entries.present?
 
       def first_entry
         return 0 if total_entries.to_i.zero?
 
-        [ ((current_page - 1) * per_page) + 1, total_entries.to_i ].min
+        [ ((current_page - 1) * per_page_size) + 1, total_entries.to_i ].min
       end
 
-      def last_entry = [ current_page * per_page, total_entries.to_i ].min
+      def last_entry = [ current_page * per_page_size, total_entries.to_i ].min
 
-      # The window is clamped before the range is built: a caller wiring it to a param would
-      # otherwise allocate a page per unit and emit a link for each one.
       def page_items
-        span = [ window, MAX_PAGES / 2 ].min
-        first = (current_page - span).clamp(1, total_pages)
-        last = (current_page + span).clamp(1, total_pages)
+        first = (current_page - window).clamp(1, total_pages)
+        last = (current_page + window).clamp(1, total_pages)
         candidates = ([ 1, total_pages ] + (first..last).to_a).uniq.sort
 
         candidates.each_with_object([]) do |page, items|
@@ -159,19 +154,20 @@ module InkComponents
         build_url([ *query_prefix, "#{escape(param_name)}=#{escape(page)}" ].join("&"))
       end
 
-      def selectable_pages? = total_pages <= MAX_PAGES
-
-      def page_choices = (1..total_pages).map { |page| [ page.to_s, page ] }
-
       def per_page_choices
-        per_page_options.map { |option| [ translation(:per_page, count: option), option ] }
+        per_page_options.map { |option| [ per_page_label(option), option ] }
       end
 
       def form_path = target[0]
 
-      # Fields the form renders itself are dropped, so the visible control wins over the hidden one.
-      def forwarded_query_params(owned)
-        flat_query_params(target[1].except(*owned.map(&:to_s)))
+      # A form submits with GET, so the fragment has to survive the action the same way it
+      # survives the page links.
+      def form_action = target[2].present? ? "#{form_path}##{target[2]}" : form_path
+
+      # Fields the form renders itself are dropped, so the visible control wins over the hidden
+      # one. The per page form also drops the page, so a new page size restarts from the first.
+      def forwarded_query_params
+        flat_query_params(target[1].except(per_page_param.to_s, param_name.to_s))
       end
 
       def field_id(suffix) = "#{id}-#{suffix}"
@@ -198,22 +194,28 @@ module InkComponents
 
         with_pages(**preset[:pages]) if preset.key?(:pages)
         with_entries if preset.key?(:entries)
-        with_form(**preset[:form], auto_submit:) if preset.key?(:form)
+        with_per_page(**preset[:per_page]) if preset.key?(:per_page)
         with_controls(**preset[:controls]) if preset.key?(:controls)
       end
 
       def normalize_per_page_options(options)
-        (options.include?(@per_page) ? options : options + [ @per_page ]).sort
+        options = options.map(&:to_i)
+
+        (options.include?(per_page_size) ? options : options + [ per_page_size ]).sort
       end
 
       def derived_total_pages
         return 1 if total_entries.to_i.zero?
 
-        (total_entries.to_f / per_page).ceil
+        (total_entries.to_f / per_page_size).ceil
       end
 
-      # The request query comes from Rails, which already parsed and validated it. Reparsing the raw
-      # string would raise inside the view on a forged URL, turning every page into a 500.
+      def previous_page = current_page > 1 ? current_page - 1 : nil
+
+      def next_page = current_page < total_pages ? current_page + 1 : nil
+
+      # The request query comes from Rails, which already parsed and validated it. A url: string is
+      # parsed here, and a malformed one degrades to an empty query rather than raising in the view.
       def target
         @target ||= url.present? ? split_url(url) : [ request&.path.to_s, request&.query_parameters.to_h, "" ]
       end
@@ -221,9 +223,14 @@ module InkComponents
       def split_url(value)
         base, _hash, fragment = value.to_s.partition("#")
         path, _question, query = base.partition("?")
-        query = query.gsub(/[^\x00-\x7F]+/) { |char| escape(char) }
 
-        [ path, Rack::Utils.parse_nested_query(query), fragment ]
+        [ path, parse_query(query), fragment ]
+      end
+
+      def parse_query(query)
+        Rack::Utils.parse_nested_query(query.gsub(/[^\x00-\x7F]+/) { |char| escape(char) })
+      rescue Rack::Utils::ParameterTypeError, Rack::Utils::InvalidParameterError
+        {}
       end
 
       def query_prefix

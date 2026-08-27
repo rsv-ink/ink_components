@@ -37,22 +37,6 @@ module InkComponents
         def dropdown
           pagination_component(id: "type-dropdown-pagination", type: :dropdown, current_page: 3, total_pages: 5)
         end
-
-        def input
-          pagination_component(id: "type-input-pagination", type: :input, current_page: 3, total_pages: 5)
-        end
-
-        def input_button
-          pagination_component(id: "type-input-button-pagination", type: :input_button, current_page: 3, total_pages: 99)
-        end
-
-        def select_buttons
-          pagination_component(id: "type-select-buttons-pagination", type: :select_buttons, current_page: 3, total_pages: 99)
-        end
-
-        def single
-          pagination_component(id: "type-single-pagination", type: :single, current_page: 1, total_pages: 99)
-        end
       end
     end
   end

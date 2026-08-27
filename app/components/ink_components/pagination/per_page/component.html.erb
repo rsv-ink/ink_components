@@ -1,0 +1,6 @@
+<%= content_tag :form, form_attributes do %>
+  <%= hidden_fields %>
+  <label for="<%= select_id %>" class="sr-only"><%= select_option_label %></label>
+  <%= render select_component %>
+  <%= render submit_component do %><%= go_label %><% end %>
+<% end %>
