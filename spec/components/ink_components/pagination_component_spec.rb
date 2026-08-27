@@ -320,6 +320,122 @@ RSpec.describe InkComponents::Pagination::Component, type: :component do
     end
   end
 
+  context "when the dropdown changes the page size" do
+    it "drops the current page so the list restarts from the first one" do
+      component = with_request_url("/users/new?page=8&per_page=10&status=active") do
+        render_inline(described_class.new(id: "pagination", type: :dropdown, current_page: 8, total_pages: 10))
+      end
+
+      expect(hidden_fields(component)).to contain_exactly([ "status", "active" ])
+    end
+  end
+
+  context "when a per page value outside the options is provided" do
+    it "adds it to the options so the select is not lying" do
+      component = render_inline(
+        described_class.new(id: "pagination", type: :dropdown, current_page: 1, total_entries: 100, per_page: 20)
+      )
+
+      expect(component.css("select option[selected]").text).to eq("20 per page")
+      expect(component.css("select option").map(&:text)).to eq(
+        [ "10 per page", "20 per page", "25 per page", "50 per page", "100 per page" ]
+      )
+    end
+  end
+
+  context "when the total of pages overshoots the entries" do
+    it "clamps the first entry instead of inverting the range" do
+      component = render_inline(
+        described_class.new(id: "pagination", type: :table, current_page: 40, total_pages: 40, total_entries: 100, per_page: 10)
+      )
+
+      expect(component.text.squish).to include("Showing 100 to 100 of 100 Entries")
+    end
+  end
+
+  context "when there is a single page" do
+    it "renders the total in the singular" do
+      component = render_inline(described_class.new(id: "pagination", type: :select_buttons, current_page: 1, total_pages: 1))
+
+      expect(component.css("input[disabled]").first["value"]).to eq("of 1 page")
+    end
+  end
+
+  context "when an aria label is provided in the nested form" do
+    it "does not emit a duplicated attribute" do
+      component = render_inline(
+        described_class.new(id: "pagination", current_page: 2, total_pages: 5, aria: { label: "Product pages" })
+      )
+
+      expect(component.to_html.scan("aria-label").count).to eq(1)
+      expect(component.css("nav").first["aria-label"]).to eq("Product pages")
+    end
+  end
+
+  context "when the url carries a fragment" do
+    it "keeps the query before it" do
+      component = render_inline(described_class.new(id: "pagination", current_page: 1, total_pages: 3, url: "/products?a=1#list"))
+
+      expect(component.css("li a").map { |link| link["href"] }).to all(start_with("/products?a=1&page="))
+      expect(component.to_html).not_to include("%23list")
+    end
+
+    it "reattaches it after the query" do
+      component = render_inline(described_class.new(id: "pagination", current_page: 1, total_pages: 3, url: "/products#list"))
+
+      expect(component.css("li a").map { |link| link["href"] }).to all(end_with("#list"))
+      expect(component.css("li a").map { |link| link["href"] }).to include("/products?page=2#list")
+    end
+  end
+
+  context "when the request query has more than one param" do
+    it "keeps their original order instead of alphabetizing them" do
+      component = with_request_url("/users/new?status=active&q=shoe") do
+        render_inline(described_class.new(id: "pagination", current_page: 1, total_pages: 3))
+      end
+
+      expect(component.css("li a").first["href"]).to eq("/users/new?status=active&q=shoe&page=1")
+    end
+  end
+
+  context "when the clickable cells are focused" do
+    it "carries a focus ring, since the native outline is removed" do
+      component = render_inline(described_class.new(id: "pagination", color: :blue, current_page: 3, total_pages: 5))
+
+      expect(component.css("li a").map { |link| link["class"] }).to all(include("focus:ring-2").and(include("focus:ring-blue-300")))
+    end
+  end
+
+  context "when pages are collapsed" do
+    it "hides the ellipsis from assistive technology and does not style it as a disabled control" do
+      component = render_inline(described_class.new(id: "pagination", current_page: 12, total_pages: 40))
+
+      gap = component.css("span[aria-hidden='true']").first
+
+      expect(gap.text).to eq("…")
+      expect(gap["class"]).not_to include("cursor-not-allowed")
+    end
+  end
+
+  context "when the window is wider than the cap" do
+    it "does not render more links than the cap allows" do
+      component = render_inline(described_class.new(id: "pagination", current_page: 5_000, total_pages: 1_000_000, window: 50_000))
+
+      expect(component.css("li").count).to be <= described_class::MAX_PAGES + 8
+    end
+  end
+
+  context "when the select of pages would overflow the cap" do
+    it "falls back to a number field so every page stays reachable" do
+      component = render_inline(
+        described_class.new(id: "pagination", type: :select_buttons, current_page: 1, total_pages: described_class::MAX_PAGES + 1)
+      )
+
+      expect(component.css("select")).to be_empty
+      expect(component.css("input[type='number']").first["max"]).to eq("101")
+    end
+  end
+
   context "when the labels are overridden" do
     it "renders them instead of the translations" do
       component = render_inline(

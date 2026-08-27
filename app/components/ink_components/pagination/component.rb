@@ -3,19 +3,21 @@
 module InkComponents
   module Pagination
     class Component < ApplicationComponent
-      TYPES = %i[
-        default icons spaced spaced_icons simple simple_icons table table_icons
-        dropdown input input_button select_buttons single
-      ].freeze
-
-      NUMBERED_TYPES = %i[default icons spaced spaced_icons dropdown input].freeze
-      SPACED_TYPES = %i[spaced spaced_icons].freeze
-      SIMPLE_TYPES = %i[simple simple_icons].freeze
-      TABLE_TYPES = %i[table table_icons].freeze
-      CHEVRON_TYPES = %i[icons spaced_icons select_buttons single].freeze
-      ARROW_TYPES = %i[simple_icons table_icons].freeze
-      FORM_TYPES = %i[dropdown input input_button select_buttons].freeze
-      SELECT_TYPES = %i[dropdown select_buttons].freeze
+      TYPES = {
+        default: { numbered: true, edges: :text },
+        icons: { numbered: true, edges: :chevron },
+        spaced: { numbered: true, edges: :text, spaced: true },
+        spaced_icons: { numbered: true, edges: :chevron, spaced: true },
+        simple: { standalone: true, edges: :text, group: :spaced },
+        simple_icons: { standalone: true, edges: :arrow, group: :spaced },
+        table: { standalone: true, edges: :text, group: :joined, entries: true, layout: :stack },
+        table_icons: { standalone: true, edges: :arrow, group: :joined, entries: true, layout: :stack },
+        dropdown: { numbered: true, edges: :text, form: :per_page_select, owns: %i[per_page page], handler: true, layout: :row },
+        input: { numbered: true, edges: :text, form: :page_field, owns: %i[page], layout: :row },
+        input_button: { form: :page_field, owns: %i[page], submit: true, layout: :inline },
+        select_buttons: { edges: :chevron, form: :page_select, owns: %i[page], handler: true, grouped: true, layout: :inline },
+        single: { edges: :chevron, grouped: true, counter: true }
+      }.freeze
 
       COLORS = %i[pink blue red green purple yellow teal orange indigo dark].freeze
       SIZES = %i[sm md lg].freeze
@@ -23,21 +25,16 @@ module InkComponents
       I18N_SCOPE = "ink_components.pagination"
 
       DEFAULT_PER_PAGE_OPTIONS = [ 10, 25, 50, 100 ].freeze
-      MAX_PAGE_OPTIONS = 100
+      MAX_PAGES = 100
 
       style do
         variants {
-          type {
-            input_button { %w[ inline-flex items-center gap-3 ] }
-            select_buttons { %w[ inline-flex items-center gap-3 ] }
-            dropdown { %w[ flex items-center gap-4 ] }
-            input { %w[ flex items-center gap-4 ] }
-            table { %w[ flex flex-col items-center ] }
-            table_icons { %w[ flex flex-col items-center ] }
+          layout {
+            row { %w[ flex items-center gap-4 ] }
+            inline { %w[ inline-flex items-center gap-3 ] }
+            stack { %w[ flex flex-col items-center ] }
           }
         }
-
-        defaults { { type: :default } }
       end
 
       style :list do
@@ -50,7 +47,7 @@ module InkComponents
           }
         }
 
-        defaults { { spaced: :no } }
+        defaults { { spaced: false } }
       end
 
       style :group do
@@ -61,7 +58,7 @@ module InkComponents
           shadowed { yes { %w[ rounded-lg shadow-sm ] } }
         }
 
-        defaults { { spaced: :no, shadowed: :no } }
+        defaults { { spaced: false, shadowed: false } }
       end
 
       style :simple_group do
@@ -77,11 +74,6 @@ module InkComponents
             md { %w[ h-9 text-sm ] }
             lg { %w[ h-10 text-base ] }
           }
-          position {
-            leading { %w[ rounded-s-lg ] }
-            trailing { %w[ rounded-e-lg ] }
-            alone { %w[ rounded-lg shadow-sm ] }
-          }
         }
 
         compound(size: :sm, square: true) { %w[ w-8 ] }
@@ -91,7 +83,7 @@ module InkComponents
         compound(size: :md, square: false) { %w[ px-3 ] }
         compound(size: :lg, square: false) { %w[ px-4 ] }
 
-        defaults { { size: :md, position: :none, square: false } }
+        defaults { { size: :md, square: false } }
       end
 
       style :standalone do
@@ -103,15 +95,19 @@ module InkComponents
             md { %w[ text-sm px-3 py-2 ] }
             lg { %w[ text-base px-4 py-2.5 ] }
           }
+        }
+
+        defaults { { size: :md } }
+      end
+
+      style :rounding do
+        variants {
           position {
             leading { %w[ rounded-s-lg ] }
             trailing { %w[ rounded-e-lg ] }
             alone { %w[ rounded-lg ] }
-            none { [] }
           }
         }
-
-        defaults { { size: :md, position: :alone } }
       end
 
       style :idle do
@@ -137,11 +133,41 @@ module InkComponents
         defaults { { color: :pink } }
       end
 
+      style :focus_ring do
+        base { %w[ focus:relative focus:z-10 focus:ring-2 ] }
+
+        variants {
+          color {
+            pink { %w[ focus:ring-pink-300 dark:focus:ring-pink-800 ] }
+            blue { %w[ focus:ring-blue-300 dark:focus:ring-blue-800 ] }
+            red { %w[ focus:ring-red-300 dark:focus:ring-red-800 ] }
+            green { %w[ focus:ring-green-300 dark:focus:ring-green-800 ] }
+            purple { %w[ focus:ring-purple-300 dark:focus:ring-purple-800 ] }
+            yellow { %w[ focus:ring-yellow-300 dark:focus:ring-yellow-800 ] }
+            teal { %w[ focus:ring-teal-300 dark:focus:ring-teal-800 ] }
+            orange { %w[ focus:ring-orange-300 dark:focus:ring-orange-800 ] }
+            indigo { %w[ focus:ring-indigo-300 dark:focus:ring-indigo-800 ] }
+            dark { %w[ focus:ring-gray-300 dark:focus:ring-gray-600 ] }
+          }
+        }
+
+        defaults { { color: :pink } }
+      end
+
       style :muted do
         base {
           %w[
             text-gray-300 bg-white border-gray-300 cursor-not-allowed
             dark:bg-gray-800 dark:border-gray-700 dark:text-gray-600
+          ]
+        }
+      end
+
+      style :decorative do
+        base {
+          %w[
+            select-none text-gray-400 bg-white border-gray-300
+            dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500
           ]
         }
       end
@@ -174,12 +200,7 @@ module InkComponents
       end
 
       style :field do
-        base {
-          %w[
-            block box-border border rounded-lg shadow-sm bg-gray-50 border-gray-300 text-gray-900
-            dark:bg-gray-700 dark:border-gray-600 dark:text-white
-          ]
-        }
+        base { %w[ block box-border border rounded-lg shadow-sm ] }
 
         variants {
           size {
@@ -187,28 +208,13 @@ module InkComponents
             md { %w[ text-sm p-2.5 ] }
             lg { %w[ text-base px-4 py-3 ] }
           }
-        }
-
-        defaults { { size: :md } }
-      end
-
-      style :disabled_field do
-        base {
-          %w[
-            block box-border border rounded-lg shadow-sm bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed
-            dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500
-          ]
-        }
-
-        variants {
-          size {
-            sm { %w[ text-sm p-2 ] }
-            md { %w[ text-sm p-2.5 ] }
-            lg { %w[ text-base px-4 py-3 ] }
+          state {
+            enabled { %w[ bg-gray-50 border-gray-300 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white ] }
+            disabled { %w[ bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500 ] }
           }
         }
 
-        defaults { { size: :md } }
+        defaults { { size: :md, state: :enabled } }
       end
 
       style :field_ring do
@@ -275,23 +281,23 @@ module InkComponents
         @color = color.to_sym
         @size = size.to_sym
 
-        raise ArgumentError, "Invalid type #{type}, must be one of #{TYPES.join(", ")}" unless TYPES.include?(@type)
+        raise ArgumentError, "Invalid type #{type}, must be one of #{TYPES.keys.join(", ")}" unless TYPES.key?(@type)
         raise ArgumentError, "Invalid color #{color}, must be one of #{COLORS.join(", ")}" unless COLORS.include?(@color)
         raise ArgumentError, "Invalid size #{size}, must be one of #{SIZES.join(", ")}" unless SIZES.include?(@size)
 
-        if url.respond_to?(:call) && FORM_TYPES.include?(@type)
+        if url.respond_to?(:call) && trait(:form).present?
           raise ArgumentError, "url must be a String for the #{@type} type, whose form submits with GET"
         end
 
         @id = id
         @total_entries = total_entries&.to_i
         @per_page = [ per_page.to_i, 1 ].max
+        @per_page_options = (per_page_options.include?(@per_page) ? per_page_options : per_page_options + [ @per_page ]).sort
         @total_pages = [ (total_pages || derived_total_pages).to_i, 1 ].max
         @current_page = current_page.to_i.clamp(1, @total_pages)
         @url = url
         @param_name = param_name
         @per_page_param = per_page_param
-        @per_page_options = per_page_options
         @window = [ window.to_i, 0 ].max
         @auto_submit = auto_submit
         @previous_label = previous_label
@@ -302,20 +308,40 @@ module InkComponents
       end
 
       def before_render
-        attributes[:"aria-label"] ||= aria_label
+        return if attributes.key?(:"aria-label") || attributes.dig(:aria, :label).present?
+
+        attributes[:"aria-label"] = aria_label
       end
 
-      def numbered? = NUMBERED_TYPES.include?(type)
+      def numbered? = trait(:numbered).present?
 
-      def spaced? = SPACED_TYPES.include?(type)
+      def spaced? = trait(:spaced).present?
 
-      def simple? = SIMPLE_TYPES.include?(type)
+      def standalone? = trait(:standalone).present?
 
-      def table? = TABLE_TYPES.include?(type)
+      def grouped? = trait(:grouped).present?
 
-      def chevron_edges? = CHEVRON_TYPES.include?(type)
+      def counter? = trait(:counter).present?
 
-      def arrow_edges? = ARROW_TYPES.include?(type)
+      def entries? = trait(:entries).present? && total_entries.present?
+
+      def chevron_edges? = trait(:edges) == :chevron
+
+      def arrow_edges? = trait(:edges) == :arrow
+
+      def form_shape = trait(:form)
+
+      def select_control?
+        return true if form_shape == :per_page_select
+
+        form_shape == :page_select && total_pages <= MAX_PAGES
+      end
+
+      def handler? = trait(:handler).present? && select_control?
+
+      def handler_attributes = handler? && auto_submit ? { onchange: "this.form.requestSubmit()" } : {}
+
+      def submit_button? = trait(:submit).present? || (handler? && !auto_submit)
 
       def previous_label = @previous_label || translation(:previous)
 
@@ -326,7 +352,7 @@ module InkComponents
       def first_entry
         return 0 if total_entries.to_i.zero?
 
-        ((current_page - 1) * per_page) + 1
+        [ ((current_page - 1) * per_page) + 1, total_entries.to_i ].min
       end
 
       def last_entry = [ current_page * per_page, total_entries.to_i ].min
@@ -340,8 +366,9 @@ module InkComponents
       def of_pages_text = translation(:of_pages, count: total_pages)
 
       def page_items
-        first = (current_page - window).clamp(1, total_pages)
-        last = (current_page + window).clamp(1, total_pages)
+        span = [ window, MAX_PAGES / 2 ].min
+        first = (current_page - span).clamp(1, total_pages)
+        last = (current_page + span).clamp(1, total_pages)
         candidates = ([ 1, total_pages ] + (first..last).to_a).uniq.sort
 
         candidates.each_with_object([]) do |page, items|
@@ -353,13 +380,15 @@ module InkComponents
       def page_url(page)
         return url.call(page).to_s if url.respond_to?(:call)
 
-        build_url(form_url.first, form_url.last.merge(param_name.to_s => page))
+        build_url([ *page_query_prefix, "#{escape(param_name)}=#{escape(page)}" ].join("&"))
       end
 
       def page_cell(page)
         classes = cell_classes(square: true, position: number_position)
 
-        return tag.span("…", class: token_list(classes, style(:muted))) if page == :gap
+        if page == :gap
+          return tag.span("…", class: token_list(classes, style(:decorative)), aria: { hidden: true })
+        end
 
         link_to(
           page,
@@ -375,11 +404,19 @@ module InkComponents
         cell(edge_content(direction), direction, cell_classes(square: chevron_edges?, position:))
       end
 
+      def standalone_edge(direction)
+        position = standalone_position(direction)
+
+        cell(edge_content(direction), direction, token_list(style(:standalone, size:), style(:rounding, position:)))
+      end
+
       def list_classes = style(:list, spaced: spaced?)
 
-      def standalone_edge(direction, position: :alone)
-        cell(edge_content(direction), direction, style(:standalone, size:, position:))
+      def standalone_group_classes
+        trait(:group) == :joined ? style(:group, spaced: entries?) : style(:simple_group)
       end
+
+      def counter_classes = token_list(style(:cell, size:), style(:idle), "shrink-0")
 
       def entries_label(direction) = direction == :previous ? previous_label : next_label
 
@@ -387,29 +424,23 @@ module InkComponents
         per_page_options.map { |option| [ translation(:per_page, count: option), option ] }
       end
 
-      def page_choices
-        page_options.map { |page| [ page.to_s, page ] }
-      end
+      def page_choices = (1..total_pages).map { |page| [ page.to_s, page ] }
 
-      def form_action = form_url.first
-
-      def forwarded_query_params
-        flat_query_params(form_url.last.except(*form_fields))
-      end
+      def form_action = form_path
 
       def form_fields
-        return [ per_page_param.to_s ] if type == :dropdown
-
-        [ param_name.to_s ]
+        Array(trait(:owns)).map { |field| field == :per_page ? per_page_param.to_s : param_name.to_s }
       end
 
-      def submit_button? = SELECT_TYPES.include?(type) && !auto_submit
+      def hidden_query_params
+        pairs = flat_query_params(form_query.except(*form_fields))
 
-      def auto_submit_attributes = auto_submit ? { onchange: "this.form.requestSubmit()" } : {}
+        safe_join(pairs.map { |name, value| tag.input(type: "hidden", name:, value:) })
+      end
 
       def field_classes = token_list(style(:field, size:), style(:field_ring, color:))
 
-      def disabled_field_classes = style(:disabled_field, size:)
+      def disabled_field_classes = style(:field, size:, state: :disabled)
 
       def submit_classes = style(:submit, size:, color:)
 
@@ -419,34 +450,13 @@ module InkComponents
 
       def total_pages_field_id = "#{id}-total-pages"
 
-      def translation(key, **options) = I18n.t("#{I18N_SCOPE}.#{key}", **options)
-
-      def hidden_query_params
-        safe_join(forwarded_query_params.map { |name, value| tag.input(type: "hidden", name:, value:) })
-      end
-
-      def single_label_classes
-        token_list(style(:cell, size:, square: false), style(:idle), "shrink-0")
-      end
-
       private
 
+      def trait(name) = TYPES.fetch(@type)[name]
+
       def default_attributes
-        { id:, class: style(type:).presence }
+        { id:, class: style(layout: trait(:layout)).presence }
       end
-
-      def split_url(value)
-        path, _separator, query = value.to_s.partition("?")
-        query = query.gsub(/[^\x00-\x7F]+/) { |char| Rack::Utils.escape(char) }
-
-        [ path, Rack::Utils.parse_nested_query(query) ]
-      end
-
-      def build_url(path, query)
-        query.any? ? "#{path}?#{query.to_query}" : path
-      end
-
-      def form_url = @form_url ||= split_url(url.presence || request&.fullpath)
 
       def derived_total_pages
         return 1 if total_entries.to_i.zero?
@@ -454,10 +464,52 @@ module InkComponents
         (total_entries.to_f / per_page).ceil
       end
 
+      # The request query is read from Rails, which already parsed and validated it. Reparsing the raw
+      # string would raise inside the view on a forged URL, turning every page into a 500.
+      def form_url
+        @form_url ||= url.present? ? split_url(url) : [ request&.path.to_s, request&.query_parameters.to_h, "" ]
+      end
+
+      def form_path = form_url[0]
+
+      def form_query = form_url[1]
+
+      def form_fragment = form_url[2]
+
+      def split_url(value)
+        base, _hash, fragment = value.to_s.partition("#")
+        path, _question, query = base.partition("?")
+        query = query.gsub(/[^\x00-\x7F]+/) { |char| escape(char) }
+
+        [ path, Rack::Utils.parse_nested_query(query), fragment ]
+      end
+
+      def page_query_prefix
+        @page_query_prefix ||= begin
+          rest = form_query.except(param_name.to_s)
+
+          rest.any? ? [ Rack::Utils.build_nested_query(rest) ] : []
+        end
+      end
+
+      def build_url(query)
+        base = query.present? ? "#{form_path}?#{query}" : form_path
+
+        form_fragment.present? ? "#{base}##{form_fragment}" : base
+      end
+
+      def escape(value) = Rack::Utils.escape(value.to_s)
+
       def number_position = spaced? ? :alone : :none
 
       def edge_position(direction)
         return :alone if spaced?
+
+        direction == :previous ? :leading : :trailing
+      end
+
+      def standalone_position(direction)
+        return :alone if trait(:group) == :spaced
 
         direction == :previous ? :leading : :trailing
       end
@@ -482,14 +534,26 @@ module InkComponents
 
       def cell_classes(square: false, position: :none)
         @cell_classes ||= {}
-        @cell_classes[[ square, position ]] ||= style(:cell, size:, square:, position:)
+        @cell_classes[[ square, position ]] ||= token_list(
+          style(:cell, size:, square:),
+          style(:rounding, position:),
+          (position == :alone ? "shadow-sm" : nil)
+        )
       end
 
       def page_state_classes(page)
-        current_page?(page) ? style(:active, color:) : interactive_classes
+        return active_classes if current_page?(page)
+
+        interactive_classes
       end
 
-      def interactive_classes = @interactive_classes ||= token_list(style(:idle), style(:soft_hover, color:))
+      def active_classes
+        @active_classes ||= token_list(style(:active, color:), style(:focus_ring, color:))
+      end
+
+      def interactive_classes
+        @interactive_classes ||= token_list(style(:idle), style(:soft_hover, color:), style(:focus_ring, color:))
+      end
 
       def edge_content(direction)
         label = entries_label(direction)
@@ -516,14 +580,7 @@ module InkComponents
 
       def strong(value) = tag.span(value, class: style(:help_strong))
 
-      def page_options
-        return (1..total_pages).to_a if total_pages <= MAX_PAGE_OPTIONS
-
-        half = MAX_PAGE_OPTIONS / 2
-        first = (current_page - half).clamp(1, [ total_pages - MAX_PAGE_OPTIONS + 1, 1 ].max)
-
-        (first...(first + MAX_PAGE_OPTIONS)).to_a
-      end
+      def translation(key, **options) = I18n.t("#{I18N_SCOPE}.#{key}", **options)
     end
   end
 end
