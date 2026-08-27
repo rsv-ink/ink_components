@@ -14,6 +14,11 @@ module InkComponents
       TABLE_TYPES = %i[table table_icons].freeze
       CHEVRON_TYPES = %i[icons spaced_icons select_buttons single].freeze
       ARROW_TYPES = %i[simple_icons table_icons].freeze
+      FORM_TYPES = %i[dropdown input input_button select_buttons].freeze
+      SELECT_TYPES = %i[dropdown select_buttons].freeze
+
+      COLORS = %i[pink blue red green purple yellow teal orange indigo dark].freeze
+      SIZES = %i[sm md lg].freeze
 
       I18N_SCOPE = "ink_components.pagination"
 
@@ -23,13 +28,6 @@ module InkComponents
       style do
         variants {
           type {
-            default { [] }
-            icons { [] }
-            spaced { [] }
-            spaced_icons { [] }
-            simple { [] }
-            simple_icons { [] }
-            single { [] }
             input_button { %w[ inline-flex items-center gap-3 ] }
             select_buttons { %w[ inline-flex items-center gap-3 ] }
             dropdown { %w[ flex items-center gap-4 ] }
@@ -83,11 +81,6 @@ module InkComponents
             leading { %w[ rounded-s-lg ] }
             trailing { %w[ rounded-e-lg ] }
             alone { %w[ rounded-lg shadow-sm ] }
-            none { [] }
-          }
-          square {
-            yes { [] }
-            no { [] }
           }
         }
 
@@ -98,7 +91,7 @@ module InkComponents
         compound(size: :md, square: false) { %w[ px-3 ] }
         compound(size: :lg, square: false) { %w[ px-4 ] }
 
-        defaults { { size: :md, position: :none, square: :no } }
+        defaults { { size: :md, position: :none, square: false } }
       end
 
       style :standalone do
@@ -274,21 +267,27 @@ module InkComponents
       attr_reader :id, :current_page, :total_pages, :total_entries, :per_page, :type, :color, :size,
                   :url, :param_name, :per_page_param, :per_page_options, :window, :auto_submit
 
-      def initialize(current_page: 1, total_pages: nil, total_entries: nil, per_page: 10, type: :default,
+      def initialize(id:, current_page: 1, total_pages: nil, total_entries: nil, per_page: 10, type: :default,
                      color: :pink, size: :md, url: nil, param_name: :page, per_page_param: :per_page,
                      per_page_options: DEFAULT_PER_PAGE_OPTIONS, window: 1, auto_submit: true,
-                     previous_label: nil, next_label: nil, aria_label: nil, id: nil, **extra_attributes)
+                     previous_label: nil, next_label: nil, aria_label: nil, **extra_attributes)
         @type = type.to_sym
+        @color = color.to_sym
+        @size = size.to_sym
 
         raise ArgumentError, "Invalid type #{type}, must be one of #{TYPES.join(", ")}" unless TYPES.include?(@type)
+        raise ArgumentError, "Invalid color #{color}, must be one of #{COLORS.join(", ")}" unless COLORS.include?(@color)
+        raise ArgumentError, "Invalid size #{size}, must be one of #{SIZES.join(", ")}" unless SIZES.include?(@size)
 
-        @id = id.presence || "pagination-#{SecureRandom.hex(4)}"
+        if url.respond_to?(:call) && FORM_TYPES.include?(@type)
+          raise ArgumentError, "url must be a String for the #{@type} type, whose form submits with GET"
+        end
+
+        @id = id
         @total_entries = total_entries&.to_i
         @per_page = [ per_page.to_i, 1 ].max
         @total_pages = [ (total_pages || derived_total_pages).to_i, 1 ].max
         @current_page = current_page.to_i.clamp(1, @total_pages)
-        @color = color
-        @size = size
         @url = url
         @param_name = param_name
         @per_page_param = per_page_param
@@ -300,6 +299,10 @@ module InkComponents
         @aria_label = aria_label
 
         super(**extra_attributes)
+      end
+
+      def before_render
+        attributes[:"aria-label"] ||= aria_label
       end
 
       def numbered? = NUMBERED_TYPES.include?(type)
@@ -337,10 +340,9 @@ module InkComponents
       def of_pages_text = translation(:of_pages, count: total_pages)
 
       def page_items
-        candidates = ([ 1, total_pages ] + ((current_page - window)..(current_page + window)).to_a)
-                       .select { |page| page.between?(1, total_pages) }
-                       .uniq
-                       .sort
+        first = (current_page - window).clamp(1, total_pages)
+        last = (current_page + window).clamp(1, total_pages)
+        candidates = ([ 1, total_pages ] + (first..last).to_a).uniq.sort
 
         candidates.each_with_object([]) do |page, items|
           items << :gap if items.last.is_a?(Integer) && page - items.last > 1
@@ -349,12 +351,9 @@ module InkComponents
       end
 
       def page_url(page)
-        return "#" if page.blank?
         return url.call(page).to_s if url.respond_to?(:call)
 
-        uri = URI.parse(url.presence || request&.fullpath.presence || "")
-        uri.query = Rack::Utils.parse_nested_query(uri.query).merge(param_name.to_s => page).to_query
-        uri.to_s
+        build_url(form_url.first, form_url.last.merge(param_name.to_s => page))
       end
 
       def page_cell(page)
@@ -392,15 +391,19 @@ module InkComponents
         page_options.map { |page| [ page.to_s, page ] }
       end
 
-      def form_action = url.respond_to?(:call) ? nil : url.presence || request&.path
+      def form_action = form_url.first
 
       def forwarded_query_params
-        query = request&.query_parameters.to_h.except(param_name.to_s, per_page_param.to_s)
-
-        Rack::Utils.parse_query(query.to_query).flat_map do |name, value|
-          Array(value).map { |item| [ name, item ] }
-        end
+        flat_query_params(form_url.last.except(*form_fields))
       end
+
+      def form_fields
+        return [ per_page_param.to_s ] if type == :dropdown
+
+        [ param_name.to_s ]
+      end
+
+      def submit_button? = SELECT_TYPES.include?(type) && !auto_submit
 
       def auto_submit_attributes = auto_submit ? { onchange: "this.form.requestSubmit()" } : {}
 
@@ -429,8 +432,21 @@ module InkComponents
       private
 
       def default_attributes
-        { id:, class: style(type:).presence, "aria-label": aria_label }
+        { id:, class: style(type:).presence }
       end
+
+      def split_url(value)
+        path, _separator, query = value.to_s.partition("?")
+        query = query.gsub(/[^\x00-\x7F]+/) { |char| Rack::Utils.escape(char) }
+
+        [ path, Rack::Utils.parse_nested_query(query) ]
+      end
+
+      def build_url(path, query)
+        query.any? ? "#{path}?#{query.to_query}" : path
+      end
+
+      def form_url = @form_url ||= split_url(url.presence || request&.fullpath)
 
       def derived_total_pages
         return 1 if total_entries.to_i.zero?
@@ -465,14 +481,15 @@ module InkComponents
       end
 
       def cell_classes(square: false, position: :none)
-        style(:cell, size:, square:, position:)
+        @cell_classes ||= {}
+        @cell_classes[[ square, position ]] ||= style(:cell, size:, square:, position:)
       end
 
       def page_state_classes(page)
         current_page?(page) ? style(:active, color:) : interactive_classes
       end
 
-      def interactive_classes = token_list(style(:idle), style(:soft_hover, color:))
+      def interactive_classes = @interactive_classes ||= token_list(style(:idle), style(:soft_hover, color:))
 
       def edge_content(direction)
         label = entries_label(direction)

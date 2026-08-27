@@ -301,11 +301,7 @@ module InkComponents
       def forwarded_query_params
         return [] if url.present? || form_method.to_sym != :get
 
-        query = request&.query_parameters.to_h.except(*OWN_PARAMS)
-
-        Rack::Utils.parse_query(query.to_query).flat_map do |name, value|
-          Array(value).map { |item| [ name, item ] }
-        end
+        flat_query_params(request&.query_parameters.to_h.except(*OWN_PARAMS))
       end
 
       def panel_id = "#{id}-panel"
