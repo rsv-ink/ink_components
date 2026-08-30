@@ -23,7 +23,7 @@ gem "cssbundling-rails", "1.1.2"
 gem "jsbundling-rails", "1.1.1"
 
 # Utility function to efficiently merge Tailwind CSS classes without style conflicts [https://github.com/gjtorikian/tailwind_merge]
-gem "tailwind_merge", "0.13.1"
+gem "tailwind_merge", "0.14.0"
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
