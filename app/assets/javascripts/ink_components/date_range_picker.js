@@ -1,3 +1,8 @@
+// Served through the Rails asset pipeline, the same way turbo-rails and stimulus-rails ship theirs.
+// Classic script wrapped in an IIFE: nothing is exported, the component wires itself up on load.
+;(function () {
+"use strict"
+
 const SELECTOR = "[data-date-range-picker]"
 const CHANGE_EVENT = "ink:date-range-picker:change"
 
@@ -38,7 +43,7 @@ const format = (date, pattern) => {
     .replace("%y", pad(date.getFullYear() % 100))
 }
 
-export class DateRangePicker {
+class DateRangePicker {
   constructor(element) {
     this.element = element
     this.config = JSON.parse(element.dataset.dateRangePickerConfig)
@@ -423,23 +428,21 @@ export class DateRangePicker {
   }
 }
 
-const instances = new WeakMap()
-
-export function initDateRangePickers(root = document) {
+function initDateRangePickers(root = document) {
   root.querySelectorAll(SELECTOR).forEach((element) => {
-    if (instances.has(element)) return
+    if (element.dataset.dateRangePickerReady) return
 
-    instances.set(element, new DateRangePicker(element))
+    element.dataset.dateRangePickerReady = "true"
+    new DateRangePicker(element)
   })
 }
 
-if (typeof document !== "undefined") {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => initDateRangePickers())
-  } else {
-    initDateRangePickers()
-  }
-
-  document.addEventListener("turbo:load", () => initDateRangePickers())
-  document.addEventListener("turbo:frame-load", (event) => initDateRangePickers(event.target))
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => initDateRangePickers())
+} else {
+  initDateRangePickers()
 }
+
+document.addEventListener("turbo:load", () => initDateRangePickers())
+document.addEventListener("turbo:frame-load", (event) => initDateRangePickers(event.target))
+})()
