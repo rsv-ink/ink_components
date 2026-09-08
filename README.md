@@ -65,8 +65,13 @@ The component registers itself on load, and also on `turbo:load` / `turbo:frame-
 nothing to import and no initializer to call.
 
 Upgrading from a version that shipped this as an npm package? Drop the `ink_components`
-dependency and the `import "ink_components"` from the entrypoint, and re-run
-`bundle exec rails ink_components:install` so the Tailwind generator picks up the new path.
+dependency and the `import "ink_components"` from the entrypoint, and refresh
+`lib/generators/ink_components/tailwind_config_generator.rb` — the copy in the project still
+points the Tailwind `content` at the old path, and `css:build` reads it from there.
+
+`bundle exec rails ink_components:install` refreshes it, but it re-copies four files and Thor
+prompts on each conflict: accept the generator, and decline
+`app/views/layouts/ink_components_lookbook.html.erb` if the project has customised it.
 
 ## Development
 To get started:

@@ -445,4 +445,12 @@ if (document.readyState === "loading") {
 
 document.addEventListener("turbo:load", () => initDateRangePickers())
 document.addEventListener("turbo:frame-load", (event) => initDateRangePickers(event.target))
+
+// A restoration visit renders a clone of the cached snapshot: the marker below survives the
+// clone but the listeners do not, so it has to come off before the snapshot is stored.
+document.addEventListener("turbo:before-cache", () => {
+  document.querySelectorAll(SELECTOR).forEach((element) => {
+    delete element.dataset.dateRangePickerReady
+  })
+})
 })()
