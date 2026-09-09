@@ -3,10 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "date range picker asset" do
-  let(:logical_path) { "ink_components/date_range_picker.js" }
-
   it "is served through the asset pipeline" do
-    expect(Rails.application.assets.find_asset(logical_path)).to be_present
+    expect(Rails.application.assets.find_asset("ink_components/date_range_picker.js")).to be_present
   end
 
   it "is linked from the engine manifest, so host apps precompile it" do
@@ -16,7 +14,7 @@ RSpec.describe "date range picker asset" do
   end
 
   it "declares no module syntax, since it is loaded as a classic script" do
-    source = Rails.application.assets.find_asset(logical_path).source
+    source = Rails.application.assets.find_asset("ink_components/date_range_picker.js").source
 
     expect(source).not_to match(/^\s*(import|export)\s/)
   end
