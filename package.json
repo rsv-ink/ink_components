@@ -8,8 +8,7 @@
     "flowbite-datepicker": "^1.3.0"
   },
   "scripts": {
-    "build": "esbuild app/javascript/index.js --bundle --sourcemap --format=esm --outdir=dist",
-    "prepare": "yarn build"
+    "build": "esbuild app/javascript/index.js --bundle --sourcemap --format=esm --outdir=dist"
   },
   "files": [
     "dist/index.js"
