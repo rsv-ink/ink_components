@@ -13,14 +13,16 @@ module InkComponents
       # @param campaigns toggle
       # @param color select { choices: [pink, blue, red, green, purple, yellow, teal, orange, dark] }
       # @param type select { choices: [both, label, range] }
+      # @param align select { choices: [out_right, right, mid_right, mid, mid_left, left, out_left] }
       # @param submit_on_apply toggle
-      def playground(months: 2, show_presets: true, campaigns: true, color: :pink, type: :both, submit_on_apply: false)
+      def playground(months: 2, show_presets: true, campaigns: true, color: :pink, type: :both, align: :right, submit_on_apply: false)
         date_range_picker_component(
           id: "playground-date-range-picker",
           months: months.to_i,
           show_presets:,
           color:,
           type:,
+          align:,
           submit_on_apply:,
           campaigns: campaigns ? CAMPAIGNS : []
         )
@@ -29,6 +31,45 @@ module InkComponents
       def default
         date_range_picker_component(id: "default-date-range-picker", submit_on_apply: false)
       end
+
+      # @!group Alignments
+
+      # Opens fully to the right of the trigger.
+      def out_right
+        date_range_picker_component(id: "out-right-date-range-picker", align: :out_right, submit_on_apply: false)
+      end
+
+      # Left edges meet.
+      def right
+        date_range_picker_component(id: "right-date-range-picker", align: :right, submit_on_apply: false)
+      end
+
+      # Starts at the trigger's centre, opening right.
+      def mid_right
+        date_range_picker_component(id: "mid-right-date-range-picker", align: :mid_right, submit_on_apply: false)
+      end
+
+      # Centres meet.
+      def mid
+        date_range_picker_component(id: "mid-date-range-picker", align: :mid, submit_on_apply: false)
+      end
+
+      # Ends at the trigger's centre, opening left.
+      def mid_left
+        date_range_picker_component(id: "mid-left-date-range-picker", align: :mid_left, submit_on_apply: false)
+      end
+
+      # Right edges meet.
+      def left
+        date_range_picker_component(id: "left-date-range-picker", align: :left, submit_on_apply: false)
+      end
+
+      # Opens fully to the left of the trigger.
+      def out_left
+        date_range_picker_component(id: "out-left-date-range-picker", align: :out_left, submit_on_apply: false)
+      end
+
+      # @!endgroup
 
       # @!group Colors
       def pink

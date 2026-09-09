@@ -10,6 +10,7 @@ module InkComponents
       OWN_PARAMS = %w[start_date end_date preset].freeze
 
       TYPES = %i[both label range].freeze
+      ALIGNS = %i[out_right right mid_right mid mid_left left out_left].freeze
 
       DEFAULT_EPOCH = Date.new(2019, 1, 1)
       DEFAULT_DATE_FORMAT = "%d/%m/%Y"
@@ -56,9 +57,24 @@ module InkComponents
       style :panel do
         base {
           %w[
-            hidden absolute left-0 z-20 mt-2 w-max overflow-hidden bg-white border border-gray-200
-            rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700
+            hidden absolute z-20 mt-2 w-max max-w-[calc(100vw-1rem)] max-h-[calc(100vh-1rem)]
+            overflow-x-hidden overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-md
+            dark:bg-gray-800 dark:border-gray-700
           ]
+        }
+
+        # The name says which way the panel opens, not which edge anchors it: `right` opens to
+        # the right, so it is the panel's left edge that sits on the trigger's left edge.
+        variants {
+          align {
+            out_right { "left-full" }
+            right { "left-0" }
+            mid_right { "left-1/2" }
+            mid { %w[ left-1/2 -translate-x-1/2 ] }
+            mid_left { "right-1/2" }
+            left { "right-0" }
+            out_left { "right-full" }
+          }
         }
       end
 
@@ -191,12 +207,12 @@ module InkComponents
       renders_one :action
 
       attr_reader :id, :start_date, :end_date, :campaigns, :epoch, :months,
-                  :show_presets, :color, :type, :url, :form_method, :submit_on_apply,
+                  :show_presets, :color, :type, :align, :url, :form_method, :submit_on_apply,
                   :date_format, :labels
 
       def initialize(id:, start_date: nil, end_date: nil, preset: nil, campaigns: [],
                      epoch: DEFAULT_EPOCH, months: 2, show_presets: true, color: :pink,
-                     type: :both, url: nil, form_method: :get, submit_on_apply: true,
+                     type: :both, align: :right, url: nil, form_method: :get, submit_on_apply: true,
                      date_format: DEFAULT_DATE_FORMAT, labels: {}, **extra_attributes)
         @id = id
         @campaigns = campaigns.map { |campaign| normalize_campaign(campaign) }
@@ -207,6 +223,10 @@ module InkComponents
         @type = type.to_sym
 
         raise ArgumentError, "Invalid type #{type}, must be one of #{TYPES.join(", ")}" unless TYPES.include?(@type)
+
+        @align = align.to_sym
+        raise ArgumentError, "Invalid align #{align}, must be one of #{ALIGNS.join(", ")}" unless ALIGNS.include?(@align)
+
         @url = url
         @form_method = form_method
         @submit_on_apply = submit_on_apply

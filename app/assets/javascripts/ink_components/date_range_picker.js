@@ -6,6 +6,10 @@
 const SELECTOR = "[data-date-range-picker]"
 const CHANGE_EVENT = "ink:date-range-picker:change"
 
+// Matches the `mt-2` gap between trigger and panel, and doubles as the minimum breathing
+// room the panel keeps from every viewport edge.
+const EDGE_GAP = 8
+
 const CHEVRONS = {
   left: "m14 8-4 4 4 4",
   right: "m10 16 4-4-4-4",
@@ -67,6 +71,7 @@ class DateRangePicker {
     this.onKeydown = (event) => {
       if (event.key === "Escape") this.close()
     }
+    this.onResize = () => this.clamp()
 
     this.bind()
     this.render()
@@ -90,8 +95,12 @@ class DateRangePicker {
     })
   }
 
+  isOpen() {
+    return !this.target("panel").classList.contains("hidden")
+  }
+
   toggle() {
-    this.target("panel").classList.contains("hidden") ? this.open() : this.close()
+    this.isOpen() ? this.close() : this.open()
   }
 
   open() {
@@ -99,6 +108,7 @@ class DateRangePicker {
     this.target("trigger").setAttribute("aria-expanded", "true")
     document.addEventListener("pointerdown", this.onOutsidePointer)
     document.addEventListener("keydown", this.onKeydown)
+    window.addEventListener("resize", this.onResize)
     this.render()
   }
 
@@ -107,11 +117,43 @@ class DateRangePicker {
     this.target("trigger").setAttribute("aria-expanded", "false")
     document.removeEventListener("pointerdown", this.onOutsidePointer)
     document.removeEventListener("keydown", this.onKeydown)
+    window.removeEventListener("resize", this.onResize)
   }
 
   destroy() {
     document.removeEventListener("pointerdown", this.onOutsidePointer)
     document.removeEventListener("keydown", this.onKeydown)
+    window.removeEventListener("resize", this.onResize)
+  }
+
+  // The `align` class decides where the panel wants to sit; this pulls it back inside the
+  // viewport when that choice would hang off an edge. Writes the standalone `translate`
+  // property, which composes with the Tailwind `transform` that the `mid` variant relies on
+  // instead of clobbering it.
+  clamp() {
+    const panel = this.target("panel")
+
+    panel.style.translate = ""
+
+    const rect = panel.getBoundingClientRect()
+    const rightLimit = window.innerWidth - EDGE_GAP
+    const bottomLimit = window.innerHeight - EDGE_GAP
+
+    let x = 0
+    if (rect.right > rightLimit) x = rightLimit - rect.right
+    if (rect.left + x < EDGE_GAP) x = EDGE_GAP - rect.left
+
+    let y = 0
+
+    if (rect.bottom > bottomLimit) {
+      // Flip above the trigger when it fits there, otherwise just pull the panel up.
+      const flippedTop = this.element.getBoundingClientRect().top - EDGE_GAP - rect.height
+
+      y = flippedTop >= EDGE_GAP ? flippedTop - rect.top : bottomLimit - rect.bottom
+      if (rect.top + y < EDGE_GAP) y = EDGE_GAP - rect.top
+    }
+
+    panel.style.translate = x || y ? `${x}px ${y}px` : ""
   }
 
   selectPreset(id) {
@@ -224,6 +266,8 @@ class DateRangePicker {
 
     this.target("calendar").replaceChildren(...panes)
     this.paintDays()
+
+    if (this.isOpen()) this.clamp()
   }
 
   // Rebuilding the grid under the cursor re-fires mouseenter in a loop.
