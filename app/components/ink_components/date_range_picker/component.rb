@@ -57,9 +57,8 @@ module InkComponents
       style :panel do
         base {
           %w[
-            hidden absolute z-20 mt-2 w-max max-w-[calc(100vw-1rem)] max-h-[calc(100vh-1rem)]
-            overflow-x-hidden overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-md
-            dark:bg-gray-800 dark:border-gray-700
+            hidden absolute z-20 mt-2 w-max overflow-x-auto bg-white border border-gray-200
+            rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700
           ]
         }
 

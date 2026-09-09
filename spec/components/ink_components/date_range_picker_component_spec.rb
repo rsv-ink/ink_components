@@ -294,10 +294,16 @@ RSpec.describe InkComponents::DateRangePicker::Component, type: :component do
       expect(panel_classes(component)).not_to include("left-0", "left-1/2", "left-full", "right-1/2", "right-full")
     end
 
-    it "keeps the panel inside the viewport on both axes" do
+    it "scrolls sideways when narrowed to the viewport" do
       component = render_inline(described_class.new(id: "period", align: :mid))
 
-      expect(panel_classes(component)).to include(
+      expect(panel_classes(component)).to include("overflow-x-auto")
+    end
+
+    it "leaves the panel at its full size" do
+      component = render_inline(described_class.new(id: "period", align: :mid))
+
+      expect(panel_classes(component)).not_to include(
         "max-w-[calc(100vw-1rem)]",
         "max-h-[calc(100vh-1rem)]",
         "overflow-y-auto"

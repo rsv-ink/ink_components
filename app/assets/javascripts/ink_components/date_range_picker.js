@@ -126,32 +126,30 @@ class DateRangePicker {
     window.removeEventListener("resize", this.onResize)
   }
 
-  // The `align` class decides where the panel wants to sit; this pulls it back inside the
-  // viewport when that choice would hang off an edge. Writes the standalone `translate`
-  // property, which composes with the Tailwind `transform` that the `mid` variant relies on
-  // instead of clobbering it.
+  // Keeps the align inside the viewport on X, and on Y only picks a side of the trigger it never
+  // covers: above when it does not fit below and does fit above, below otherwise. Measures the
+  // document element because `window.inner*` counts the scrollbars, and writes the standalone
+  // `translate` so it composes with the `-translate-x-1/2` the `mid` variant relies on.
   clamp() {
     const panel = this.target("panel")
+    const viewportWidth = document.documentElement.clientWidth
+    const viewportHeight = document.documentElement.clientHeight
 
     panel.style.translate = ""
+    panel.style.maxWidth = `${viewportWidth - EDGE_GAP * 2}px`
 
+    const trigger = this.target("trigger").getBoundingClientRect()
     const rect = panel.getBoundingClientRect()
-    const rightLimit = window.innerWidth - EDGE_GAP
-    const bottomLimit = window.innerHeight - EDGE_GAP
+    const spaceBelow = viewportHeight - EDGE_GAP - trigger.bottom - EDGE_GAP
+    const spaceAbove = trigger.top - EDGE_GAP - EDGE_GAP
+    const rightLimit = viewportWidth - EDGE_GAP
 
     let x = 0
     if (rect.right > rightLimit) x = rightLimit - rect.right
     if (rect.left + x < EDGE_GAP) x = EDGE_GAP - rect.left
 
-    let y = 0
-
-    if (rect.bottom > bottomLimit) {
-      // Flip above the trigger when it fits there, otherwise just pull the panel up.
-      const flippedTop = this.element.getBoundingClientRect().top - EDGE_GAP - rect.height
-
-      y = flippedTop >= EDGE_GAP ? flippedTop - rect.top : bottomLimit - rect.bottom
-      if (rect.top + y < EDGE_GAP) y = EDGE_GAP - rect.top
-    }
+    const above = rect.height > spaceBelow && rect.height <= spaceAbove
+    const y = above ? trigger.top - EDGE_GAP - rect.height - rect.top : 0
 
     panel.style.translate = x || y ? `${x}px ${y}px` : ""
   }
