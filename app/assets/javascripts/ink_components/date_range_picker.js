@@ -129,7 +129,7 @@ class DateRangePicker {
   // Keeps the align inside the viewport on X, and on Y only picks a side of the trigger it never
   // covers: above when it does not fit below and does fit above, below otherwise. Measures the
   // document element because `window.inner*` counts the scrollbars, and writes the standalone
-  // `translate` so it composes with the `-translate-x-1/2` the `mid` variant relies on.
+  // `translate` so it composes with the `-translate-x-1/2` the `center` variant relies on.
   clamp() {
     const panel = this.target("panel")
     const viewportWidth = document.documentElement.clientWidth

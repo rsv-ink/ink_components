@@ -10,7 +10,7 @@ module InkComponents
       OWN_PARAMS = %w[start_date end_date preset].freeze
 
       TYPES = %i[both label range].freeze
-      ALIGNS = %i[out_right right mid_right mid mid_left left out_left].freeze
+      ALIGNS = %i[full_right right center_right center center_left left full_left].freeze
 
       DEFAULT_EPOCH = Date.new(2019, 1, 1)
       DEFAULT_DATE_FORMAT = "%d/%m/%Y"
@@ -66,13 +66,13 @@ module InkComponents
         # the right, so it is the panel's left edge that sits on the trigger's left edge.
         variants {
           align {
-            out_right { "left-full" }
+            full_right { "left-full" }
             right { "left-0" }
-            mid_right { "left-1/2" }
-            mid { %w[ left-1/2 -translate-x-1/2 ] }
-            mid_left { "right-1/2" }
+            center_right { "left-1/2" }
+            center { %w[ left-1/2 -translate-x-1/2 ] }
+            center_left { "right-1/2" }
             left { "right-0" }
-            out_left { "right-full" }
+            full_left { "right-full" }
           }
         }
       end

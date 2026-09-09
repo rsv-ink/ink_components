@@ -273,13 +273,13 @@ RSpec.describe InkComponents::DateRangePicker::Component, type: :component do
 
   context "when an align is given" do
     {
-      out_right: %w[left-full],
+      full_right: %w[left-full],
       right: %w[left-0],
-      mid_right: %w[left-1/2],
-      mid: %w[left-1/2 -translate-x-1/2],
-      mid_left: %w[right-1/2],
+      center_right: %w[left-1/2],
+      center: %w[left-1/2 -translate-x-1/2],
+      center_left: %w[right-1/2],
       left: %w[right-0],
-      out_left: %w[right-full]
+      full_left: %w[right-full]
     }.each do |align, expected|
       it "positions the panel for #{align}" do
         component = render_inline(described_class.new(id: "period", align:))
@@ -295,13 +295,13 @@ RSpec.describe InkComponents::DateRangePicker::Component, type: :component do
     end
 
     it "scrolls sideways when narrowed to the viewport" do
-      component = render_inline(described_class.new(id: "period", align: :mid))
+      component = render_inline(described_class.new(id: "period", align: :center))
 
       expect(panel_classes(component)).to include("overflow-x-auto")
     end
 
     it "leaves the panel at its full size" do
-      component = render_inline(described_class.new(id: "period", align: :mid))
+      component = render_inline(described_class.new(id: "period", align: :center))
 
       expect(panel_classes(component)).not_to include(
         "max-w-[calc(100vw-1rem)]",

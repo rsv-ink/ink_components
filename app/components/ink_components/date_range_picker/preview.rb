@@ -15,7 +15,7 @@ module InkComponents
       # @param campaigns toggle
       # @param color select { choices: [pink, blue, red, green, purple, yellow, teal, orange, dark] }
       # @param type select { choices: [both, label, range] }
-      # @param align select { choices: [out_right, right, mid_right, mid, mid_left, left, out_left] }
+      # @param align select { choices: [full_right, right, center_right, center, center_left, left, full_left] }
       # @param submit_on_apply toggle
       def playground(months: 2, show_presets: true, campaigns: true, color: :pink, type: :both, align: :right, submit_on_apply: false)
         date_range_picker_component(
@@ -37,8 +37,8 @@ module InkComponents
       # @!group Alignments
 
       # Opens fully to the right of the trigger.
-      def out_right
-        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "out-right-date-range-picker", align: :out_right })
+      def full_right
+        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "full-right-date-range-picker", align: :full_right })
       end
 
       # Left edges meet.
@@ -47,18 +47,18 @@ module InkComponents
       end
 
       # Starts at the trigger's centre, opening right.
-      def mid_right
-        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "mid-right-date-range-picker", align: :mid_right })
+      def center_right
+        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "center-right-date-range-picker", align: :center_right })
       end
 
       # Centres meet.
-      def mid
-        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "mid-date-range-picker", align: :mid })
+      def center
+        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "center-date-range-picker", align: :center })
       end
 
       # Ends at the trigger's centre, opening left.
-      def mid_left
-        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "mid-left-date-range-picker", align: :mid_left })
+      def center_left
+        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "center-left-date-range-picker", align: :center_left })
       end
 
       # Right edges meet.
@@ -67,8 +67,8 @@ module InkComponents
       end
 
       # Opens fully to the left of the trigger.
-      def out_left
-        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "out-left-date-range-picker", align: :out_left })
+      def full_left
+        render_with_template(template: "#{TEMPLATES}/align", locals: { id: "full-left-date-range-picker", align: :full_left })
       end
 
       # @!endgroup
