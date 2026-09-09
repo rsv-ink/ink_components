@@ -23,6 +23,10 @@ RSpec.describe InkComponents::DateRangePicker::Component, type: :component do
     component.css("form input[type=hidden]").map { |input| input["name"] }
   end
 
+  def panel_classes(component)
+    component.css("[data-date-range-picker-target='panel']").first["class"].split
+  end
+
   context "when only the id is given" do
     it "renders the last seven days" do
       component = render_inline(described_class.new(id: "period"))
@@ -256,6 +260,60 @@ RSpec.describe InkComponents::DateRangePicker::Component, type: :component do
   context "when the type is unknown" do
     it "raises an argument error" do
       expect { described_class.new(id: "period", type: :nope) }.to raise_error(ArgumentError, /Invalid type/)
+    end
+  end
+
+  context "when no align is given" do
+    it "opens to the right" do
+      component = render_inline(described_class.new(id: "period"))
+
+      expect(panel_classes(component)).to include("left-0")
+    end
+  end
+
+  context "when an align is given" do
+    {
+      full_right: %w[left-full],
+      right: %w[left-0],
+      center_right: %w[left-1/2],
+      center: %w[left-1/2 -translate-x-1/2],
+      center_left: %w[right-1/2],
+      left: %w[right-0],
+      full_left: %w[right-full]
+    }.each do |align, expected|
+      it "positions the panel for #{align}" do
+        component = render_inline(described_class.new(id: "period", align:))
+
+        expect(panel_classes(component)).to include(*expected)
+      end
+    end
+
+    it "keeps only the classes of the chosen align" do
+      component = render_inline(described_class.new(id: "period", align: :left))
+
+      expect(panel_classes(component)).not_to include("left-0", "left-1/2", "left-full", "right-1/2", "right-full")
+    end
+
+    it "scrolls sideways when narrowed to the viewport" do
+      component = render_inline(described_class.new(id: "period", align: :center))
+
+      expect(panel_classes(component)).to include("overflow-x-auto")
+    end
+
+    it "leaves the panel at its full size" do
+      component = render_inline(described_class.new(id: "period", align: :center))
+
+      expect(panel_classes(component)).not_to include(
+        "max-w-[calc(100vw-1rem)]",
+        "max-h-[calc(100vh-1rem)]",
+        "overflow-y-auto"
+      )
+    end
+  end
+
+  context "when the align is unknown" do
+    it "raises an argument error" do
+      expect { described_class.new(id: "period", align: :sideways) }.to raise_error(ArgumentError, /Invalid align/)
     end
   end
 

@@ -53,23 +53,25 @@ $ yarn build:css
 ```
 
 ## JavaScript
-Some components need JavaScript to work (for example, `date_range_picker_component`). Add the
-package to the project's `package.json` and import it once from the JS entrypoint — the
-components register themselves on load, and also on `turbo:load` / `turbo:frame-load`:
+Some components need JavaScript to work (for example, `date_range_picker_component`). The gem
+serves it through the Rails asset pipeline, so no npm package is involved — add the tag to the
+application layout:
 
-```javascript
-// app/javascript/application.js
-import "ink_components";
+```erb
+<%= javascript_include_tag "ink_components/date_range_picker", defer: true %>
 ```
 
-To initialize components rendered later (outside of Turbo), call the initializer with the
-container:
+The component registers itself on load, and also on `turbo:load` / `turbo:frame-load`. There is
+nothing to import and no initializer to call.
 
-```javascript
-import { initDateRangePickers } from "ink_components";
+Upgrading from a version that shipped this as an npm package? Drop the `ink_components`
+dependency and the `import "ink_components"` from the entrypoint, and refresh
+`lib/generators/ink_components/tailwind_config_generator.rb` — the copy in the project still
+points the Tailwind `content` at the old path, and `css:build` reads it from there.
 
-initDateRangePickers(container);
-```
+`bundle exec rails ink_components:install` refreshes it, but it re-copies four files and Thor
+prompts on each conflict: accept the generator, and decline
+`app/views/layouts/ink_components_lookbook.html.erb` if the project has customised it.
 
 ## Development
 To get started:

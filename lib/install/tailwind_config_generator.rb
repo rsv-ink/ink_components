@@ -7,7 +7,7 @@ module InkComponents
         "#{InkComponents::Engine.root}/app/views/**/*.html.erb",
         "#{InkComponents::Engine.root}/app/helpers/**/*.rb",
         "#{InkComponents::Engine.root}/app/assets/stylesheets/**/*.css",
-        "#{InkComponents::Engine.root}/app/javascript/**/*.js",
+        "#{InkComponents::Engine.root}/app/assets/javascripts/**/*.js",
         "#{InkComponents::Engine.root}/app/components/ink_components/**/*.html.erb",
         "#{InkComponents::Engine.root}/app/components/ink_components/**/*.rb"
       ]

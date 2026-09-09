@@ -1,5 +1,14 @@
+// Served through the Rails asset pipeline, the same way turbo-rails and stimulus-rails ship theirs.
+// Classic script wrapped in an IIFE: nothing is exported, the component wires itself up on load.
+;(function () {
+"use strict"
+
 const SELECTOR = "[data-date-range-picker]"
 const CHANGE_EVENT = "ink:date-range-picker:change"
+
+// Matches the `mt-2` gap between trigger and panel, and doubles as the minimum breathing
+// room the panel keeps from every viewport edge.
+const EDGE_GAP = 8
 
 const CHEVRONS = {
   left: "m14 8-4 4 4 4",
@@ -38,7 +47,7 @@ const format = (date, pattern) => {
     .replace("%y", pad(date.getFullYear() % 100))
 }
 
-export class DateRangePicker {
+class DateRangePicker {
   constructor(element) {
     this.element = element
     this.config = JSON.parse(element.dataset.dateRangePickerConfig)
@@ -62,6 +71,7 @@ export class DateRangePicker {
     this.onKeydown = (event) => {
       if (event.key === "Escape") this.close()
     }
+    this.onResize = () => this.clamp()
 
     this.bind()
     this.render()
@@ -85,8 +95,12 @@ export class DateRangePicker {
     })
   }
 
+  isOpen() {
+    return !this.target("panel").classList.contains("hidden")
+  }
+
   toggle() {
-    this.target("panel").classList.contains("hidden") ? this.open() : this.close()
+    this.isOpen() ? this.close() : this.open()
   }
 
   open() {
@@ -94,6 +108,7 @@ export class DateRangePicker {
     this.target("trigger").setAttribute("aria-expanded", "true")
     document.addEventListener("pointerdown", this.onOutsidePointer)
     document.addEventListener("keydown", this.onKeydown)
+    window.addEventListener("resize", this.onResize)
     this.render()
   }
 
@@ -102,11 +117,41 @@ export class DateRangePicker {
     this.target("trigger").setAttribute("aria-expanded", "false")
     document.removeEventListener("pointerdown", this.onOutsidePointer)
     document.removeEventListener("keydown", this.onKeydown)
+    window.removeEventListener("resize", this.onResize)
   }
 
   destroy() {
     document.removeEventListener("pointerdown", this.onOutsidePointer)
     document.removeEventListener("keydown", this.onKeydown)
+    window.removeEventListener("resize", this.onResize)
+  }
+
+  // Keeps the align inside the viewport on X, and on Y only picks a side of the trigger it never
+  // covers: above when it does not fit below and does fit above, below otherwise. Measures the
+  // document element because `window.inner*` counts the scrollbars, and writes the standalone
+  // `translate` so it composes with the `-translate-x-1/2` the `center` variant relies on.
+  clamp() {
+    const panel = this.target("panel")
+    const viewportWidth = document.documentElement.clientWidth
+    const viewportHeight = document.documentElement.clientHeight
+
+    panel.style.translate = ""
+    panel.style.maxWidth = `${viewportWidth - EDGE_GAP * 2}px`
+
+    const trigger = this.target("trigger").getBoundingClientRect()
+    const rect = panel.getBoundingClientRect()
+    const spaceBelow = viewportHeight - EDGE_GAP - trigger.bottom - EDGE_GAP
+    const spaceAbove = trigger.top - EDGE_GAP - EDGE_GAP
+    const rightLimit = viewportWidth - EDGE_GAP
+
+    let x = 0
+    if (rect.right > rightLimit) x = rightLimit - rect.right
+    if (rect.left + x < EDGE_GAP) x = EDGE_GAP - rect.left
+
+    const above = rect.height > spaceBelow && rect.height <= spaceAbove
+    const y = above ? trigger.top - EDGE_GAP - rect.height - rect.top : 0
+
+    panel.style.translate = x || y ? `${x}px ${y}px` : ""
   }
 
   selectPreset(id) {
@@ -219,6 +264,8 @@ export class DateRangePicker {
 
     this.target("calendar").replaceChildren(...panes)
     this.paintDays()
+
+    if (this.isOpen()) this.clamp()
   }
 
   // Rebuilding the grid under the cursor re-fires mouseenter in a loop.
@@ -423,23 +470,29 @@ export class DateRangePicker {
   }
 }
 
-const instances = new WeakMap()
-
-export function initDateRangePickers(root = document) {
+function initDateRangePickers(root = document) {
   root.querySelectorAll(SELECTOR).forEach((element) => {
-    if (instances.has(element)) return
+    if (element.dataset.dateRangePickerReady) return
 
-    instances.set(element, new DateRangePicker(element))
+    element.dataset.dateRangePickerReady = "true"
+    new DateRangePicker(element)
   })
 }
 
-if (typeof document !== "undefined") {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => initDateRangePickers())
-  } else {
-    initDateRangePickers()
-  }
-
-  document.addEventListener("turbo:load", () => initDateRangePickers())
-  document.addEventListener("turbo:frame-load", (event) => initDateRangePickers(event.target))
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => initDateRangePickers())
+} else {
+  initDateRangePickers()
 }
+
+document.addEventListener("turbo:load", () => initDateRangePickers())
+document.addEventListener("turbo:frame-load", (event) => initDateRangePickers(event.target))
+
+// A restoration visit renders a clone of the cached snapshot: the marker below survives the
+// clone but the listeners do not, so it has to come off before the snapshot is stored.
+document.addEventListener("turbo:before-cache", () => {
+  document.querySelectorAll(SELECTOR).forEach((element) => {
+    delete element.dataset.dateRangePickerReady
+  })
+})
+})()
