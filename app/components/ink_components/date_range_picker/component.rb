@@ -40,16 +40,16 @@ module InkComponents
       }.freeze
 
       style do
-        base { %w[ relative inline-block text-left ] }
+        base { %w[ relative inline-block max-w-full text-left ] }
       end
 
       style :trigger do
         base {
           %w[
-            inline-flex items-center gap-2.5 px-3.5 py-2.5 text-sm font-medium text-gray-900 bg-white
+            inline-flex max-w-full items-center gap-2.5 px-3.5 py-2.5 text-sm font-medium text-gray-900 bg-white
             border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-4
             focus:ring-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700
-            dark:focus:ring-gray-700
+            dark:focus:ring-gray-700 max-sm:gap-1.5 max-sm:px-3 max-sm:text-xs
           ]
         }
       end

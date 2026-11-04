@@ -1,5 +1,5 @@
 <%= tag.div(**attributes, data: { date_range_picker: "", date_range_picker_config: client_config }) do %>
-  <div class="flex items-center gap-3">
+  <div class="flex max-w-full items-center gap-3">
     <button
       type="button"
       class="<%= style(:trigger) %>"
@@ -7,11 +7,11 @@
       aria-controls="<%= panel_id %>"
       data-date-range-picker-target="trigger"
     >
-      <%= render InkComponents::Icon::Component.new(name: "calendar-month", type: :outline, class: "size-[18px] shrink-0 text-gray-500 dark:text-gray-400") %>
+      <%= render InkComponents::Icon::Component.new(name: "calendar-month", type: :outline, class: "size-[18px] shrink-0 text-gray-500 max-sm:hidden dark:text-gray-400") %>
       <% if show_preset_label? %>
-        <span class="relative block shrink-0 text-left">
+        <span class="relative block min-w-0 shrink-0 overflow-hidden text-left max-sm:shrink">
           <span class="invisible whitespace-nowrap" aria-hidden="true"><%= trigger_sizer_label %></span>
-          <span class="absolute left-0 top-0 whitespace-nowrap" data-date-range-picker-target="trigger-preset"><%= trigger_preset_label %></span>
+          <span class="absolute inset-x-0 top-0 truncate" data-date-range-picker-target="trigger-preset"><%= trigger_preset_label %></span>
         </span>
       <% end %>
 
