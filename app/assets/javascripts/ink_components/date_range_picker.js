@@ -10,7 +10,6 @@ const CHANGE_EVENT = "ink:date-range-picker:change"
 // room the panel keeps from every viewport edge.
 const EDGE_GAP = 8
 
-// Tailwind's `sm` breakpoint: below it the panel stacks and shows a single month.
 const WIDE_QUERY = "(min-width: 640px)"
 
 const CHEVRONS = {
@@ -151,8 +150,6 @@ class DateRangePicker {
     panel.style.left = ""
     panel.style.maxWidth = `${viewportWidth - EDGE_GAP * 2}px`
 
-    // Below `sm` the panel spans the viewport, so it is placed by `left` instead of a translate:
-    // a translated box still widens the page by its untranslated position.
     if (!this.wideQuery.matches) panel.style.left = `${EDGE_GAP - this.element.getBoundingClientRect().left}px`
 
     const trigger = this.target("trigger").getBoundingClientRect()
