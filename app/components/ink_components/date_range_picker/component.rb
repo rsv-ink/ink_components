@@ -59,6 +59,7 @@ module InkComponents
           %w[
             hidden absolute z-20 mt-2 w-max overflow-x-auto bg-white border border-gray-200
             rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700
+            max-sm:right-auto max-sm:w-[calc(100vw-1rem)] max-sm:translate-x-0 max-sm:flex-col
           ]
         }
 
@@ -378,7 +379,7 @@ module InkComponents
 
       def client_classes
         {
-          pane: "flex w-[266px] shrink-0 flex-col gap-3",
+          pane: "flex w-[266px] shrink-0 flex-col gap-3 max-sm:w-full max-sm:shrink",
           paneHeader: "flex items-center justify-between gap-1",
           navButton: "flex size-[30px] items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-gray-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:disabled:hover:bg-transparent dark:disabled:hover:text-gray-400",
           gap: "self-center select-none text-xl font-semibold text-gray-400 dark:text-gray-500",
