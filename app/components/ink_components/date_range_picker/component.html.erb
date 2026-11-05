@@ -1,5 +1,5 @@
 <%= tag.div(**attributes, data: { date_range_picker: "", date_range_picker_config: client_config }) do %>
-  <div class="flex items-center gap-3">
+  <div class="flex max-w-full items-center gap-3">
     <button
       type="button"
       class="<%= style(:trigger) %>"
@@ -7,11 +7,11 @@
       aria-controls="<%= panel_id %>"
       data-date-range-picker-target="trigger"
     >
-      <%= render InkComponents::Icon::Component.new(name: "calendar-month", type: :outline, class: "size-[18px] shrink-0 text-gray-500 dark:text-gray-400") %>
+      <%= render InkComponents::Icon::Component.new(name: "calendar-month", type: :outline, class: "size-[18px] shrink-0 text-gray-500 max-sm:hidden dark:text-gray-400") %>
       <% if show_preset_label? %>
-        <span class="relative block shrink-0 text-left">
+        <span class="relative block min-w-0 shrink-0 overflow-hidden text-left max-sm:shrink">
           <span class="invisible whitespace-nowrap" aria-hidden="true"><%= trigger_sizer_label %></span>
-          <span class="absolute left-0 top-0 whitespace-nowrap" data-date-range-picker-target="trigger-preset"><%= trigger_preset_label %></span>
+          <span class="absolute inset-x-0 top-0 truncate" data-date-range-picker-target="trigger-preset"><%= trigger_preset_label %></span>
         </span>
       <% end %>
 
@@ -33,7 +33,7 @@
     data-date-range-picker-target="panel"
   >
     <% if show_presets %>
-      <div class="relative w-[232px] shrink-0 overflow-hidden border-r border-gray-200 dark:border-gray-700">
+      <div class="relative w-[232px] shrink-0 overflow-hidden border-r border-gray-200 max-sm:h-48 max-sm:w-full max-sm:border-b max-sm:border-r-0 dark:border-gray-700">
         <div class="absolute inset-0 box-border flex flex-col gap-px overflow-y-auto p-2">
           <% preset_groups.each do |group| %>
             <% if group[:title].present? %>
@@ -65,11 +65,11 @@
       </div>
     <% end %>
 
-    <div class="box-border flex flex-col gap-[18px] px-6 pb-[18px] pt-5">
-      <div class="flex min-h-[272px] items-start gap-2" data-date-range-picker-target="calendar"></div>
+    <div class="box-border flex flex-col gap-[18px] px-6 pb-[18px] pt-5 max-sm:px-4">
+      <div class="flex min-h-[272px] items-start gap-2 max-sm:justify-center" data-date-range-picker-target="calendar"></div>
 
       <div class="mt-auto flex flex-col items-center gap-3.5 border-t border-gray-200 pt-[18px] dark:border-gray-700">
-        <p class="m-0 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        <p class="m-0 whitespace-nowrap text-sm text-gray-500 max-sm:whitespace-normal max-sm:text-center dark:text-gray-400">
           <%= labels[:selected] %>
           <span class="font-medium text-gray-900 dark:text-white" data-date-range-picker-target="range-label"><%= range_label %></span>
         </p>

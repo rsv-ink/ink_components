@@ -10,6 +10,8 @@ const CHANGE_EVENT = "ink:date-range-picker:change"
 // room the panel keeps from every viewport edge.
 const EDGE_GAP = 8
 
+const WIDE_QUERY = "(min-width: 640px)"
+
 const CHEVRONS = {
   left: "m14 8-4 4 4 4",
   right: "m10 16 4-4-4-4",
@@ -53,7 +55,8 @@ class DateRangePicker {
     this.config = JSON.parse(element.dataset.dateRangePickerConfig)
     this.classes = this.config.classes
     this.labels = this.config.labels
-    this.months = Math.min(2, Math.max(1, this.config.months || 2))
+    this.wideQuery = window.matchMedia(WIDE_QUERY)
+    this.months = this.visibleMonths()
     this.presets = new Map(this.config.presets.map((preset) => [preset.id, preset]))
 
     this.start = parse(this.config.start)
@@ -72,6 +75,13 @@ class DateRangePicker {
       if (event.key === "Escape") this.close()
     }
     this.onResize = () => this.clamp()
+    this.onBreakpoint = () => {
+      this.months = this.visibleMonths()
+      if (this.picker !== null && this.picker >= this.months) this.picker = null
+      const [first] = this.anchors
+      this.anchors = this.months === 1 ? [first] : [first, addMonths(first, 1)]
+      this.render()
+    }
 
     this.bind()
     this.render()
@@ -87,6 +97,7 @@ class DateRangePicker {
 
   bind() {
     this.target("trigger").addEventListener("click", () => this.toggle())
+    this.wideQuery.addEventListener("change", this.onBreakpoint)
     this.target("cancel").addEventListener("click", () => this.cancel())
     this.target("apply").addEventListener("click", () => this.apply())
 
@@ -121,6 +132,7 @@ class DateRangePicker {
   }
 
   destroy() {
+    this.wideQuery.removeEventListener("change", this.onBreakpoint)
     document.removeEventListener("pointerdown", this.onOutsidePointer)
     document.removeEventListener("keydown", this.onKeydown)
     window.removeEventListener("resize", this.onResize)
@@ -136,7 +148,10 @@ class DateRangePicker {
     const viewportHeight = document.documentElement.clientHeight
 
     panel.style.translate = ""
+    panel.style.left = ""
     panel.style.maxWidth = `${viewportWidth - EDGE_GAP * 2}px`
+
+    if (!this.wideQuery.matches) panel.style.left = `${EDGE_GAP - this.element.getBoundingClientRect().left}px`
 
     const trigger = this.target("trigger").getBoundingClientRect()
     const rect = panel.getBoundingClientRect()
@@ -203,6 +218,12 @@ class DateRangePicker {
     this.element.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail, bubbles: true }))
 
     if (this.config.submitOnApply) this.target("form").requestSubmit()
+  }
+
+  visibleMonths() {
+    if (!this.wideQuery.matches) return 1
+
+    return Math.min(2, Math.max(1, this.config.months || 2))
   }
 
   anchorsFor(start, end) {

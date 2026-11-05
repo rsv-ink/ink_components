@@ -40,16 +40,16 @@ module InkComponents
       }.freeze
 
       style do
-        base { %w[ relative inline-block text-left ] }
+        base { %w[ relative inline-block max-w-full text-left ] }
       end
 
       style :trigger do
         base {
           %w[
-            inline-flex items-center gap-2.5 px-3.5 py-2.5 text-sm font-medium text-gray-900 bg-white
+            inline-flex max-w-full items-center gap-2.5 px-3.5 py-2.5 text-sm font-medium text-gray-900 bg-white
             border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-4
             focus:ring-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700
-            dark:focus:ring-gray-700
+            dark:focus:ring-gray-700 max-sm:gap-1.5 max-sm:px-3 max-sm:text-xs
           ]
         }
       end
@@ -59,6 +59,7 @@ module InkComponents
           %w[
             hidden absolute z-20 mt-2 w-max overflow-x-auto bg-white border border-gray-200
             rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700
+            max-sm:right-auto max-sm:w-[calc(100vw-1rem)] max-sm:translate-x-0 max-sm:flex-col
           ]
         }
 
@@ -378,7 +379,7 @@ module InkComponents
 
       def client_classes
         {
-          pane: "flex w-[266px] shrink-0 flex-col gap-3",
+          pane: "flex w-[266px] shrink-0 flex-col gap-3 max-sm:w-full max-sm:shrink",
           paneHeader: "flex items-center justify-between gap-1",
           navButton: "flex size-[30px] items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-gray-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:disabled:hover:bg-transparent dark:disabled:hover:text-gray-400",
           gap: "self-center select-none text-xl font-semibold text-gray-400 dark:text-gray-500",
