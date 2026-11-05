@@ -46,6 +46,8 @@ module.exports = {
 
 Then add the `ink_components.tailwind.config.js` file to the .gitignore of the project.
 
+The components use `max-*` variants (for example, `max-sm:`), so the project needs Tailwind CSS 3.2 or later. On older versions those classes are not generated and the mobile layout is silently lost.
+
 And execute:
 
 ```bash

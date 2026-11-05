@@ -77,8 +77,9 @@ class DateRangePicker {
     this.onResize = () => this.clamp()
     this.onBreakpoint = () => {
       this.months = this.visibleMonths()
-      this.picker = null
-      this.anchors = this.anchorsFor(this.start, this.end)
+      if (this.picker !== null && this.picker >= this.months) this.picker = null
+      const [first] = this.anchors
+      this.anchors = this.months === 1 ? [first] : [first, addMonths(first, 1)]
       this.render()
     }
 
